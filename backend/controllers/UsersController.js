@@ -5,13 +5,6 @@ const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verifyToken");
 const pool = require("../config/db");
 
-/* Users routes
-/signup POST
-/login POST
-/ GET
-/:userId GET
-/update-particulars UPDATE
-*/
 
 const SALT_LENGTH = 12;
 
@@ -37,7 +30,7 @@ router.post("/signup", async (req, res) => {
             [username, hashedPassword, email, contact, name, role]
         );
         const token = createJWT(newUser);
-        res.status(200).json(newUser.rows, token);
+        res.status(201).json(newUser.rows, token);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -79,6 +72,24 @@ router.get("/:id", verifyToken, async (req, res) => {
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
         res.status(200).json(user.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//* Update particulars of client users
+router.put("/update-particulars/:id", async (req, res) => {
+    const { id } = req.params;
+    const { name, email, contact } = req.body;
+    try {
+        if (!name || !email || !contact) {
+            return res.status(400).json({ message: 'Name, email, and contact are required.' });
+        }
+
+        const updateUser = await pool.query(
+            'UPDATE users SET name = $1, email = $2, contact = $3 WHERE id = $4',
+            [name, email, contact, id]);
+        res.status(200).json(updateUser);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
