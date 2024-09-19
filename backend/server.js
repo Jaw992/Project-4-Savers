@@ -2,11 +2,10 @@
 require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
-const debug = require("debug")("hoot:server");
 const cors = require("cors");
-const { Pool } = require("pg");
+// const { Pool } = require("pg");
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 //* Import routers
 const usersRouter = require("./controllers/UsersController");
@@ -23,9 +22,9 @@ app.use(express.static("../frontend/dist"));
 // const connectionString =
 //   "process.env.POSTGRES_URL";
 
-  const pool = new Pool({
-    connectionString: process.env.POSTGRES_URL,
-  });
+  // const pool = new Pool({
+  //   connectionString: process.env.POSTGRES_URL,
+  // });
 
 //* Routes
 app.get("/api", async (req, res) => {
