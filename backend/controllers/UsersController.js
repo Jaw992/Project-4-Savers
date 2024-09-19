@@ -43,6 +43,26 @@ router.post("/signup", async (req, res) => {
     }
 });
 
+//* User login
+router.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        if (user.rows.length === 0) {
+            return res.status(401).json({ error: "Invalid Useranme & Password"});
+        }
+
+        const match = await bcrypt.compare(password, user.hashedPassword);
+        if (match) {
+            const token = createJWT(user);
+            return res.status(200).json(token);
+        }
+        res.status(401).json({ error: "Invalid Username & Password"});
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 //* Get all client users
 router.get("/", verifyToken, async (req, res) => {
