@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-        if (user.rows.length === 0) {
+        if (!user) {
             return res.status(401).json({ error: "Invalid Useranme & Password"});
         }
 
@@ -63,11 +63,25 @@ router.post("/login", async (req, res) => {
     }
 });
 
-
 //* Get all client users
 router.get("/", verifyToken, async (req, res) => {
-    const users = await pool.query("SELECT * FROM users");
-    res.status(200).json(users.rows);
+    try {
+        const users = await pool.query("SELECT * FROM users WHERE role = $1", ['client']);
+        res.status(200).json(users.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//* Get a single client users
+router.get("/:id", verifyToken, async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+        res.status(200).json(user.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 module.exports = router;
