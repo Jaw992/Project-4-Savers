@@ -3,11 +3,15 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const debug = require("debug")("hoot:server");
-const mongoose = require("mongoose");
 const cors = require("cors");
-
+const { Pool } = require("pg");
 const app = express();
 const port = 3000;
+
+//* Import routers
+const usersRouter = require("./controllers/UsersController");
+const accountsRouter = require("./controllers/AccountsController");
+const transactionsRouter = require("./controllers/TransactionController");
 
 //* middleware
 app.use(express.json());
@@ -17,18 +21,21 @@ app.use(express.static("../frontend/dist"));
 
 //* Postgres Connection
 // const connectionString =
-//   "postgres_url";
+//   "process.env.POSTGRES_URL";
 
-//   const Pool = require("pg").Pool;
-//   const pool = new Pool({
-//     connectionString,
-//   });
+  const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL,
+  });
 
 //* Routes
 app.get("/api", async (req, res) => {
     res.json({ msg: "test"});
 });
 
+app.use("/api/users", usersRouter);
+app.use("/api/accounts", accountsRouter);
+app.use("/api/transactions", transactionsRouter);
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Postgresql has started on ${port}`);
 });
