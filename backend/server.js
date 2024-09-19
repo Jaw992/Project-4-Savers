@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 // const { Pool } = require("pg");
+const pool = require("./config/db");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -28,7 +29,13 @@ app.use(express.static("../frontend/dist"));
 
 //* Routes
 app.get("/api", async (req, res) => {
-    res.json({ msg: "test"});
+  try {
+    const result = await pool.query("SELECT NOW()"); // Sample query
+    res.send(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error connecting to the database");
+  }
 });
 
 app.use("/api/users", usersRouter);
