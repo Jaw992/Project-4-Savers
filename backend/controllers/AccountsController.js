@@ -28,4 +28,18 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+//* Create a new account
+router.post("/create", async (req, res) => {
+    const { balance, account_number, account_type, user_id, manager_id } = req.body;
+    try {
+        const result = await pool.query(
+          'INSERT INTO accounts (balance, account_number, account_type, user_id, manager_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+          [balance, account_number, account_type, user_id, manager_id]
+        );
+        res.status(201).json(result.rows[0]);
+      } catch (error) {
+        res.status(500).send({error: 'Internal server error'});
+      }
+});
+
 module.exports = router;
