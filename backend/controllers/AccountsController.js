@@ -6,7 +6,7 @@ const pool = require("../config/db");
 //* Get all accounts
 router.get("/", async (req, res) => {
     const accounts = await pool.query("SELECT * FROM accounts");
-    res.status(200).json(accounts);
+    res.status(200).json(accounts.rows);
 });
 
 //* Get one account
@@ -24,6 +24,15 @@ router.get("/:id", async (req, res) => {
 router.post("/create", async (req, res) => {
     const { balance, account_number, account_type, user_id, manager_id } = req.body;
     try {
+        // Check if the account number already exists
+        const existingAccount = await pool.query('SELECT * FROM accounts WHERE account_number = $1',
+            [account_number]);
+  
+        // If the account already exists, return an error
+        if (existingAccount.rows.length > 0) {
+            return res.status(400).json({ error: 'Account number already exists' });
+        }
+
         const newAccount = await pool.query(
           'INSERT INTO accounts (balance, account_number, account_type, user_id, manager_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
           [balance, account_number, account_type, user_id, manager_id]
@@ -35,11 +44,11 @@ router.post("/create", async (req, res) => {
 });
 
 //* Delete an account
-router.delete("/delete", async (req, res) => {
+router.delete("/delete/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const deleteAccount = await pool.query('DELETE FROM accounts WHERE id = $1 RETURNING *', [id]);
-        if (result.rows.length === 0) {
+        if (deleteAccount.rows.length === 0) {
           return res.status(404).json({ msg: 'Account not found' });
         }
         res.status(200).json({ msg: 'Account deleted', account: deleteAccount.rows[0] });
