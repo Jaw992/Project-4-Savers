@@ -47,9 +47,9 @@ router.post("/login", async (req, res) => {
         }
 
         const user = userResult.rows[0];
-        const match = await bcrypt.compare(password, user.hashedPassword);
+        const match = await bcrypt.compare(password, user.hashedpassword);
         if (match) {
-            const token = createJWT(user);
+            const token = createJWT(userResult);
             return res.status(200).json({ msg: "Login Successful", token: token});
         }
         res.status(401).json({ error: "Invalid Username & Password"});
