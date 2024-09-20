@@ -50,7 +50,7 @@ router.delete("/delete", async (req, res) => {
 });
 
 //* Update balance of an account
-router.update("/update-balance/:id", async (req, res) => {
+router.put("/update-balance/:id", async (req, res) => {
     const { id } = req.params;
     const { balance } = req.body;
     try {
