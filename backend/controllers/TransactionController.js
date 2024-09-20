@@ -28,4 +28,56 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.post("/newtransaction", async (req, res) => {
+    const { transaction_type, amount, purpose, account_id } = req.body;
+
+  try {
+    // Start transaction
+    await pool.query('BEGIN');
+
+    // Add new transaction
+    const newTransactionQuery = `
+      INSERT INTO transactions (transaction_type, amount, purpose, account_id)
+      VALUES ($1, $2, $3, $4) RETURNING *`;
+    const transactionResult = await pool.query(newTransactionQuery, [transaction_type, amount, purpose, account_id]);
+    const newTransaction = transactionResult.rows[0];
+
+    // Fetch the current balance of the account
+    const accountResult = await pool.query('SELECT balance FROM accounts WHERE id = $1', [account_id]);
+    if (accountResult.rows.length === 0) {
+      await pool.query('ROLLBACK');
+      return res.status(404).json({ error: 'Account not found' });
+    }
+
+    let newBalance;
+    const currentBalance = accountResult.rows[0].balance;
+
+    // Update the balance based on transaction type
+    if (transaction_type === 'deposit') {
+      newBalance = currentBalance + amount;
+    } else if (transaction_type === 'withdrawal') {
+      if (currentBalance < amount) {
+        await pool.query('ROLLBACK');
+        return res.status(400).json({ error: 'Insufficient funds' });
+      }
+      newBalance = currentBalance - amount;
+    } else {
+      await pool.query('ROLLBACK');
+      return res.status(400).json({ error: 'Invalid transaction type' });
+    }
+
+    // Update the account balance
+    await pool.query('UPDATE accounts SET balance = $1 WHERE id = $2', [newBalance, account_id]);
+
+    // Commit the transaction
+    await pool.query('COMMIT');
+
+    res.status(201).json(newTransaction);
+  } catch (error) {
+    await pool.query('ROLLBACK');
+    console.error(error);
+    res.status(500).json({ error: 'Transaction failed' });
+  }
+})
+
 module.exports = router;
