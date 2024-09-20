@@ -3,14 +3,6 @@ const router = express.Router();
 const verifyToken = require("../middleware/verifyToken");
 const pool = require("../config/db");
 
-/* Accounts routes
-/ GET
-/:accountId GET
-/create POST
-/delete DELETE
-/update-balance UPDATE
-*/
-
 //* Get all accounts
 router.get("/", async (req, res) => {
     const accounts = await pool.query("SELECT * FROM accounts");
