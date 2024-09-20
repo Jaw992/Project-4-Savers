@@ -9,7 +9,7 @@ const pool = require("../config/db");
 const SALT_LENGTH = 12;
 
 const createJWT = (newUser) => {
-    const payload = { username: newUser.rows.username, id: newUser.rows.id };
+    const payload = { id: newUser.rows[0].id, username: newUser.rows[0].username, role: newUser.rows[0].role };
     const secret = process.env.JWT_SECRET;
     const options = { expiresIn: "100y" };
     return jwt.sign(payload, secret, options);
@@ -19,19 +19,20 @@ const createJWT = (newUser) => {
 router.post("/signup", async (req, res) => {
     const { username, password, email, contact, name, role } = req.body;
     try {
-        const userExists = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        const userExists = await pool.query('SELECT * FROM users WHERE username = $1 AND role = $2', [username, role]);
         if (userExists.rows.length > 0) {
-            return res.status(400).json({ message: 'Username or email already exists' });
+            return res.status(400).json({ message: 'Username already exists' });
         }
         
         const hashedPassword = await bcrypt.hash(password, SALT_LENGTH);
         const newUser = await pool.query(
-            'INSERT INTO users (username, hashedPassword, email, contact, name, role) VALUES ($1, $2, $3, $4, $5, $6)',
+            'INSERT INTO users (username, hashedPassword, email, contact, name, role) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
             [username, hashedPassword, email, contact, name, role]
         );
         const token = createJWT(newUser);
-        res.status(201).json(newUser.rows, token);
+        res.status(201).json({ msg: "User created successfully", user: newUser.rows[0], token: token});
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -40,34 +41,57 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-        if (!user) {
+        const userResult = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
+        if (userResult.rows.length === 0) {
             return res.status(401).json({ error: "Invalid Useranme & Password"});
         }
 
+        const user = userResult.rows[0];
         const match = await bcrypt.compare(password, user.hashedPassword);
         if (match) {
             const token = createJWT(user);
-            return res.status(200).json(token);
+            return res.status(200).json({ msg: "Login Successful", token: token});
         }
         res.status(401).json({ error: "Invalid Username & Password"});
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 //* Get all client users
-router.get("/", verifyToken, async (req, res) => {
+router.get("/client", async (req, res) => {
     try {
         const users = await pool.query("SELECT * FROM users WHERE role = $1", ['client']);
-        res.status(200).json(users.rows);
+        res.status(200).json(users);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 //* Get a single client users
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/client/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+        res.status(200).json(user.rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//* Get all relationship managers users
+router.get("/manager", async (req, res) => {
+    try {
+        const users = await pool.query("SELECT * FROM users WHERE role = $1", ['relationship manager']);
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+//* Get a single client users
+router.get("/manager/:id", async (req, res) => {
     const { id } = req.params;
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
@@ -87,9 +111,9 @@ router.put("/update-particulars/:id", async (req, res) => {
         }
 
         const updateUser = await pool.query(
-            'UPDATE users SET name = $1, email = $2, contact = $3 WHERE id = $4',
+            'UPDATE users SET name = $1, email = $2, contact = $3 WHERE id = $4 RETURNING *',
             [name, email, contact, id]);
-        res.status(200).json(updateUser);
+        res.status(200).json(updateUser.rows[0]);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
