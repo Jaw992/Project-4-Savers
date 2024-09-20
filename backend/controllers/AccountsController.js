@@ -32,12 +32,27 @@ router.get("/:id", async (req, res) => {
 router.post("/create", async (req, res) => {
     const { balance, account_number, account_type, user_id, manager_id } = req.body;
     try {
-        const result = await pool.query(
+        const newAccount = await pool.query(
           'INSERT INTO accounts (balance, account_number, account_type, user_id, manager_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
           [balance, account_number, account_type, user_id, manager_id]
         );
-        res.status(201).json(result.rows[0]);
+        res.status(201).json({ msg: "Account created successfully", account: newAccount.rows[0] });
       } catch (error) {
+        res.status(500).send({error: 'Internal server error'});
+      }
+});
+
+//* Delete an account
+router.delete("/delete", async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleteAccount = await pool.query('DELETE FROM accounts WHERE id = $1 RETURNING *', [id]);
+        if (result.rows.length === 0) {
+          return res.status(404).json({ msg: 'Account not found' });
+        }
+        res.status(200).json({ msg: 'Account deleted', account: deleteAccount.rows[0] });
+      } catch (error) {
+        console.error(error.message);
         res.status(500).send({error: 'Internal server error'});
       }
 });
