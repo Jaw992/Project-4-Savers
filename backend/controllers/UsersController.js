@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const verifyToken = require("../middleware/verifyToken");
+const verifyManager = require("../middleware/verifyManager");
 const pool = require("../config/db");
 
 
@@ -81,7 +82,7 @@ router.get("/client/:id", verifyToken, async (req, res) => {
 });
 
 //* Get all relationship managers users
-router.get("/manager", verifyToken, async (req, res) => {
+router.get("/manager", verifyToken, verifyManager, async (req, res) => {
     try {
         const users = await pool.query("SELECT * FROM users WHERE role = $1", ['relationship manager']);
         res.status(200).json(users.rows);
@@ -91,7 +92,7 @@ router.get("/manager", verifyToken, async (req, res) => {
 });
 
 //* Get a single client users
-router.get("/manager/:id", verifyToken, async (req, res) => {
+router.get("/manager/:id", verifyToken, verifyManager, async (req, res) => {
     const { id } = req.params;
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
