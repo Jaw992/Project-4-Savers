@@ -5,7 +5,7 @@ const pool = require("../config/db");
 
 //* Get all transactions
 router.get("/history", async (req, res) => {
-    const transactions = await pool.query('SELECT * FROM transactions');
+    const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
     res.status(200).json(transactions.rows);
 });
 
