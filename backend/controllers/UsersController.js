@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
             'INSERT INTO users (username, hashedPassword, email, contact, name, role) VALUES ($1, $2, $3, $4, $5, $6)',
             [username, hashedPassword, email, contact, name, role]
         );
-        const token = createJWT(newUser);
+        const token = createJWT(newUser.rows[0]);
         res.status(201).json({ msg: "User created successfully", user: newUser.rows, token: token});
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -41,14 +41,14 @@ router.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await pool.query('SELECT * FROM users WHERE username = $1', [username]);
-        if (!user) {
+        if (user.rows.length === 0) {
             return res.status(401).json({ error: "Invalid Useranme & Password"});
         }
 
-        const match = await bcrypt.compare(password, user.rows.hashedPassword);
+        const match = await bcrypt.compare(password, user.rows[0].hashedPassword);
         if (match) {
-            // const token = createJWT(user);
-            return res.status(200).json({token});
+            const token = createJWT(user);
+            return res.status(200).json({ msg: "Login Successful", token: token});
         }
         res.status(401).json({ error: "Invalid Username & Password"});
     } catch (error) {
