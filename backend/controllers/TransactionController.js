@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/newtransaction", async (req, res) => {
-    const { transaction_type, amount, purpose, account_id } = req.body;
+    const { transaction_type, amount, account_id } = req.body;
 
   try {
     // Start transaction
@@ -37,9 +37,9 @@ router.post("/newtransaction", async (req, res) => {
 
     // Add new transaction
     const newTransactionQuery = `
-      INSERT INTO transactions (transaction_type, amount, purpose, account_id)
-      VALUES ($1, $2, $3, $4) RETURNING *`;
-    const transactionResult = await pool.query(newTransactionQuery, [transaction_type, amount, purpose, account_id]);
+      INSERT INTO transactions (transaction_type, amount, account_id)
+      VALUES ($1, $2, $3) RETURNING *`;
+    const transactionResult = await pool.query(newTransactionQuery, [transaction_type, amount, account_id]);
     const newTransaction = transactionResult.rows[0];
 
     // Fetch the current balance of the account
