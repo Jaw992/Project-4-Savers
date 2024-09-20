@@ -57,4 +57,23 @@ router.delete("/delete", async (req, res) => {
       }
 });
 
+//* Update balance of an account
+router.update("/update-balance/:id", async (req, res) => {
+    const { id } = req.params;
+    const { balance } = req.body;
+    try {
+        const updateBalance = await pool.query(
+          'UPDATE accounts SET balance = $1 WHERE id = $2 RETURNING *',
+          [balance, id]
+        );
+        if (updateBalance.rows.length === 0) {
+          return res.status(404).json({ msg: 'Account not found' });
+        }
+        res.status(200).json({ msg: "Update Successful", balance: updateBalance.rows[0] });
+      } catch (error) {
+        console.error(error.message);
+        res.status(500).send({error: 'Internal server error'});
+      }
+});
+
 module.exports = router;
