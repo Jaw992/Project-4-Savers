@@ -60,17 +60,17 @@ router.post("/login", async (req, res) => {
 });
 
 //* Get all client users
-router.get("/client", async (req, res) => {
+router.get("/client", verifyToken, async (req, res) => {
     try {
         const users = await pool.query("SELECT * FROM users WHERE role = $1", ['client']);
-        res.status(200).json(users);
+        res.status(200).json(users.rows);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 //* Get a single client users
-router.get("/client/:id", async (req, res) => {
+router.get("/client/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
@@ -81,17 +81,17 @@ router.get("/client/:id", async (req, res) => {
 });
 
 //* Get all relationship managers users
-router.get("/manager", async (req, res) => {
+router.get("/manager", verifyToken, async (req, res) => {
     try {
         const users = await pool.query("SELECT * FROM users WHERE role = $1", ['relationship manager']);
-        res.status(200).json(users);
+        res.status(200).json(users.rows);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
 //* Get a single client users
-router.get("/manager/:id", async (req, res) => {
+router.get("/manager/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
@@ -102,7 +102,7 @@ router.get("/manager/:id", async (req, res) => {
 });
 
 //* Update particulars of client users
-router.put("/update-particulars/:id", async (req, res) => {
+router.put("/update-particulars/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
     const { name, email, contact } = req.body;
     try {

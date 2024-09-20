@@ -3,6 +3,9 @@ const router = express.Router();
 const verifyToken = require("../middleware/verifyToken");
 const pool = require("../config/db");
 
+//* Verify Token
+router.use(verifyToken);
+
 //* Get all transactions
 router.get("/history", async (req, res) => {
     const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
