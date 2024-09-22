@@ -12,7 +12,7 @@ import RmManageAccountsPage from "./pages/RmManageAccountsPage";
 // import ClientProfilePage from "./pages/ClientProfilePage";
 // import ClientTransHistoryPage from "./pages/ClientTransHistoryPage";
 import ClientTransactionPage from "./pages/ClientTransactionsPage";
-// import ClientTransferPage from "./pages/ClientTransferPage";
+import ClientTransferPage from "./pages/ClientTransferPage";
 import RmLoginPage from "./pages/RmLoginPage";
 import Footer from "./components/Footer";
 
@@ -30,7 +30,7 @@ function App() {
         {/* <Route path="/client-profile" element={<ClientProfilePage />} /> */}
         {/* <Route path="/client-history" element={<ClientTransHistoryPage />} /> */}
         <Route path="/client-transactions" element={<ClientTransactionPage />} />
-        {/* <Route path="/client-transfers" element={<ClientTransferPage />} /> */}
+        <Route path="/client-transfers" element={<ClientTransferPage />} />
       </Routes>
       <Footer />
     </>
