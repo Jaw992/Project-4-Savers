@@ -1,28 +1,25 @@
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-
-const preventDefault = (event) => event.preventDefault();
+import * as React from 'react';
+import { Box, Link } from '@mui/material';
 
 export default function Footer () {
     return (
         <>
-             <footer className="bg-footer text-white">
+             <footer className="bg-footer">
                 <Box
                 sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
                     typography: 'body1',
                     '& > :not(style) ~ :not(style)': {
                     ml: 2,
                     },
                 }}
-                onClick={preventDefault}
                 >
-                    <Link href="/rm-login" underline="hover">
-                        {'Welcome to Savers.'}
+                    <Link href="/rm-login" underline="hover" color="inherit">
+                        {'Welcome to Savers:'}
                     </Link>
-                    <Link href="#!" underline="always">
+                    <Link href="#" underline="always" color="inherit">
+                        {'Terms & Conditions'}
+                    </Link>
+                    <Link href="#!" underline="always" color="inherit">
                         {'Contact Us'}
                     </Link>
                 </Box>
@@ -40,8 +37,10 @@ export default function Footer () {
                     ml: 2,
                     },
                 }}
-                onClick={preventDefault}
                 >
+                    <Link href="/" underline="always">
+                        {'Login Page'}
+                    </Link>
                     <Link href="/sign-up" underline="always">
                         {'SignUp Page'}
                     </Link>
