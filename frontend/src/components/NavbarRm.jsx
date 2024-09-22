@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function Navbar() {
+export default function NavbarRm() {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -52,9 +52,6 @@ export default function Navbar() {
               open={Boolean(anchorEl)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="profile" onClick=''>
-                My Profile
-              </MenuItem>
               <MenuItem key="signOut" onClick=''>
                 Signout
               </MenuItem>

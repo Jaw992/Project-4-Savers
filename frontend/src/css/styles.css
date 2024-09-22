@@ -29,6 +29,11 @@ body {
     display: flex;
     align-items: center;
     padding: 5px;
+    padding-left: 8px;
+}
+
+.rm-navbar {
+    background-color: #454647;
 }
 
 .bg-footer {
@@ -38,7 +43,7 @@ body {
   }
 
 /* Login Page */
-.header{
+.header {
     padding-top: 10px;
     padding-left: 35px;
     font-style: italic;
@@ -53,9 +58,24 @@ body {
 }
 
 /* Signup Page */
-.signupPage, .contractor-bg {
+.signupPage {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+/* RM Pages */
+.rmPages {
+    height: 100vh;
+    padding: 10px 35px 0px 35px;
+}
+
+/* Client Pages */
+.clientPages {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding: 10px 35px 0px 35px; */
 }
