@@ -65,8 +65,17 @@ body {
     justify-content: center;
 }
 
-/* RM Login Page */
+/* RM Pages */
 .rmPages {
     height: 100vh;
     padding: 10px 35px 0px 35px;
+}
+
+/* Client Pages */
+.clientPages {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding: 10px 35px 0px 35px; */
 }
