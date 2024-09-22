@@ -68,6 +68,5 @@ body {
 /* RM Login Page */
 .rmLogin {
     height: 100vh;
-    padding-top: 10px;
-    padding-left: 35px;
+    padding: 10px 35px 0px 35px;
 }
