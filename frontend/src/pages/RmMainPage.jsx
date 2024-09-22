@@ -1,6 +1,6 @@
 import SaversBar from "../components/SaversBar";
 import NavbarRm from "../components/NavbarRm";
-import ClientTable from "../components/ClientTable";
+import TableList from "../components/RmTableList";
 
 export default function RmMainPage() {
 
@@ -8,7 +8,7 @@ export default function RmMainPage() {
         <>
             <SaversBar />
             <NavbarRm />
-            <ClientTable />
+            <TableList />
         </>
     );
 }

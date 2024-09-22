@@ -31,49 +31,43 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(client, accounts, rm) {
-    return { client, accounts, rm };
+  function createData(id, type) {
+    return { id, type};
   }
   
   const rows = [
-    createData('Alex Wong', 2, 'John Smith'),
-    createData('Sam Lee', 0, 'John Smith'),
+    createData('01-001-045', 'Savings'),
+    createData('01-001-046', 'Savings'),
   ];
 
-export default function ClientTable() {
+export default function RmTableList() {
      return (
-        <div className="rmPages">
-            <h1>All Client List</h1>
+        <>
+            <h1>Manage Account</h1>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
-                            <StyledTableCell>Client</StyledTableCell>
-                            <StyledTableCell align="center">Accounts Opened</StyledTableCell>
-                            <StyledTableCell align="center">Relationship Manager</StyledTableCell>
-                            <StyledTableCell align="center">Assign</StyledTableCell>
-                            <StyledTableCell align="center">Manage Account</StyledTableCell>
+                            <StyledTableCell>Account Number</StyledTableCell>
+                            <StyledTableCell align="center">Account Type</StyledTableCell>
+                            <StyledTableCell align="center">Manage</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                     {rows.map((row) => (
-                        <StyledTableRow key={row.client}>
+                        <StyledTableRow key={row.id}>
                             <StyledTableCell component="th" scope="row">
-                                {row.client}
+                                {row.id}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.accounts}</StyledTableCell>
-                            <StyledTableCell align="center">{row.rm}</StyledTableCell>
+                            <StyledTableCell align="center">{row.type}</StyledTableCell>
                             <StyledTableCell align="center">
-                                <Button variant='outlined'>Assign</Button>
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                <Button href="/rm-manage-accounts">Create/Delete</Button>
+                                <Button variant='outlined'>Close</Button>
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            </div>
+        </>
      );
 }
