@@ -9,7 +9,7 @@ export default function SignUpPage() {
             <SaversBar />
             
             <Container className='signupPage' maxWidth='sm'>
-                <Box className='detailsBox' component="form" noValidate autoComplete="off">
+                <Box component="form" noValidate autoComplete="off">
                 <Paper elevation={10} sx={{ padding: 6}}>    
                     <Typography variant='h5' sx={{ fontWeight: 500 }}>New User Details</Typography>
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>
