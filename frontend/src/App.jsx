@@ -5,7 +5,7 @@ import { Route, Routes } from "react-router-dom";
 // import { useState } from 'react';
 
 import LoginPage from "./pages/LoginPage";
-// import SignUpPage from "./pages/SignUpPage";
+import SignUpPage from "./pages/SignUpPage";
 // import RmMainPage from "./pages/RmMainPage";
 // import RmManageAccountsPage from "./pages/RmManageAccountsPage";
 // import ClientMainPage from "./pages/ClientMainPage";
@@ -14,6 +14,7 @@ import LoginPage from "./pages/LoginPage";
 // import ClientTransactionPage from "./pages/ClientTransactionsPage";
 // import ClientTransferPage from "./pages/ClientTransferPage";
 import RmLoginPage from "./pages/RmLoginPage";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -21,7 +22,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        {/* <Route path="/sign-up" element={<SignUpPage />} /> */}
+        <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/rm-login" element={<RmLoginPage />} />
         {/* <Route path="/rm-main" element={<RmMainPage />} /> */}
         {/* <Route path="/rm-manage-accounts" element={<RmManageAccountsPage />} /> */}
@@ -31,6 +32,7 @@ function App() {
         {/* <Route path="/client-transactions" element={<ClientTransactionPage />} /> */}
         {/* <Route path="/client-transfers" element={<ClientTransferPage />} /> */}
       </Routes>
+      <Footer />
     </>
   );
 }
