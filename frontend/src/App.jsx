@@ -13,7 +13,7 @@ import LoginPage from "./pages/LoginPage";
 // import ClientTransHistoryPage from "./pages/ClientTransHistoryPage";
 // import ClientTransactionPage from "./pages/ClientTransactionsPage";
 // import ClientTransferPage from "./pages/ClientTransferPage";
-// import RmLoginPage from "./pages/RmLoginPage";
+import RmLoginPage from "./pages/RmLoginPage";
 
 function App() {
 
@@ -21,15 +21,15 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        {/* <Route path="/sign-up" element={<SignUpPage />} />
+        {/* <Route path="/sign-up" element={<SignUpPage />} /> */}
         <Route path="/rm-login" element={<RmLoginPage />} />
-        <Route path="/rm-main" element={<RmMainPage />} />
-        <Route path="/rm-manage-accounts" element={<RmManageAccountsPage />} />
-        <Route path="/client-main" element={<ClientMainPage />} />
-        <Route path="/client-profile" element={<ClientProfilePage />} />
-        <Route path="/client-history" element={<ClientTransHistoryPage />} />
-        <Route path="/client-transactions" element={<ClientTransactionPage />} />
-        <Route path="/client-transfers" element={<ClientTransferPage />} /> */}
+        {/* <Route path="/rm-main" element={<RmMainPage />} /> */}
+        {/* <Route path="/rm-manage-accounts" element={<RmManageAccountsPage />} /> */}
+        {/* <Route path="/client-main" element={<ClientMainPage />} /> */}
+        {/* <Route path="/client-profile" element={<ClientProfilePage />} /> */}
+        {/* <Route path="/client-history" element={<ClientTransHistoryPage />} /> */}
+        {/* <Route path="/client-transactions" element={<ClientTransactionPage />} /> */}
+        {/* <Route path="/client-transfers" element={<ClientTransferPage />} /> */}
       </Routes>
     </>
   );

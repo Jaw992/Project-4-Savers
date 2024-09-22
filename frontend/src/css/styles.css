@@ -37,6 +37,12 @@ body {
   }
 
 /* Login Page */
+.header{
+    padding-top: 10px;
+    padding-left: 35px;
+    font-style: italic;
+}
+
 .loginPage {
     height: 100vh;
     display: flex;

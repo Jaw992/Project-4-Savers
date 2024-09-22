@@ -12,8 +12,8 @@ export default function LoginPage() {
     return (
         <>
             <SaversBar />
-            <h1> In Savers you trust.</h1>
-            
+            <h1 className='header'> In Savers you trust.</h1>
+
             <div className='loginPage'>
                 <Container className='loginBox' maxWidth='sm'>
                     <Box component="form" noValidate autoComplete="off">

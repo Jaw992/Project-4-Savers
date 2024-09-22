@@ -1,7 +1,6 @@
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-
-const preventDefault = (event) => event.preventDefault();
 
 export default function Footer () {
     return (
@@ -14,7 +13,6 @@ export default function Footer () {
                     ml: 2,
                     },
                 }}
-                onClick={preventDefault}
                 >
                     <Link href="/rm-login" underline="hover" color="inherit">
                         {'Welcome to Savers'}
@@ -37,7 +35,6 @@ export default function Footer () {
                     ml: 2,
                     },
                 }}
-                onClick={preventDefault}
                 >
                     <Link href="/sign-up" underline="always">
                         {'SignUp Page'}
