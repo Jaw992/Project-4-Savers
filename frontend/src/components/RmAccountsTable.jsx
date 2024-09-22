@@ -61,7 +61,7 @@ export default function RmTableList() {
                             </StyledTableCell>
                             <StyledTableCell align="center">{row.type}</StyledTableCell>
                             <StyledTableCell align="center">
-                                <Button variant='outlined'>Close</Button>
+                                <Button variant='outlined' color='error'>Close</Button>
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
