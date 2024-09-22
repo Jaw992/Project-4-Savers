@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap");
 
+/* Main Body */
 body {
   margin: 0;
   padding: 0;
@@ -13,12 +14,14 @@ html,
 body {
   margin: 0;
   height: 100%;
+  width: 100%;
 }
 
 * {
     box-sizing: border-box;
   }
 
+/* NavBars & Footers */
 .savers-bar {
     background-color: #0D4A83;
     color: white;
@@ -31,6 +34,13 @@ body {
     background-color: #0D4A83;
     padding: 2rem;
     color: white;
-    display: flex;
-    justify-content: space-around;
   }
+
+/* Login Page */
+.loginPage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
