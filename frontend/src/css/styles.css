@@ -9,6 +9,16 @@ body {
   font-optical-sizing: auto;
 }
 
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
 .savers-bar {
     background-color: #0D4A83;
     color: white;
@@ -16,3 +26,11 @@ body {
     align-items: center;
     padding: 5px;
 }
+
+.bg-footer {
+    background-color: #0D4A83;
+    padding: 2rem;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+  }
