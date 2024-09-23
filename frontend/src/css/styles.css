@@ -32,14 +32,27 @@ body {
     padding-left: 8px;
 }
 
-.rm-navbar {
+.rm-navbar, .client-navbar {
     background-color: #454647;
+    display: flex;
+    justify-content: space-between;
 }
 
 .bg-footer {
     background-color: #0D4A83;
     padding: 2rem;
     color: white;
+  }
+
+.client-pages {
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+  }
+
+.icon-part {
+    display: flex;
+    align-items: center;
   }
 
 /* Login Page */

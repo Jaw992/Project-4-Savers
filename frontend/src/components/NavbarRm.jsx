@@ -4,7 +4,6 @@ import { grey } from '@mui/material/colors';
 import {
   AppBar,
   Box,
-  Toolbar,
   IconButton,
   Menu,
   Tooltip,
@@ -27,8 +26,7 @@ export default function NavbarRm() {
   return (
     <AppBar position="static">
       <div className="rm-navbar">
-        <Toolbar disableGutters>
-
+        <div className="icon-part">
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="logout">
               <IconButton onClick={handleOpenUserMenu}>
@@ -58,7 +56,7 @@ export default function NavbarRm() {
             </Menu>
           </Box>
           <Typography variant="h6">Name</Typography>
-        </Toolbar>
+        </div>
       </div>
     </AppBar>
   );
