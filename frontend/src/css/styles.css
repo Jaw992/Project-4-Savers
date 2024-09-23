@@ -32,8 +32,10 @@ body {
     padding-left: 8px;
 }
 
-.rm-navbar {
+.rm-navbar, .client-navbar {
     background-color: #454647;
+    display: flex;
+    justify-content: space-between;
 }
 
 .bg-footer {
@@ -42,11 +44,25 @@ body {
     color: white;
   }
 
+.client-pages {
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+  }
+
+.icon-part {
+    display: flex;
+    align-items: center;
+  }
+
 /* Login Page */
 .header {
     padding-top: 10px;
     padding-left: 35px;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .loginPage {
@@ -71,11 +87,41 @@ body {
     padding: 10px 35px 0px 35px;
 }
 
-/* Client Pages */
+/* Client Transaction Pages */
 .clientPages {
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     /* padding: 10px 35px 0px 35px; */
+}
+
+/* Client Main & History Page */
+
+.clientMain {
+  height: 100vh;
+  padding: 10px 35px 0px 35px;
+}
+
+.piechart {
+  width: 10%;
+  padding: 20px 300px 50px 350px;
+}
+
+.pieAndsummary {
+  display: flex;
+  align-items: center;
+}
+
+/* Client Profile Page */
+.clientProfile {
+  height: 100vh;
+  padding: 10px 35px 0px 35px;
+}
+
+.twoCards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 50px;
 }

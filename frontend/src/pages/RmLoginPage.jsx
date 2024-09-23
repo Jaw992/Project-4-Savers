@@ -3,13 +3,10 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Typography } from '@mui/material';
 
-import SaversBar from '../components/SaversBar';
-
 export default function RmLoginPage() {
     
     return (
         <>
-            <SaversBar />
             <h1 className='header'> Relationship Managers Only</h1>
             <div className='loginPage'>
                 <Container className='loginBox' maxWidth='sm'>
