@@ -1,6 +1,5 @@
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
 
-import SaversBar from '../components/SaversBar';
 // import Footer from "../components/Footer";
 
 
@@ -8,8 +7,7 @@ export default function LoginPage() {
     
     return (
         <>
-            <SaversBar />
-            <h1 className='header'> In Savers you trust.</h1>
+            <h1 className='header'> When savings becomes easy.</h1>
 
             <Container className='loginPage' maxWidth='sm'>
                 <Box component="form" noValidate autoComplete="off">

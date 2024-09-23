@@ -1,13 +1,9 @@
 import { Container, Box, TextField, Paper, Button, Typography } from '@mui/material';
 
-import SaversBar from '../components/SaversBar';
-
 export default function SignUpPage() {
 
     return(
         <>
-            <SaversBar />
-            
             <Container className='signupPage' maxWidth='sm'>
                 <Box component="form" noValidate autoComplete="off">
                 <Paper elevation={10} sx={{ padding: 6}}>    

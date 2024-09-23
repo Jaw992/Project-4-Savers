@@ -79,3 +79,20 @@ body {
     justify-content: center;
     /* padding: 10px 35px 0px 35px; */
 }
+
+/* Client Main Page */
+
+.clientMain {
+  height: 100vh;
+  padding: 10px 35px 0px 35px;
+}
+
+.piechart {
+  width: 10%;
+  padding: 20px 300px 50px 350px;
+}
+
+.pieAndsummary {
+  display: flex;
+  align-items: center;
+}
