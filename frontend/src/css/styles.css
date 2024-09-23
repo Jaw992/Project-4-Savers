@@ -71,7 +71,7 @@ body {
     padding: 10px 35px 0px 35px;
 }
 
-/* Client Pages */
+/* Client Transaction Pages */
 .clientPages {
     height: 100vh;
     display: flex;
@@ -80,7 +80,7 @@ body {
     /* padding: 10px 35px 0px 35px; */
 }
 
-/* Client Main Page */
+/* Client Main & History Page */
 
 .clientMain {
   height: 100vh;
