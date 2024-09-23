@@ -1,12 +1,12 @@
 //* Get All transaction history
-export async function allTransactions(token) {
+export async function allTransactions() {
     const url = `/api/transactions/history`;
     try {
         const response = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
             },
         });
         if (!response.ok) {
@@ -32,14 +32,14 @@ export async function allTransactions(token) {
 }
 
 //* Get a single transaction
-export async function fetchTransactionById(id, token) {
+export async function fetchTransactionById(id) {
     const url = `/api/transactions/${id}`;
     try {
         const response = await fetch(url, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
             },
         });
         if (!response.ok) {
@@ -64,14 +64,14 @@ export async function fetchTransactionById(id, token) {
     }
 }
 
-export async function createTransaction(data, token) {
+export async function createTransaction(data) {
     const url = `/api/transactions/newtransaction`;
     try {
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
         });
@@ -99,14 +99,14 @@ export async function createTransaction(data, token) {
     }
 }
 
-export async function createTransfer(data, token) {
+export async function createTransfer(data) {
     const url = `/api/transactions/transfer`;
     try {
         const response = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(data),
         });

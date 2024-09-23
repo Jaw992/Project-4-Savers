@@ -4,7 +4,7 @@ const verifyToken = require("../middleware/verifyToken");
 const pool = require("../config/db");
 
 //* Verify Token
-router.use(verifyToken);
+// router.use(verifyToken);
 
 //* Get all accounts
 router.get("/", async (req, res) => {

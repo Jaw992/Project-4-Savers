@@ -1,12 +1,12 @@
 //* All Accounts
-export async function allAccountsLoad(token) {
+export async function allAccountsLoad() {
     const url = `/api/accounts/`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
@@ -22,14 +22,14 @@ export async function allAccountsLoad(token) {
 }
 
 //* Get Single Account 
-export async function accountLoad(id, token) {
+export async function accountLoad(id) {
     const url = `/api/accounts/${id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
@@ -45,7 +45,7 @@ export async function accountLoad(id, token) {
 }
 
 //* Create Accounts
-export async function createAccount(data, token) {
+export async function createAccount(data) {
     const url = `/api/accounts/create`;
     try {
       // const token = localStorage.getItem("authToken");
@@ -53,7 +53,7 @@ export async function createAccount(data, token) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -80,14 +80,14 @@ export async function createAccount(data, token) {
   }
 
   //* Delete Accounts
-export async function deleteAccount(id, token) {
+export async function deleteAccount(id) {
     const url = `/api/accounts/delete/${id}`;
     try {
         const response = await fetch(url, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
             },
         });
         if (!response.ok) {
