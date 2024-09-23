@@ -63,7 +63,17 @@ router.post("/login", async (req, res) => {
 //* Get all client users
 router.get("/client", verifyToken, async (req, res) => {
     try {
+
+        if (!req.user) {
+            return res.status(401).json({ error: "Unauthorized access. Invalid or expired token." });
+        }
+
         const users = await pool.query("SELECT * FROM users WHERE role = $1", ['client']);
+
+        if (users.rows.length === 0) {
+            return res.status(404).json({ message: "No clients found." });
+        }
+
         res.status(200).json(users.rows);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -75,6 +85,11 @@ router.get("/client/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+        
+        // Check if the client was found
+        if (user.rows.length === 0) {
+            return res.status(404).json({ message: "Client not found." });
+        }
         res.status(200).json(user.rows);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
@@ -91,11 +106,16 @@ router.get("/manager", verifyToken, verifyManager, async (req, res) => {
     }
 });
 
-//* Get a single client users
+//* Get a single relationship manager users
 router.get("/manager/:id", verifyToken, verifyManager, async (req, res) => {
     const { id } = req.params;
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+
+        // Check if the relationship manager was found
+        if (user.rows.length === 0) {
+            return res.status(404).json({ message: "Relationship Manager not found." });
+        }
         res.status(200).json(user.rows);
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
