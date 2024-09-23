@@ -1,10 +1,39 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetAtom } from "jotai";
+import { tokenAtom } from "../App";
+import { isValidToken } from "../utils/jwUtils";
+import { userLogin } from '../services/apiUsers';
+
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function LoginPage() {
     
+    const setToken = useSetAtom(tokenAtom);
     const navigate = useNavigate();
+
+    const [data, setData] = useState({ username: '', password: '' });
+    const [error, setError] = useState('');
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleLogin = async (event) => {
+        event.preventDefault(); 
+        setError(''); // Clear previous error message
+        try {
+            const token = await userLogin(data); // Call the login function
+            if (isValidToken(token)) {
+                setToken(token);
+                navigate('/client-main');
+              }
+        } catch (error) {
+            setError(error.message); // Set the error message to display
+        }
+    };
 
     const handleNew = () => {
         navigate("/sign-up");
@@ -15,9 +44,10 @@ export default function LoginPage() {
             <h1 className='header'> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
 
             <Container className='loginPage' maxWidth='sm'>
-                <Box component="form" noValidate autoComplete="off">
+                <Box component="form" noValidate autoComplete="off" onSubmit={handleLogin}>
                     <Typography variant='h4' sx={{ fontWeight: 700 }}>Login</Typography>
                     <p>Log in by entering your username and password</p>
+                    {error && <Typography color="error">{error}</Typography>} 
                     <Box sx={{ marginBottom: 3, marginTop: 3 }}>
                         <TextField
                             id="username"
@@ -25,9 +55,9 @@ export default function LoginPage() {
                             fullWidth
                             margin="dense"
                             variant="outlined"
-                            value=""
+                            value={data.username}
                             name="username"
-                            onChange=""
+                            onChange={handleChange}
                             required
                         />
                     </Box>
@@ -39,9 +69,9 @@ export default function LoginPage() {
                             margin="dense"
                             variant="outlined"
                             type="password"
-                            value=""
+                            value={data.password}
                             name="password"
-                            onChange=""
+                            onChange={handleChange}
                             required
                         />
                     </Box>
@@ -51,19 +81,18 @@ export default function LoginPage() {
                         color="primary"
                         type="submit"
                         sx={{ mt: 2 }}
-                        onClick=""
+                        // onClick={handleLogin}
                     >
-                    Sign In
+                        Sign In
                     </Button>
                     <Button
                         fullWidth
                         variant="outlined"
                         color="primary"
-                        type="submit"
                         sx={{ mt: 2 }}
                         onClick={handleNew}
                     >
-                    New Account
+                        New Account
                     </Button>
                 </Box>
             </Container>

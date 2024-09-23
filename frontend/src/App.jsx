@@ -1,7 +1,9 @@
 import "./css/styles.css";
 
-import { Route, Routes } from "react-router-dom";
 // import { useState } from 'react';
+import { Route, Routes } from "react-router-dom";
+import { useAtomValue } from "jotai";
+import { atomWithStorage } from "jotai/utils";
 
 import SaversBar from "./components/SaversBar";
 import LoginPage from "./pages/LoginPage";
@@ -16,13 +18,20 @@ import ClientTransferPage from "./pages/ClientTransferPage";
 import RmLoginPage from "./pages/RmLoginPage";
 import Footer from "./components/Footer";
 
+
+export const tokenAtom = atomWithStorage("token", "");
+
 function App() {
+
+  const token = useAtomValue(tokenAtom);
 
   return (
     <>
       <SaversBar />
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        {token === "" ? null : (
+          <>
         <Route path="/sign-up" element={<SignUpPage />} />
         <Route path="/rm-login" element={<RmLoginPage />} />
         <Route path="/rm-main" element={<RmMainPage />} />
@@ -32,6 +41,8 @@ function App() {
         <Route path="/client-history" element={<ClientTransHistoryPage />} />
         <Route path="/client-transactions" element={<ClientTransactionPage />} />
         <Route path="/client-transfers" element={<ClientTransferPage />} />
+        </>
+        )}
       </Routes>
       <Footer />
     </>
