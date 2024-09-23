@@ -19,6 +19,11 @@ const createJWT = (newUser) => {
 //* User signup
 router.post("/signup", async (req, res) => {
     const { username, password, email, contact, name, role } = req.body;
+
+    if (!username || !password || !email || !contact || !name || !role) {
+        return res.status(400).json({ message: 'All fields are required' });
+    }
+
     try {
         const userExists = await pool.query('SELECT * FROM users WHERE username = $1 AND role = $2', [username, role]);
         if (userExists.rows.length > 0) {

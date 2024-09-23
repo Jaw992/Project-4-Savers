@@ -1,8 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function LoginPage() {
     
+    const navigate = useNavigate();
+
+    const handleNew = () => {
+        navigate("/sign-up");
+    };
+
     return (
         <>
             <h1 className='header'> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
@@ -54,7 +61,7 @@ export default function LoginPage() {
                         color="primary"
                         type="submit"
                         sx={{ mt: 2 }}
-                        onClick=""
+                        onClick={handleNew}
                     >
                     New Account
                     </Button>
