@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { grey } from '@mui/material/colors';
 import {
@@ -14,6 +15,8 @@ import {
 
 export default function Navbar() {
 
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleOpenUserMenu = (event) => {
@@ -23,6 +26,10 @@ export default function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorEl(null);
   };
+
+  const handleProfile = () => {
+    navigate("/client-profile");
+  }
 
   return (
     <AppBar position="static">
@@ -52,7 +59,7 @@ export default function Navbar() {
               open={Boolean(anchorEl)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="profile" onClick=''>
+              <MenuItem key="profile" onClick={handleProfile}>
                 My Profile
               </MenuItem>
               <MenuItem key="signOut" onClick=''>
