@@ -8,8 +8,18 @@ router.use(verifyToken);
 
 //* Get all transactions
 router.get("/history", async (req, res) => {
-    const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
-    res.status(200).json(transactions.rows);
+  try {
+      const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
+
+      // Check if there are no transactions
+      if (transactions.rows.length === 0) {
+        return res.status(404).json({ message: 'No transactions found.' });
+      }
+      res.status(200).json(transactions.rows);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error.' });
+  }
 });
 
 //* Get specific transaction
@@ -17,6 +27,11 @@ router.get("/:id", async (req, res) => {
     const { id } = req.params;
     try{ 
         const transaction = await pool.query('SELECT * FROM transactions WHERE id = $1', [id]);
+
+        // Check if the transaction was found
+        if (transaction.rows.length === 0) {
+          return res.status(404).json({ message: 'Transaction not found.' });
+        }
         res.status(200).json(transaction.rows);
     } catch (error) {
         console.error(error);
@@ -24,6 +39,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+//* Create new transactions and update balance - deposit and withdrawal
 router.post("/newtransaction", async (req, res) => {
     const { transaction_type, amount, account_id } = req.body;
 
@@ -74,8 +90,9 @@ router.post("/newtransaction", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Transaction failed' });
   }
-})
+});
 
+//* Create new transactions and update balance - transfers
 router.post("/transfer", async (req, res) => {
     const { transaction_type, amount, purpose, account_id, receiver_account } = req.body;
 
