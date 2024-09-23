@@ -45,7 +45,7 @@ export async function accountLoad(id, token) {
 }
 
 //* Create Accounts
-export async function contractorProjectDetails(data, token) {
+export async function createAccount(data, token) {
     const url = `/api/accounts/create`;
     try {
       // const token = localStorage.getItem("authToken");
@@ -58,13 +58,55 @@ export async function contractorProjectDetails(data, token) {
         body: JSON.stringify(data),
       });
       if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
-      }
-  
-      const json = await response.json();
-      return json.token;
-    } catch (error) {
-      console.error(error.message);
-      throw error;
+        const errorResponse = await response.json();
+
+        // Handle specific status codes
+        if (response.status === 400) {
+            throw new Error(errorResponse.error || "Account number already exists.");
+        } else if (response.status === 500) {
+            throw new Error("Internal server error. Please try again later.");
+        } else {
+            throw new Error(`Unexpected error: ${response.status}`);
+        }
+    }
+
+    // If successful, return the account data
+    const json = await response.json();
+    return json.account;
+} catch (error) {
+    console.error("Error creating account:", error.message);
+    throw error;
     }
   }
+
+  //* Delete Accounts
+export async function deleteAccount(id, token) {
+    const url = `/api/accounts/delete/${id}`;
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!response.ok) {
+            const errorResponse = await response.json();
+
+            // Handle specific status codes
+            if (response.status === 404) {
+                throw new Error(errorResponse.msg || "Account not found.");
+            } else if (response.status === 500) {
+                throw new Error("Internal server error. Please try again later.");
+            } else {
+                throw new Error(`Unexpected error: ${response.status}`);
+            }
+        }
+
+        // If successful, return the success message
+        return await response.json();
+    } catch (error) {
+        console.error("Error deleting account:", error.message);
+        throw error; 
+    }
+}
