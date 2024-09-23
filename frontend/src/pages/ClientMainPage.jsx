@@ -9,7 +9,6 @@ export default function ClientMainPage() {
         <>
             <Navbar />
             <div className="clientMain">
-                <h1>Client Main Page </h1>
                 <div className="pieAndsummary">
                 <PieChart />
                 <SummaryCard />
