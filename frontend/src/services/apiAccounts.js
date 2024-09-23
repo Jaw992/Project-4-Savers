@@ -1,12 +1,12 @@
 //* All Accounts
-export async function allAccountsLoad() {
+export async function allAccountsLoad(token) {
     const url = `/api/accounts/`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
@@ -22,14 +22,14 @@ export async function allAccountsLoad() {
 }
 
 //* Get all accounts and total balance for a specific user
-export async function sumLoad() {
+export async function sumLoad(token) {
   const url = `/api/accounts/sum`;
   try {
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     if (!response.ok) {
@@ -45,14 +45,14 @@ export async function sumLoad() {
 }
 
 //* Get Single Account 
-export async function accountLoad(id) {
+export async function accountLoad(id, token) {
     const url = `/api/accounts/${id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
@@ -68,7 +68,7 @@ export async function accountLoad(id) {
 }
 
 //* Create Accounts
-export async function createAccount(data) {
+export async function createAccount(data, token) {
     const url = `/api/accounts/create`;
     try {
       // const token = localStorage.getItem("authToken");
@@ -76,7 +76,7 @@ export async function createAccount(data) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -102,15 +102,15 @@ export async function createAccount(data) {
     }
   }
 
-  //* Delete Accounts
-export async function deleteAccount(id) {
+//* Delete Accounts
+export async function deleteAccount(id, token) {
     const url = `/api/accounts/delete/${id}`;
     try {
         const response = await fetch(url, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                // Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
         if (!response.ok) {
