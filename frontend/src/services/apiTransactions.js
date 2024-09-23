@@ -64,6 +64,7 @@ export async function fetchTransactionById(id) {
     }
 }
 
+//* Deposit and Withdrawal Type Transactions
 export async function createTransaction(data) {
     const url = `/api/transactions/newtransaction`;
     try {
@@ -99,6 +100,7 @@ export async function createTransaction(data) {
     }
 }
 
+//* Transfer Type Transactions
 export async function createTransfer(data) {
     const url = `/api/transactions/transfer`;
     try {

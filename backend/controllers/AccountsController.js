@@ -4,12 +4,31 @@ const verifyToken = require("../middleware/verifyToken");
 const pool = require("../config/db");
 
 //* Verify Token
-// router.use(verifyToken);
+router.use(verifyToken);
 
 //* Get all accounts
 router.get("/", async (req, res) => {
     const accounts = await pool.query("SELECT * FROM accounts");
     res.status(200).json(accounts.rows);
+});
+
+//* Get all accounts and total balance for a specific user
+router.get("/sum", async (req, res) => {
+  //!const userId = req.user.id; // Assuming you're using authentication middleware to set req.user
+
+  try {
+      const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1", [userId]);
+      
+      // Calculate total balance for the user's accounts
+      const totalBalanceQuery = "SELECT SUM(balance) AS total_balance FROM accounts WHERE user_id = $1";
+      const totalBalanceResult = await pool.query(totalBalanceQuery, [userId]);
+      const totalBalance = totalBalanceResult.rows[0].total_balance || 0; // Default to 0 if no accounts
+
+      res.status(200).json({ accounts: accounts.rows, total_balance: totalBalance });
+  } catch (error) {
+      console.error('Error fetching accounts:', error.message);
+      res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 //* Get one account
