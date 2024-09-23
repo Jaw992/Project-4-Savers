@@ -60,6 +60,9 @@ body {
     padding-top: 10px;
     padding-left: 35px;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .loginPage {
