@@ -12,14 +12,25 @@ export async function userSignup(data) {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    return json.token;
-  } catch (error) {
-    console.error(error.message);
-    throw error;
+        const errorResponse = await response.json();
+        
+        // Handle specific status codes
+        if (response.status === 400) {
+          throw new Error(errorResponse.message || "User already exists.");
+        } else if (response.status === 500) {
+          throw new Error(errorResponse.error || "Internal server error.");
+        } else {
+          throw new Error(`Unexpected error: ${response.status}`);
+        }
+      }
+  
+      // If successful, return token
+      const json = await response.json();
+      return json.token;
+    } catch (error) {
+      // Log and re-throw error for further handling
+      console.error("Signup error:", error.message);
+      throw error;
   }
 }
 
@@ -35,15 +46,25 @@ export async function userLogin(data) {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-
-    const json = await response.json();
-    // localStorage.setItem("authToken", json.token);
-    return json.token;
-  } catch (error) {
-    console.log(error.message);
-    throw error;
+        const errorResponse = await response.json();
+        
+        // Handle specific status codes
+        if (response.status === 401) {
+          throw new Error(errorResponse.error || "Invalid username or password.");
+        } else if (response.status === 500) {
+          throw new Error(errorResponse.error || "Internal server error.");
+        } else {
+          throw new Error(`Unexpected error: ${response.status}`);
+        }
+      }
+  
+      // If successful, return token
+      const json = await response.json();
+      return json.token;
+    } catch (error) {
+      // Log and re-throw error for further handling
+      console.error("Login error:", error.message);
+      throw error;
   }
 }
 
@@ -59,13 +80,25 @@ export async function allClientLoad(token) {
         },
       });
       if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+        const errorResponse = await response.json();
+  
+        // Handle specific status codes
+        if (response.status === 401) {
+          throw new Error("Unauthorized access. Invalid or expired token.");
+        } else if (response.status === 404) {
+          throw new Error(errorResponse.message || "No clients found.");
+        } else if (response.status === 500) {
+          throw new Error("Internal server error. Please try again later.");
+        } else {
+          throw new Error(`Unexpected error: ${response.status}`);
+        }
       }
   
+      // If successful, return the list of clients
       const json = await response.json();
       return json;
     } catch (error) {
-      console.log(error.message);
+      console.error("Error loading clients:", error.message);
       throw error;
   }
 }
@@ -83,13 +116,23 @@ export async function clientLoad(token) {
         },
       });
       if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+        const errorResponse = await response.json();
+  
+        // Handle specific status codes
+        if (response.status === 404) {
+          throw new Error(errorResponse.message || "Client not found.");
+        } else if (response.status === 500) {
+          throw new Error("Internal server error. Please try again later.");
+        } else {
+          throw new Error(`Unexpected error: ${response.status}`);
+        }
       }
   
+      // If successful, return the client data
       const json = await response.json();
       return json;
     } catch (error) {
-      console.log(error.message);
+      console.error("Error loading client:", error.message);
       throw error;
   }
 }
@@ -107,13 +150,57 @@ export async function rmLoad(token) {
         },
       });
       if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+        const errorResponse = await response.json();
+  
+        // Handle specific status codes
+        if (response.status === 404) {
+          throw new Error(errorResponse.message || "Relationship Manager not found.");
+        } else if (response.status === 500) {
+          throw new Error("Internal server error. Please try again later.");
+        } else {
+          throw new Error(`Unexpected error: ${response.status}`);
+        }
       }
   
+      // If successful, return the manager data
       const json = await response.json();
       return json;
     } catch (error) {
-      console.log(error.message);
+      console.error("Error loading relationship manager:", error.message);
       throw error;
   }
 }
+
+//* Update particulars of client
+export async function updateUserParticulars(token, id, data) {
+    const url = `/api/update-particulars/${id}`;
+    try {
+      const response = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        const errorResponse = await response.json();
+  
+        // Handle specific status codes
+        if (response.status === 400) {
+          throw new Error(errorResponse.message || "Invalid input data.");
+        } else if (response.status === 500) {
+          throw new Error("Internal server error. Please try again later.");
+        } else {
+          throw new Error(`Unexpected error: ${response.status}`);
+        }
+      }
+  
+      // If successful, return the updated user data
+      const json = await response.json();
+      return json;
+    } catch (error) {
+      console.error("Error updating user particulars:", error.message);
+      throw error; 
+    }
+  }

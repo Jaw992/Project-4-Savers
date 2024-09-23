@@ -43,3 +43,28 @@ export async function accountLoad(id, token) {
       throw error;
   }
 }
+
+//* Create Accounts
+export async function contractorProjectDetails(data, token) {
+    const url = `/api/accounts/create`;
+    try {
+      // const token = localStorage.getItem("authToken");
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+  
+      const json = await response.json();
+      return json.token;
+    } catch (error) {
+      console.error(error.message);
+      throw error;
+    }
+  }
