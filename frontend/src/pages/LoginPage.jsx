@@ -5,7 +5,7 @@ export default function LoginPage() {
     
     return (
         <>
-            <h1 className='header'> When savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
+            <h1 className='header'> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
 
             <Container className='loginPage' maxWidth='sm'>
                 <Box component="form" noValidate autoComplete="off">

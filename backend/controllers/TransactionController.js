@@ -9,7 +9,21 @@ const pool = require("../config/db");
 //* Get all transactions
 router.get("/history", async (req, res) => {
   try {
-      const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
+      // const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
+      const transactions = await pool.query(`
+        SELECT 
+            t.id, 
+            t.transaction_type, 
+            t.amount, 
+            t.purpose, 
+            t.created_at, 
+            a1.account_number AS account_number,
+            a2.account_number AS receiver_account_number
+        FROM transactions t
+        LEFT JOIN accounts a1 ON t.account_id = a1.id
+        LEFT JOIN accounts a2 ON t.receiver_account = a2.id
+        ORDER BY t.created_at DESC
+    `);
 
       // Check if there are no transactions
       if (transactions.rows.length === 0) {

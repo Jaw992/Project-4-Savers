@@ -33,7 +33,7 @@ export default function HistoryCard() {
             {transactions.length > 0 ? (
                 transactions.map((transaction) => (
                     <Box key={transaction.id} component="form" noValidate autoComplete="off" sx={{ paddingBottom: 1 }}>
-                            <Typography variant='h4' sx={{ fontWeight: 400, marginBottom: 1 }}>
+                            <Typography variant='h5' sx={{ fontWeight: 700 }}>
                                 {/* {new Date(transaction.created_at).toLocaleDateString()} */}
                                 {formatDate(transaction.created_at)} 
                             </Typography>
@@ -44,11 +44,11 @@ export default function HistoryCard() {
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 500 }}>
                                     {transaction.transaction_type === 'deposit' ? 
-                                        `to ${transaction.account_id}` :
+                                        `to ${transaction.account_number}` :
                                         transaction.transaction_type === 'withdrawal' ? 
-                                        `from ${transaction.account_id}` : 
+                                        `from ${transaction.account_number}` : 
                                         transaction.transaction_type === 'transfer' ? 
-                                        `from ${transaction.account_id} to ${transaction.receiver_account}` : 
+                                        `from ${transaction.account_number} to ${transaction.receiver_account_number}` : 
                                         'Unknown Transaction Type'}
                                 </Typography>
                                 {transaction.purpose && (
