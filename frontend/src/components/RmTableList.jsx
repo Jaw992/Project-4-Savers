@@ -6,8 +6,10 @@ import {
     TableContainer, 
     TableHead, 
     TableRow,
+    Box,
     Button, 
-    Paper } 
+    Paper,
+    TextField } 
 from "@mui/material";
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
@@ -65,7 +67,20 @@ export default function RmTableList() {
                             <StyledTableCell align="center">{row.type}</StyledTableCell>
                             <StyledTableCell align="center">{row.rm}</StyledTableCell>
                             <StyledTableCell align="center">
-                              <Button variant='outlined' color='error'>Close</Button>
+                              <Box className="acc_close">
+                                <TextField
+                                id="close"
+                                label="Input"
+                                margin="dense"
+                                variant="outlined"
+                                type="text"
+                                name="account_number"
+                                value=''
+                                onChange=''
+                                required
+                                />
+                              <Button variant='outlined' color='error' sx={{ marginLeft: 1}}>Close</Button>
+                              </Box>
                             </StyledTableCell>
                         </StyledTableRow>
                     ))}
