@@ -107,6 +107,7 @@ export default function TransferCard() {
     const token = useAtomValue(tokenAtom);
     
     const [accounts, setAccounts] = useState([]);
+    const [error, setError] = useState(null);
     const [transferData, setTransferData] = useState({
         transaction_type: 'transfer',
         sender_account_number: '',
@@ -146,10 +147,10 @@ export default function TransferCard() {
         e.preventDefault();
         try {
             await createTransfer(transferData);  
-            alert('Transfer successful!');
+            setError('Transfer successful!');
         } catch (error) {
             console.error('Error processing transfer:', error.message);
-            alert(error.message);
+            setError(error.message);
         }
     };
 
@@ -158,6 +159,7 @@ export default function TransferCard() {
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Transfers</Typography>
+                    {error && <Typography color="error">{error}</Typography>} {/* Display error message */}
                     
                     {/* From Account Field */}
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>
