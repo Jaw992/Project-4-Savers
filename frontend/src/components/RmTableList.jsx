@@ -1,7 +1,7 @@
-import { useAtomValue } from "jotai";
-import { tokenAtom } from "../App";
-import { useState, useEffect } from 'react';
-import { getRmTable } from "../services/apiAccounts";
+// import { useAtomValue } from "jotai";
+// import { tokenAtom } from "../App";
+// import { useState, useEffect } from 'react';
+// import { getRmTable } from "../services/apiAccounts";
 
 // import * as React from 'react';
 import { styled } from '@mui/material/styles';
@@ -13,8 +13,7 @@ import {
     TableRow,
     Box,
     Button, 
-    Paper,
-    TextField } 
+    Paper,} 
 from "@mui/material";
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
@@ -38,28 +37,28 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-export default function RmTableList() {
+export default function RmTableList({ getList }) {
 
-  const token = useAtomValue(tokenAtom);
+  // const token = useAtomValue(tokenAtom);
 
-  const [getList, setGetList] = useState([]);
-  const [error, setError] = useState(null);
+//   const [getList, setGetList] = useState([]);
+//   const [error, setError] = useState(null);
 
-  console.log(error);
+//   console.log(error);
 
-  useEffect(() => {
-    const fetchTableData = async () => {
-        try {
-            const data = await getRmTable(token);  
-            setGetList(data);  
-        } catch (err) {
-            console.error('Error fetching RM table data:', err.message);
-            setError('Failed to fetch data. Please try again later.');
-        }
-    };
+//   useEffect(() => {
+//     const fetchTableData = async () => {
+//         try {
+//             const data = await getRmTable(token);  
+//             setGetList(data);  
+//         } catch (err) {
+//             console.error('Error fetching RM table data:', err.message);
+//             setError('Failed to fetch data. Please try again later.');
+//         }
+//     };
 
-    fetchTableData();
-}, [token]);
+//     fetchTableData();
+// }, [token]);
 
      return (
         <>
@@ -87,17 +86,6 @@ export default function RmTableList() {
                             <StyledTableCell align="center">{list.rm_name}</StyledTableCell>
                             <StyledTableCell align="center">
                               <Box className="acc_close">
-                                <TextField
-                                id="close"
-                                label="Input"
-                                margin="dense"
-                                variant="outlined"
-                                type="text"
-                                name="account_number"
-                                value=''
-                                onChange=''
-                                required
-                                />
                               <Button variant='outlined' color='error' sx={{ marginLeft: 1}}>Close</Button>
                               </Box>
                             </StyledTableCell>

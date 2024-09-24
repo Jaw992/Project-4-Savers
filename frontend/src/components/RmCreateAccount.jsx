@@ -89,14 +89,15 @@
 // }
 
 import { useState, useEffect } from 'react';
-import { useAtomValue } from 'jotai';
-import { tokenAtom } from '../App';
+// import { useAtomValue } from 'jotai';
+// import { tokenAtom } from '../App';
 import { Container, Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
-import { createAccount } from '../services/apiAccounts';
+import { createAccount, getRmTable } from '../services/apiAccounts';
 import { allClientLoad } from '../services/apiUsers'; 
 
-export default function RmCreateAccount() {
-    const token = useAtomValue(tokenAtom);
+export default function RmCreateAccount({ setGetList, token }) {
+
+    // const token = useAtomValue(tokenAtom);
 
     // State for form fields in one object
     const [formData, setFormData] = useState({
@@ -154,6 +155,9 @@ export default function RmCreateAccount() {
                 account_type: '',
                 name: '',
             });
+
+            const updatedList = await getRmTable(token);
+            setGetList(updatedList); 
 
         } catch (err) {
             setError(err.message);
