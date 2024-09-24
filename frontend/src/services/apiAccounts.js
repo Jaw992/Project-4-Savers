@@ -72,7 +72,8 @@ export async function accountLoad(id, token) {
 
 //* Create Accounts
 export async function createAccount(data, token) {
-    const url = `/api/accounts/create`;
+    const manager_id = extractPayload(token).id;
+    const url = `/api/accounts/create/${manager_id}`;
     try {
       // const token = localStorage.getItem("authToken");
       const response = await fetch(url, {

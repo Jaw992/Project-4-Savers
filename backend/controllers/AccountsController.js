@@ -71,9 +71,9 @@ router.get("/:id", async (req, res) => {
 //       }
 // });
 
-// Create a new account
-router.post("/create", async (req, res) => {
-  const { balance, account_number, account_type, name, id } = req.body;
+//* Create a new account
+router.post("/create/:manager_id", async (req, res) => {
+  const { balance, account_number, account_type, name } = req.body;
   try {
       // Check if the account number already exists
       const existingAccount = await pool.query('SELECT * FROM accounts WHERE account_number = $1', [account_number]);
@@ -91,11 +91,12 @@ router.post("/create", async (req, res) => {
       const user_id = accountHolderQuery.rows[0].id;
 
       // Get the user_id of the relationship manager by their name
-      const managerQuery = await pool.query('SELECT id FROM users WHERE id = $1', [id]);
-      if (managerQuery.rows.length === 0) {
-          return res.status(400).json({ error: 'Relationship manager does not exist' });
-      }
-      const manager_id = managerQuery.rows[0].id;
+      // const managerQuery = await pool.query('SELECT id FROM users WHERE id = $1', [id]);
+      // if (managerQuery.rows.length === 0) {
+      //     return res.status(400).json({ error: 'Relationship manager does not exist' });
+      // }
+      // const manager_id = managerQuery.rows[0].id;
+      const manager_id = req.user.id;
 
       // Create the new account using user_id and manager_id
       const newAccount = await pool.query(
