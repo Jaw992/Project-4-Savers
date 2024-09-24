@@ -112,11 +112,17 @@ router.get("/manager", verifyToken, verifyManager, async (req, res) => {
     }
 });
 
-//* Get a single relationship manager users
-router.get("/manager/:id", verifyToken, verifyManager, async (req, res) => {
-    const { id } = req.params;
+//* Get a single relationship manager users according to client assignment of rm during account creation
+router.get("/manager/:user_id", verifyToken, async (req, res) => {
+    // const { id } = req.params;
+    const user_id = req.user.id
     try {
-        const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+        const user = await pool.query(
+            `SELECT u.id, u.username, u.name, u.email, u.contact
+            FROM accounts a
+            JOIN users u ON a.manager_id = u.id
+            WHERE a.user_id = $1;`, [user_id]
+        );
 
         // Check if the relationship manager was found
         if (user.rows.length === 0) {

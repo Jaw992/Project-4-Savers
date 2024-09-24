@@ -143,8 +143,8 @@ export async function clientLoad(token) {
 
 //* Relationship Manager Profile
 export async function rmLoad(token) {
-    const id = extractPayload(token)._id;
-    const url = `/api/users/manager/${id}`;
+    const user_id = extractPayload(token).id;
+    const url = `/api/users/manager/${user_id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
