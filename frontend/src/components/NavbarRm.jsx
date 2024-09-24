@@ -1,3 +1,5 @@
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
 import { useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { grey } from '@mui/material/colors';
@@ -12,6 +14,8 @@ import {
 } from "@mui/material";
 
 export default function NavbarRm() {
+
+  const token = useAtomValue(tokenAtom);
 
   const [anchorEl, setAnchorEl] = useState(null);
 

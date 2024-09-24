@@ -1,3 +1,5 @@
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -15,6 +17,8 @@ import {
 } from "@mui/material";
 
 export default function Navbar() {
+
+  const token = useAtomValue(tokenAtom);
 
   const navigate = useNavigate();
 
