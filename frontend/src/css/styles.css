@@ -73,6 +73,12 @@ body {
     text-align: center;
 }
 
+.background {
+  background-image: url("../assets/mountain.jpg");
+  background-size: cover; 
+  background-position: center;
+}
+
 /* Signup Page */
 .signupPage {
     height: 100vh;
