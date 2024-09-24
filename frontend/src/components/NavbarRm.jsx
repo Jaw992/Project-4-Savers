@@ -40,7 +40,7 @@ export default function NavbarRm() {
 
   const handleLogout = () => {
     setToken(null);
-    navigate('/rm-login');
+    navigate('/');
   };
 
   return (
