@@ -7,7 +7,9 @@ const pool = require("../config/db");
 router.use(verifyToken);
 
 //* Get all transactions
-router.get("/history", async (req, res) => {
+router.get("/history/:user_id", async (req, res) => {
+  const user_id = req.user.id;
+
   try {
       // const transactions = await pool.query('SELECT * FROM transactions ORDER BY created_at DESC');
       const transactions = await pool.query(`
@@ -22,8 +24,10 @@ router.get("/history", async (req, res) => {
         FROM transactions t
         LEFT JOIN accounts a1 ON t.account_id = a1.id
         LEFT JOIN accounts a2 ON t.receiver_account = a2.id
-        ORDER BY t.created_at DESC
-    `);
+        LEFT JOIN users u ON a1.user_id = u.id
+        WHERE u.id = $1
+        ORDER BY t.created_at DESC`
+    , [user_id]);
 
       // Check if there are no transactions
       if (transactions.rows.length === 0) {

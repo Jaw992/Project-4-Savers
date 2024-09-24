@@ -1,6 +1,9 @@
+import { extractPayload } from "../utils/jwUtils";
+
 //* Get All transaction history
 export async function allTransactions(token) {
-    const url = `/api/transactions/history`;
+    const user_id = extractPayload(token).id;
+    const url = `/api/transactions/history/${user_id}`;
     try {
         const response = await fetch(url, {
             method: "GET",

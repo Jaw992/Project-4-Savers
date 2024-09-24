@@ -7,8 +7,9 @@ const pool = require("../config/db");
 router.use(verifyToken);
 
 //* Get all accounts
-router.get("/", async (req, res) => {
-    const accounts = await pool.query("SELECT * FROM accounts");
+router.get("/:user_id", async (req, res) => {
+    const user_id = req.user.id;
+    const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1", [user_id]);
     res.status(200).json(accounts.rows);
 });
 
