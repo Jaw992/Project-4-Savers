@@ -10,7 +10,7 @@ const pool = require("../config/db");
 const SALT_LENGTH = 12;
 
 const createJWT = (newUser) => {
-    const payload = { id: newUser.rows[0].id, username: newUser.rows[0].username, role: newUser.rows[0].role };
+    const payload = { id: newUser.rows[0].id, username: newUser.rows[0].username, name: newUser.rows[0].name, role: newUser.rows[0].role };
     const secret = process.env.JWT_SECRET;
     const options = { expiresIn: "100y" };
     return jwt.sign(payload, secret, options);

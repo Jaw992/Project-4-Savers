@@ -1,7 +1,8 @@
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { tokenAtom } from "../App";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { extractPayload, isValidToken } from "../utils/jwUtils";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { grey } from '@mui/material/colors';
 import {
@@ -19,10 +20,17 @@ import {
 export default function Navbar() {
 
   const token = useAtomValue(tokenAtom);
-
+  const setToken = useSetAtom(tokenAtom);
+  const [name, setName] = useState('');
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = useState(null);
+  useEffect(() => {
+    if (token && isValidToken(token)) {
+      const payload = extractPayload(token);
+      setName(payload.name || "Please Log In");
+    }
+  }, [token]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,6 +43,11 @@ export default function Navbar() {
   const handleProfile = () => {
     navigate("/client-profile");
   }
+
+  const handleLogout = () => {
+    setToken(null);
+    navigate('/');
+  };
 
   return (
     <AppBar position="static">
@@ -66,12 +79,12 @@ export default function Navbar() {
               <MenuItem key="profile" onClick={handleProfile}>
                 My Profile
               </MenuItem>
-              <MenuItem key="signOut" onClick=''>
+              <MenuItem key="signOut" onClick={handleLogout}>
                 Signout
               </MenuItem>
             </Menu>
           </Box>
-          <Typography variant="h6">Name</Typography>
+          <Typography variant="h6">{name}</Typography>
           </div>
           
           <Box className="client-pages">

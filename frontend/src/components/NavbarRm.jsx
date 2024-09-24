@@ -1,6 +1,8 @@
-import { useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { tokenAtom } from "../App";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { extractPayload, isValidToken } from "../utils/jwUtils";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { grey } from '@mui/material/colors';
 import {
@@ -16,8 +18,17 @@ import {
 export default function NavbarRm() {
 
   const token = useAtomValue(tokenAtom);
-
+  const setToken = useSetAtom(tokenAtom);
+  const [name, setName] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token && isValidToken(token)) {
+      const payload = extractPayload(token);
+      setName(payload.name || "Please Log In");
+    }
+  }, [token]);
 
   const handleOpenUserMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -25,6 +36,11 @@ export default function NavbarRm() {
 
   const handleCloseUserMenu = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    setToken(null);
+    navigate('/rm-login');
   };
 
   return (
@@ -54,12 +70,12 @@ export default function NavbarRm() {
               open={Boolean(anchorEl)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key="signOut" onClick=''>
+              <MenuItem key="signOut" onClick={handleLogout}>
                 Signout
               </MenuItem>
             </Menu>
           </Box>
-          <Typography variant="h6">Name</Typography>
+          <Typography variant="h6">{name}</Typography>
         </div>
       </div>
     </AppBar>
