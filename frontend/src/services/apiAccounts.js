@@ -1,3 +1,5 @@
+import { extractPayload } from "../utils/jwUtils";
+
 //* All Accounts
 export async function allAccountsLoad(token) {
     const url = `/api/accounts/`;
@@ -23,7 +25,8 @@ export async function allAccountsLoad(token) {
 
 //* Get all accounts and total balance for a specific user
 export async function sumLoad(token) {
-  const url = `/api/accounts/sum`;
+  const user_id = extractPayload(token).id;
+  const url = `/api/accounts/sum/${user_id}`;
   try {
     const response = await fetch(url, {
       method: "GET",

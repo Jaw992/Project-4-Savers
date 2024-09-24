@@ -73,9 +73,9 @@ export default function AccountsCard() {
         const fetchAccounts = async () => {
             try {
                 const response = await allAccountsLoad(token);
-                // const getSum = await sumLoad(token);
+                const getSum = await sumLoad(token);
                 setAccounts(response);
-                // setTotalBalance(getSum.total_balance);
+                setTotalBalance(getSum.total_balance);
             } catch (error) {
                 console.error('Error fetching accounts:', error.message);
             }
@@ -86,7 +86,7 @@ export default function AccountsCard() {
     return (
         <Container maxWidth='md'>
             <Typography variant='h4' sx={{ fontWeight: 600 }}>
-                Total Balance: $ {totalBalance.toFixed(2)}
+                Total Balance: $ {totalBalance}
             </Typography>
 
             <Box className="accountCard" component="div" noValidate autoComplete="off">

@@ -19,7 +19,7 @@ router.get("/rmtable", async (req, res) => {
 });
 
 //* Get all accounts and total balance for a specific user
-router.get("/sum", async (req, res) => {
+router.get("/sum/:user_id", async (req, res) => {
   const user_id = req.user.id; // Assuming you're using authentication middleware to set req.user
 
   try {
@@ -27,7 +27,7 @@ router.get("/sum", async (req, res) => {
       
       // Calculate total balance for the user's accounts
       const totalBalanceQuery = "SELECT SUM(balance) AS total_balance FROM accounts WHERE user_id = $1";
-      const totalBalanceResult = await pool.query(totalBalanceQuery, [userId]);
+      const totalBalanceResult = await pool.query(totalBalanceQuery, [user_id]);
       const totalBalance = totalBalanceResult.rows[0].total_balance || 0; // Default to 0 if no accounts
 
       res.status(200).json({ accounts: accounts.rows, total_balance: totalBalance });
