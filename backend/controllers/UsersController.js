@@ -87,7 +87,8 @@ router.get("/client", verifyToken, async (req, res) => {
 
 //* Get a single client users
 router.get("/client/:id", verifyToken, async (req, res) => {
-    const { id } = req.params;
+    // const { id } = req.params;
+    const id = req.user.id
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
         

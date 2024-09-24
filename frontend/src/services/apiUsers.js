@@ -109,7 +109,7 @@ export async function allClientLoad(token) {
 
 //* Client Profile
 export async function clientLoad(token) {
-    const id = extractPayload(token)._id;
+    const id = extractPayload(token).id;
     const url = `/api/users/client/${id}`;
     try {
       const response = await fetch(url, {

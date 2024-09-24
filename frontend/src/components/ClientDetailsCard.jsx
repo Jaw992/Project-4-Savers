@@ -1,23 +1,52 @@
+import { useState, useEffect } from "react";
 import { useAtomValue } from "jotai";
 import { tokenAtom } from "../App";
-
-import { Box, Paper, Typography} from '@mui/material';
+import { clientLoad } from "../services/apiUsers"; 
+import { Box, Paper, Typography, CircularProgress, Alert } from '@mui/material';
 
 export default function ClientDetailsCard() {
+  const token = useAtomValue(tokenAtom);
+  
+  // State to store client data, loading state, and error
+  const [client, setClient] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    const token = useAtomValue(tokenAtom);
+  // Fetch client details when the component mounts
+  useEffect(() => {
+    async function fetchClient() {
+      try {
+        const clientData = await clientLoad(token); 
+        console.log("Client data:", clientData[0]);
+        setClient(clientData[0]); 
+      } catch (err) {
+        setError(err.message); 
+      } finally {
+        setLoading(false); 
+      }
+    }
 
-    return (
-        <>
-            <Box className="summaryCard" component="form" noValidate autoComplete="off">
-                <Paper elevation={10} square={false} sx={{ padding: 3}}>
-                    <Box>
-                        <Typography variant='h5' sx={{ fontWeight: 600 }}>Name: Client</Typography>
-                        <Typography variant='h5' sx={{ fontWeight: 600 }}>Email: client@gmail.com</Typography>
-                        <Typography variant='h5' sx={{ fontWeight: 600 }}>Contact: 97304752</Typography>       
-                    </Box>
-                </Paper>
-            </Box>
-        </>
-    )
+    fetchClient();
+  }, [token]); 
+
+  // Conditional rendering based on loading, error, and client state
+  if (loading) {
+    return <CircularProgress />; // Show a loading spinner while fetching data
+  }
+
+  if (error) {
+    return <Alert severity="error">{error}</Alert>; // Show error message if an error occurs
+  }
+
+  return (
+    <Box className="summaryCard" component="form" noValidate autoComplete="off">
+      <Paper elevation={10} square={false} sx={{ padding: 3 }}>
+        <Box>
+          <Typography variant='h5' sx={{ fontWeight: 600 }}>Name: {client?.name || "N/A"}</Typography>
+          <Typography variant='h5' sx={{ fontWeight: 600 }}>Email: {client?.email || "N/A"}</Typography>
+          <Typography variant='h5' sx={{ fontWeight: 600 }}>Contact: {client?.contact || "N/A"}</Typography>
+        </Box>
+      </Paper>
+    </Box>
+  );
 }
