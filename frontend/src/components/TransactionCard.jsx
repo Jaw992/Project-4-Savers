@@ -120,7 +120,7 @@ export default function TransactionCard() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await createTransaction(transactionData);
+            await createTransaction(transactionData, token);
             setError('Transaction successful!');
 
             setTransactionData({

@@ -146,7 +146,7 @@ export default function TransferCard() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await createTransfer(transferData);  
+            await createTransfer(transferData, token);  
             setError('Transfer successful!');
 
             setTransferData({
@@ -193,23 +193,29 @@ export default function TransferCard() {
 
                     {/* To Account Field */}
                     <Box sx={{ marginBottom: 2 }}>
-                        <FormControl sx={{ width: "300px", mb: 1 }}>
+                        {/* <FormControl sx={{ width: "300px", mb: 1 }}> */}
                             <TextField
-                                select
+                                // select
+                                // label="To Account"
+                                // fullWidth
+                                id="toAccount"
                                 label="To Account"
                                 fullWidth
+                                margin="dense"
+                                variant="outlined"
+                                type="text"
                                 name="receiver_account_number"
                                 value={transferData.toAccount}
                                 onChange={handleChange}
                                 required
                             >
-                                {accounts.map((account) => (
+                                {/* {accounts.map((account) => (
                                     <MenuItem key={account.id} value={account.account_number}>
                                         {account.account_number}
                                     </MenuItem>
-                                ))}
+                                ))} */}
                             </TextField>
-                        </FormControl>
+                        {/* </FormControl> */}
                     </Box>
 
                     {/* Purpose Field */}
