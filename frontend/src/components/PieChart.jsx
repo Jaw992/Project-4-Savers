@@ -74,8 +74,8 @@ export default function PieChart() {
             <div className="piechart">
                 <Chart
                     chartType="PieChart"
-                    width="550px"
-                    height="500px"
+                    width="500px"
+                    height="400px"
                     data={data}
                     options={options}
                 />
