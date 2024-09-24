@@ -1,12 +1,14 @@
+import { extractPayload } from "../utils/jwUtils";
+
 //* All Accounts
-export async function allAccountsLoad() {
+export async function allAccountsLoad(token) {
     const url = `/api/accounts/`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
@@ -21,15 +23,39 @@ export async function allAccountsLoad() {
   }
 }
 
-//* Get all accounts and total balance for a specific user
-export async function sumLoad() {
-  const url = `/api/accounts/sum`;
+//* All Accounts for Rm Table
+export async function getRmTable(token) {
+  const url = `/api/accounts/rmtable`;
   try {
     const response = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
+//* Get all accounts and total balance for a specific user
+export async function sumLoad(token) {
+  const user_id = extractPayload(token).id;
+  const url = `/api/accounts/sum/${user_id}`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     if (!response.ok) {
@@ -45,14 +71,14 @@ export async function sumLoad() {
 }
 
 //* Get Single Account 
-export async function accountLoad(id) {
+export async function accountLoad(id, token) {
     const url = `/api/accounts/${id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       if (!response.ok) {
@@ -68,15 +94,16 @@ export async function accountLoad(id) {
 }
 
 //* Create Accounts
-export async function createAccount(data) {
-    const url = `/api/accounts/create`;
+export async function createAccount(data, token) {
+    const manager_id = extractPayload(token).id;
+    const url = `/api/accounts/create/${manager_id}`;
     try {
       // const token = localStorage.getItem("authToken");
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data),
       });
@@ -102,15 +129,15 @@ export async function createAccount(data) {
     }
   }
 
-  //* Delete Accounts
-export async function deleteAccount(id) {
-    const url = `/api/accounts/delete/${id}`;
+//* Delete Accounts
+export async function deleteAccount(token) {
+    const url = `/api/accounts/delete`;
     try {
         const response = await fetch(url, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                // Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
         });
         if (!response.ok) {

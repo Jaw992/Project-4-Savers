@@ -1,3 +1,8 @@
+// import { useAtomValue } from "jotai";
+// import { tokenAtom } from "../App";
+// import { useState, useEffect } from 'react';
+// import { getRmTable } from "../services/apiAccounts";
+
 // import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { 
@@ -6,8 +11,9 @@ import {
     TableContainer, 
     TableHead, 
     TableRow,
+    Box,
     Button, 
-    Paper } 
+    Paper,} 
 from "@mui/material";
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
@@ -30,50 +36,69 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       border: 0,
     },
   }));
-  
-  function createData(client, accounts, rm) {
-    return { client, accounts, rm };
-  }
-  
-  const rows = [
-    createData('Alex Wong', 2, 'John Smith'),
-    createData('Sam Lee', 0, 'John Smith'),
-  ];
 
-export default function RmTableList() {
+export default function RmTableList({ getList }) {
+
+  // const token = useAtomValue(tokenAtom);
+
+//   const [getList, setGetList] = useState([]);
+//   const [error, setError] = useState(null);
+
+//   console.log(error);
+
+//   useEffect(() => {
+//     const fetchTableData = async () => {
+//         try {
+//             const data = await getRmTable(token);  
+//             setGetList(data);  
+//         } catch (err) {
+//             console.error('Error fetching RM table data:', err.message);
+//             setError('Failed to fetch data. Please try again later.');
+//         }
+//     };
+
+//     fetchTableData();
+// }, [token]);
+
      return (
-        <div className="rmPages">
+        <>
             <h1>All Client List</h1>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
                         <TableRow>
                             <StyledTableCell>Client</StyledTableCell>
-                            <StyledTableCell align="center">Accounts Opened</StyledTableCell>
+                            <StyledTableCell align="center">Account Number</StyledTableCell>
+                            <StyledTableCell align="center">Account Type</StyledTableCell>
                             <StyledTableCell align="center">Relationship Manager</StyledTableCell>
-                            <StyledTableCell align="center">Assign</StyledTableCell>
-                            <StyledTableCell align="center">Manage Account</StyledTableCell>
+                            <StyledTableCell align="center">Account Closure</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.client}>
+                    {getList.length > 0 ? (
+                        getList.map((list) => (
+                        <StyledTableRow key={list.client_name}>
                             <StyledTableCell component="th" scope="row">
-                                {row.client}
+                                {list.client_name}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.accounts}</StyledTableCell>
-                            <StyledTableCell align="center">{row.rm}</StyledTableCell>
+                            <StyledTableCell align="center">{list.account_number}</StyledTableCell>
+                            <StyledTableCell align="center">{list.account_type}</StyledTableCell>
+                            <StyledTableCell align="center">{list.rm_name}</StyledTableCell>
                             <StyledTableCell align="center">
-                                <Button variant='outlined'>Assign</Button>
-                            </StyledTableCell>
-                            <StyledTableCell align="center">
-                                <Button href="/rm-manage-accounts">Create/Delete</Button>
+                              <Box className="acc_close">
+                              <Button variant='outlined' color='error' sx={{ marginLeft: 1}}>Close</Button>
+                              </Box>
                             </StyledTableCell>
                         </StyledTableRow>
-                    ))}
+                    ))
+                  ) : (
+                    <StyledTableRow>
+                        <StyledTableCell colSpan={5} align="center">No data available</StyledTableCell>
+                    </StyledTableRow>
+                    )}
                     </TableBody>
                 </Table>
             </TableContainer>
-            </div>
+            </>
      );
 }

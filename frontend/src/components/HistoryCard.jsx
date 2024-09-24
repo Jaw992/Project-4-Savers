@@ -1,16 +1,22 @@
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
+
 import { useEffect, useState } from 'react';
 import { Container, Box, Paper, Typography } from '@mui/material';
 import { allTransactions } from '../services/apiTransactions';
 import { formatDate } from '../utils/formatDate'; 
 
 export default function HistoryCard() {
+
+    const token = useAtomValue(tokenAtom);
+
     const [transactions, setTransactions] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchTransactions = async () => {
             try {
-                const data = await allTransactions();
+                const data = await allTransactions(token);
                 setTransactions(data);
             } catch (error) {
                 setError(error.message);
@@ -18,7 +24,7 @@ export default function HistoryCard() {
         };
 
         fetchTransactions();
-    }, []);
+    }, [token]);
 
     if (error) {
         return (

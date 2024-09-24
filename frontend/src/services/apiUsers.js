@@ -1,4 +1,4 @@
-import { extractPayload } from "../../utils/jwUtils";
+import { extractPayload } from "../utils/jwUtils";
 
 //* User Signup
 export async function userSignup(data) {
@@ -16,13 +16,17 @@ export async function userSignup(data) {
         
         // Handle specific status codes
         if (response.status === 400) {
-          throw new Error(errorResponse.message || "User already exists.");
+          if (errorResponse.message.includes("username already exists")) {
+            throw new Error("Username already exists.");
+          } else {
+            throw new Error(errorResponse.message || "All fields are required.");
+          }
         } else if (response.status === 500) {
           throw new Error(errorResponse.error || "Internal server error.");
         } else {
           throw new Error(`Unexpected error: ${response.status}`);
         }
-      }
+    }
   
       // If successful, return token
       const json = await response.json();

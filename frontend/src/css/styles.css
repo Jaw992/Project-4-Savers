@@ -87,6 +87,12 @@ body {
     padding: 10px 35px 0px 35px;
 }
 
+.acc_close{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Client Transaction Pages */
 .clientPages {
     height: 100vh;

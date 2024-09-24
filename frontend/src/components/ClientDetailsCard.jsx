@@ -1,6 +1,11 @@
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
+
 import { Box, Paper, Typography} from '@mui/material';
 
 export default function ClientDetailsCard() {
+
+    const token = useAtomValue(tokenAtom);
 
     return (
         <>

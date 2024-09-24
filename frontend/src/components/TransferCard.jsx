@@ -95,13 +95,19 @@
 //     )
 // }
 
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
 import { useState, useEffect } from 'react';
 import { Container, Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
 import { createTransfer } from '../services/apiTransactions';  
 import { allAccountsLoad } from '../services/apiAccounts';  
 
 export default function TransferCard() {
+
+    const token = useAtomValue(tokenAtom);
+    
     const [accounts, setAccounts] = useState([]);
+    const [error, setError] = useState(null);
     const [transferData, setTransferData] = useState({
         transaction_type: 'transfer',
         sender_account_number: '',
@@ -113,14 +119,14 @@ export default function TransferCard() {
     useEffect(() => {
         const fetchAccounts = async () => {
             try {
-                const response = await allAccountsLoad();
+                const response = await allAccountsLoad(token);
                 setAccounts(response);
             } catch (error) {
                 console.error('Error fetching accounts:', error.message);
             }
         };
         fetchAccounts();
-    }, []);
+    }, [token]);
 
     const handleChange = (e) => {
         setTransferData({
@@ -141,10 +147,19 @@ export default function TransferCard() {
         e.preventDefault();
         try {
             await createTransfer(transferData);  
-            alert('Transfer successful!');
+            setError('Transfer successful!');
+
+            setTransferData({
+                transaction_type: 'transfer',
+                sender_account_number: '',
+                receiver_account_number: '',
+                purpose: '',
+                amount: '',
+            });
+            
         } catch (error) {
             console.error('Error processing transfer:', error.message);
-            alert(error.message);
+            setError(error.message);
         }
     };
 
@@ -153,6 +168,7 @@ export default function TransferCard() {
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Transfers</Typography>
+                    {error && <Typography color="error">{error}</Typography>} {/* Display error message */}
                     
                     {/* From Account Field */}
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>

@@ -71,13 +71,19 @@
 //     )
 // }
 
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
 import { useState, useEffect } from 'react';
 import { Container, Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
 import { createTransaction } from '../services/apiTransactions'; 
 import { allAccountsLoad } from '../services/apiAccounts'; 
 
 export default function TransactionCard() {
+
+    const token = useAtomValue(tokenAtom);
+
     const [accounts, setAccounts] = useState([]);
+    const [error, setError] = useState(null);
     const [transactionData, setTransactionData] = useState({
         account_number: '',
         transaction_type: '',
@@ -87,14 +93,14 @@ export default function TransactionCard() {
     useEffect(() => {
         const getAccounts = async () => {
             try {
-                const response = await allAccountsLoad();
+                const response = await allAccountsLoad(token);
                 setAccounts(response); 
             } catch (error) {
                 console.error("Error fetching accounts:", error.message);
             }
         };
         getAccounts();
-    }, []);
+    }, [token]);
 
     const handleChange = (e) => {
         setTransactionData({
@@ -115,10 +121,17 @@ export default function TransactionCard() {
         e.preventDefault();
         try {
             await createTransaction(transactionData);
-            alert('Transaction successful!');
+            setError('Transaction successful!');
+
+            setTransactionData({
+                account_number: '',
+                transaction_type: '',
+                amount: '',
+            });
+
         } catch (error) {
             console.error('Error submitting transaction:', error.message);
-            alert(error.message);
+            setError(error.message);
         }
     };
 
@@ -127,6 +140,7 @@ export default function TransactionCard() {
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Deposit / Withdrawal</Typography>
+                    {error && <Typography color="error">{error}</Typography>} {/* Display error message */}
                     
                     {/* Account Number Field */}
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>
