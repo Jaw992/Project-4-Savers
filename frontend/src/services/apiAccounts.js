@@ -103,8 +103,8 @@ export async function createAccount(data, token) {
   }
 
 //* Delete Accounts
-export async function deleteAccount(id, token) {
-    const url = `/api/accounts/delete/${id}`;
+export async function deleteAccount(token) {
+    const url = `/api/accounts/delete`;
     try {
         const response = await fetch(url, {
             method: "DELETE",
