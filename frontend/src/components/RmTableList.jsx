@@ -45,6 +45,8 @@ export default function RmTableList() {
   const [getList, setGetList] = useState([]);
   const [error, setError] = useState(null);
 
+  console.log(error);
+
   useEffect(() => {
     const fetchTableData = async () => {
         try {
@@ -74,7 +76,8 @@ export default function RmTableList() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {getList.map((list) => (
+                    {getList.length > 0 ? (
+                        getList.map((list) => (
                         <StyledTableRow key={list.client_name}>
                             <StyledTableCell component="th" scope="row">
                                 {list.client_name}
@@ -99,7 +102,12 @@ export default function RmTableList() {
                               </Box>
                             </StyledTableCell>
                         </StyledTableRow>
-                    ))}
+                    ))
+                  ) : (
+                    <StyledTableRow>
+                        <StyledTableCell colSpan={5} align="center">No data available</StyledTableCell>
+                    </StyledTableRow>
+                    )}
                     </TableBody>
                 </Table>
             </TableContainer>
