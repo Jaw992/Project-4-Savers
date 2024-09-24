@@ -73,9 +73,9 @@ export default function AccountsCard() {
         const fetchAccounts = async () => {
             try {
                 const response = await allAccountsLoad(token);
-                const getSum = await sumLoad(token);
+                // const getSum = await sumLoad(token);
                 setAccounts(response);
-                setTotalBalance(getSum.total_balance);
+                // setTotalBalance(getSum.total_balance);
             } catch (error) {
                 console.error('Error fetching accounts:', error.message);
             }
