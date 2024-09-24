@@ -26,7 +26,7 @@ export default function Footer () {
             </footer>
 
             {/*Test Routes */}
-            <div className="bg-light py-3">
+            {/* <div className="bg-light py-3">
             <Box
                 sx={{
                     display: 'flex',
@@ -66,7 +66,7 @@ export default function Footer () {
                         {'Client Transfers Page'}
                     </Link>
                 </Box>
-            </div>
+            </div> */}
         </>
     )
 }
