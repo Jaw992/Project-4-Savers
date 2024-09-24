@@ -81,7 +81,6 @@ export default function LoginPage() {
                         color="primary"
                         type="submit"
                         sx={{ mt: 2 }}
-                        // onClick={handleLogin}
                     >
                         Sign In
                     </Button>
