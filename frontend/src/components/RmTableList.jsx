@@ -1,5 +1,8 @@
 import { useAtomValue } from "jotai";
 import { tokenAtom } from "../App";
+import { useState, useEffect } from 'react';
+import { getRmTable } from "../services/apiAccounts";
+
 // import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { 
@@ -34,19 +37,27 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       border: 0,
     },
   }));
-  
-  function createData(client, accounts, type, rm) {
-    return { client, accounts, type, rm };
-  }
-  
-  const rows = [
-    createData('Alex Wong', '01-001-045', 'Savings','John Smith'),
-    createData('Sam Lee', '01-001-046', 'Savings', 'John Smith'),
-  ];
 
 export default function RmTableList() {
 
   const token = useAtomValue(tokenAtom);
+
+  const [getList, setGetList] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTableData = async () => {
+        try {
+            const data = await getRmTable(token);  
+            setGetList(data);  
+        } catch (err) {
+            console.error('Error fetching RM table data:', err.message);
+            setError('Failed to fetch data. Please try again later.');
+        }
+    };
+
+    fetchTableData();
+}, [token]);
 
      return (
         <>
@@ -63,14 +74,14 @@ export default function RmTableList() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.client}>
+                    {getList.map((list) => (
+                        <StyledTableRow key={list.client_name}>
                             <StyledTableCell component="th" scope="row">
-                                {row.client}
+                                {list.client_name}
                             </StyledTableCell>
-                            <StyledTableCell align="center">{row.accounts}</StyledTableCell>
-                            <StyledTableCell align="center">{row.type}</StyledTableCell>
-                            <StyledTableCell align="center">{row.rm}</StyledTableCell>
+                            <StyledTableCell align="center">{list.account_number}</StyledTableCell>
+                            <StyledTableCell align="center">{list.account_type}</StyledTableCell>
+                            <StyledTableCell align="center">{list.rm_name}</StyledTableCell>
                             <StyledTableCell align="center">
                               <Box className="acc_close">
                                 <TextField

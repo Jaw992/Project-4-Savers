@@ -23,6 +23,29 @@ export async function allAccountsLoad(token) {
   }
 }
 
+//* All Accounts for Rm Table
+export async function getRmTable(token) {
+  const url = `/api/accounts/rmtable`;
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
 //* Get all accounts and total balance for a specific user
 export async function sumLoad(token) {
   const user_id = extractPayload(token).id;

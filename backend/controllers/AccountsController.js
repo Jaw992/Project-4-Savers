@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 //* Get all created accounts with client and relationship manager names from data_warehouse
 router.get("/rmtable", async (req, res) => {
-  const acclist = await pool.query("SELECT * FROM account_creation");
+  const acclist = await pool.query("SELECT * FROM account_creation ORDER BY client_name, account_number");
   res.status(200).json(acclist.rows);
 });
 
