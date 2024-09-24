@@ -236,4 +236,22 @@ router.post("/transfer", async (req, res) => {
   }
 });
 
+//* Get total_transaction summary
+router.get("/summary/:user_id", async (req, res) => {
+  const user_id = req.user.id;
+  try{ 
+      const summary = await pool.query('SELECT * FROM total_transaction WHERE user_id = $1', [user_id]);
+
+      // Check if the summary exists
+      if (summary.rows.length === 0) {
+          return res.status(404).json({ message: "No transaction summary found for this user." });
+      }
+
+      res.status(200).json(summary.rows);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error'});
+  }
+});
+
 module.exports = router;

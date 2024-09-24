@@ -146,3 +146,37 @@ export async function createTransfer(data, token) {
         throw error;
     }
 }
+
+//* Get Transaction Summary for piechart
+export async function transactionSummary(token) {
+    const user_id = extractPayload(token).id;
+    const url = `/api/transactions/summary/${user_id}`;
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!response.ok) {
+            const errorResponse = await response.json();
+
+            // Handle specific status codes
+            if (response.status === 404) {
+                throw new Error(errorResponse.message || "No transaction summary found for this user.");
+            } else if (response.status === 500) {
+                throw new Error("Internal server error. Please try again later.");
+            } else {
+                throw new Error(`Unexpected error: ${response.status}`);
+            }
+        }
+
+        // If successful, return the transactions data
+        const json = await response.json();
+        return json; 
+    } catch (error) {
+        console.error("Error fetching transactions:", error.message);
+        throw error;
+    }
+}
