@@ -1,3 +1,5 @@
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
 // import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { 
@@ -43,6 +45,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   ];
 
 export default function RmTableList() {
+
+  const token = useAtomValue(tokenAtom);
+
      return (
         <>
             <h1>All Client List</h1>

@@ -71,12 +71,17 @@
 //     )
 // }
 
+import { useAtomValue } from "jotai";
+import { tokenAtom } from "../App";
 import { useState, useEffect } from 'react';
 import { Container, Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
 import { createTransaction } from '../services/apiTransactions'; 
 import { allAccountsLoad } from '../services/apiAccounts'; 
 
 export default function TransactionCard() {
+
+    const token = useAtomValue(tokenAtom);
+
     const [accounts, setAccounts] = useState([]);
     const [transactionData, setTransactionData] = useState({
         account_number: '',
@@ -87,14 +92,14 @@ export default function TransactionCard() {
     useEffect(() => {
         const getAccounts = async () => {
             try {
-                const response = await allAccountsLoad();
+                const response = await allAccountsLoad(token);
                 setAccounts(response); 
             } catch (error) {
                 console.error("Error fetching accounts:", error.message);
             }
         };
         getAccounts();
-    }, []);
+    }, [token]);
 
     const handleChange = (e) => {
         setTransactionData({

@@ -25,6 +25,8 @@ function App() {
 
   const token = useAtomValue(tokenAtom);
 
+  console.log(token);
+
   return (
     <>
       <SaversBar />
