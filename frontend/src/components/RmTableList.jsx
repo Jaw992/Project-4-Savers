@@ -77,7 +77,7 @@ export default function RmTableList({ getList }) {
                     <TableBody>
                     {getList.length > 0 ? (
                         getList.map((list) => (
-                        <StyledTableRow key={list.client_name}>
+                        <StyledTableRow key={list.account_id}>
                             <StyledTableCell component="th" scope="row">
                                 {list.client_name}
                             </StyledTableCell>
