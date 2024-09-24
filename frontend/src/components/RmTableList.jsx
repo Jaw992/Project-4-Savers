@@ -39,6 +39,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function RmTableList({ getList }) {
 
+  console.log(getList)
   // const token = useAtomValue(tokenAtom);
 
 //   const [getList, setGetList] = useState([]);

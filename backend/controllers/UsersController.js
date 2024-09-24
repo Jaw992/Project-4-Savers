@@ -87,7 +87,8 @@ router.get("/client", verifyToken, async (req, res) => {
 
 //* Get a single client users
 router.get("/client/:id", verifyToken, async (req, res) => {
-    const { id } = req.params;
+    // const { id } = req.params;
+    const id = req.user.id
     try {
         const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
         
@@ -111,11 +112,17 @@ router.get("/manager", verifyToken, verifyManager, async (req, res) => {
     }
 });
 
-//* Get a single relationship manager users
-router.get("/manager/:id", verifyToken, verifyManager, async (req, res) => {
-    const { id } = req.params;
+//* Get a single relationship manager users according to client assignment of rm during account creation
+router.get("/manager/:user_id", verifyToken, async (req, res) => {
+    // const { id } = req.params;
+    const user_id = req.user.id
     try {
-        const user = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+        const user = await pool.query(
+            `SELECT u.id, u.username, u.name, u.email, u.contact
+            FROM accounts a
+            JOIN users u ON a.manager_id = u.id
+            WHERE a.user_id = $1;`, [user_id]
+        );
 
         // Check if the relationship manager was found
         if (user.rows.length === 0) {
@@ -128,19 +135,67 @@ router.get("/manager/:id", verifyToken, verifyManager, async (req, res) => {
 });
 
 //* Update particulars of client users
+// router.put("/update-particulars/:id", verifyToken, async (req, res) => {
+//     const { id } = req.params;
+//     const { name, email, contact } = req.body;
+//     try {
+//         if (!name || !email || !contact) {
+//             return res.status(400).json({ message: 'Name, email, and contact are required.' });
+//         }
+
+//         const updateUser = await pool.query(
+//             'UPDATE users SET name = $1, email = $2, contact = $3 WHERE id = $4 RETURNING *',
+//             [name, email, contact, id]);
+//         res.status(200).json(updateUser.rows[0]);
+//     } catch (error) {
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
+
+//* Update particulars of client users
 router.put("/update-particulars/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
     const { name, email, contact } = req.body;
-    try {
-        if (!name || !email || !contact) {
-            return res.status(400).json({ message: 'Name, email, and contact are required.' });
-        }
 
-        const updateUser = await pool.query(
-            'UPDATE users SET name = $1, email = $2, contact = $3 WHERE id = $4 RETURNING *',
-            [name, email, contact, id]);
+    // Prepare an array to hold the updates
+    const updates = [];
+    const values = [];
+
+    // Check for each field and add to the updates array
+    if (name) {
+        updates.push(`name = $${updates.length + 1}`);
+        values.push(name);
+    }
+    if (email) {
+        updates.push(`email = $${updates.length + 1}`);
+        values.push(email);
+    }
+    if (contact) {
+        updates.push(`contact = $${updates.length + 1}`);
+        values.push(contact);
+    }
+
+    // If there are no fields to update, return a 400 error
+    if (updates.length === 0) {
+        return res.status(400).json({ message: 'Please fill out at least one field to update.' });
+    }
+
+    // Add the id to the end of the values array
+    values.push(id);
+
+    // Create the final SQL query string
+    const query = `
+        UPDATE users
+        SET ${updates.join(", ")}
+        WHERE id = $${values.length}
+        RETURNING *
+    `;
+
+    try {
+        const updateUser = await pool.query(query, values);
         res.status(200).json(updateUser.rows[0]);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

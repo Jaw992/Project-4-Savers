@@ -109,7 +109,7 @@ export async function allClientLoad(token) {
 
 //* Client Profile
 export async function clientLoad(token) {
-    const id = extractPayload(token)._id;
+    const id = extractPayload(token).id;
     const url = `/api/users/client/${id}`;
     try {
       const response = await fetch(url, {
@@ -143,8 +143,8 @@ export async function clientLoad(token) {
 
 //* Relationship Manager Profile
 export async function rmLoad(token) {
-    const id = extractPayload(token)._id;
-    const url = `/api/users/manager/${id}`;
+    const user_id = extractPayload(token).id;
+    const url = `/api/users/manager/${user_id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -176,8 +176,8 @@ export async function rmLoad(token) {
 }
 
 //* Update particulars of client
-export async function updateUserParticulars(token, id, data) {
-    const url = `/api/update-particulars/${id}`;
+export async function updateUserParticulars(token, id, updatedData) {
+    const url = `/api/users/update-particulars/${id}`;
     try {
       const response = await fetch(url, {
         method: "PUT",
@@ -185,7 +185,7 @@ export async function updateUserParticulars(token, id, data) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(updatedData),
       });
       if (!response.ok) {
         const errorResponse = await response.json();

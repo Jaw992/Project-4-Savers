@@ -40,7 +40,7 @@ body {
 
 .bg-footer {
     background-color: #0D4A83;
-    padding: 2rem;
+    padding: 1rem;
     color: white;
   }
 
@@ -110,13 +110,18 @@ body {
 }
 
 .piechart {
-  width: 10%;
-  padding: 20px 300px 50px 350px;
+  /* width: 10%;
+  padding: 20px 300px 50px 150px; */
+  width: 45%; 
+  height: 500px;
+  display: flex;
+  justify-content: end;
 }
 
 .pieAndsummary {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 /* Client Profile Page */

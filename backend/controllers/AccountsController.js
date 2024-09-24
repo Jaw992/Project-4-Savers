@@ -7,13 +7,15 @@ const pool = require("../config/db");
 router.use(verifyToken);
 
 //* Get all accounts
-router.get("/", async (req, res) => {
-    const accounts = await pool.query("SELECT * FROM accounts");
-    res.status(200).json(accounts.rows);
+router.get("/:user_id", async (req, res) => {
+  const user_id = req.user.id;
+  const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1", [user_id]);
+  res.status(200).json(accounts.rows);
 });
 
 //* Get all created accounts with client and relationship manager names from data_warehouse
-router.get("/rmtable", async (req, res) => {
+router.get("/rmtable/:manager_id", async (req, res) => {
+  const manager_id = req.user.id;
   const acclist = await pool.query("SELECT * FROM account_creation ORDER BY client_name, account_number");
   res.status(200).json(acclist.rows);
 });
