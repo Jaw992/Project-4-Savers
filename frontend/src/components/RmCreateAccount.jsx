@@ -5,15 +5,29 @@ export default function RmCreateAccount() {
     return (
         <>
         <Container maxWidth='sm'>
-        <Box component="form" noValidate autoComplete="off" sx={{ paddingTop: 10 }}>
+        <Box component="form" noValidate autoComplete="off" sx={{ paddingTop: 3 }}>
             <Paper elevation={10} sx={{ padding: 6}}>    
                 <Typography variant='h6' sx={{ fontWeight: 500 }}>Create Account</Typography>
                 <Box sx={{ marginBottom: 2, marginTop: 2 }}>
-                    <FormControl sx={{ width: "300px", mb: 1 }}>
+                    <FormControl sx={{ width: "455px", mb: 1 }}>
+                        <TextField
+                            select
+                            label="Client"
+                            name="client"
+                            value=''
+                            onChange=''
+                            required
+                        >
+                        <MenuItem>Alex Wong</MenuItem>
+                        <MenuItem>Sam Lee</MenuItem>
+                        </TextField>
+                    </FormControl>
+                </Box>
+                <Box sx={{ marginBottom: 2 }}>
+                    <FormControl sx={{ width: "455px", mb: 1 }}>
                         <TextField
                             select
                             label="Account Type"
-                            fullWidth
                             name="accounttype"
                             value=''
                             onChange=''
@@ -21,11 +35,6 @@ export default function RmCreateAccount() {
                         >
                         <MenuItem>Savings</MenuItem>
                         <MenuItem>Student</MenuItem>
-                        {/* {accounts.map((account) => (
-                        <MenuItem key={account._id} value={account._id}>
-                            {account._id}
-                        </MenuItem>
-                        ))} */}
                         </TextField>
                     </FormControl>
                 </Box>
@@ -43,6 +52,20 @@ export default function RmCreateAccount() {
                         required
                     />
                 </Box>
+                <Box sx={{ marginBottom: 2 }}>
+                    <TextField
+                        id="balance"
+                        label="Amount"
+                        fullWidth
+                        margin="dense"
+                        variant="outlined"
+                        type="number"
+                        name="balance"
+                        value=''
+                        onChange=''
+                        required
+                    />
+                </Box>
                 <Button
                     size='large'
                     variant="contained"
@@ -51,7 +74,7 @@ export default function RmCreateAccount() {
                     onClick=''
                     // disabled=''
                 >
-                Sign Up
+                Create
                 </Button>
                 </Paper>
         </Box>
