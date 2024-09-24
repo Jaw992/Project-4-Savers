@@ -41,10 +41,11 @@ export default function LoginPage() {
 
     return (
         <>
-            <h1 className='header'> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
+        <div className='background'>
+            <h1 className='header' style={{ color: 'white' }}> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
 
             <Container className='loginPage' maxWidth='sm'>
-                <Box component="form" noValidate autoComplete="off" onSubmit={handleLogin}>
+                <Box component="form" noValidate autoComplete="off" onSubmit={handleLogin} sx={{ color: 'white' }}>
                     <Typography variant='h4' sx={{ fontWeight: 700 }}>Login</Typography>
                     <p>Log in by entering your username and password</p>
                     {error && <Typography color="error">{error}</Typography>} 
@@ -59,6 +60,23 @@ export default function LoginPage() {
                             name="username"
                             onChange={handleChange}
                             required
+                            sx={{
+                                label: {
+                                  color: 'lightblue',
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                  '& fieldset': {
+                                    borderColor: 'white',
+                                    borderWidth: 2,  
+                                  },
+                                  '&:hover fieldset': {
+                                    borderColor: 'lightgray',
+                                  },
+                                  '&.Mui-focused fieldset': {
+                                    borderColor: 'gray',  
+                                  },
+                                },
+                              }}
                         />
                     </Box>
                     <Box sx={{ marginBottom: 3 }}>
@@ -73,28 +91,55 @@ export default function LoginPage() {
                             name="password"
                             onChange={handleChange}
                             required
+                            sx={{
+                                label: {
+                                  color: 'lightblue',
+                                },
+                                '& .MuiOutlinedInput-root': {
+                                  '& fieldset': {
+                                    borderColor: 'white',
+                                    borderWidth: 2,  
+                                  },
+                                  '&:hover fieldset': {
+                                    borderColor: 'lightgray',
+                                  },
+                                  '&.Mui-focused fieldset': {
+                                    borderColor: 'gray',  
+                                  },
+                                },
+                              }}
                         />
                     </Box>
                     <Button
-                        fullWidth
+                        // fullWidth
                         variant="contained"
                         color="primary"
                         type="submit"
-                        sx={{ mt: 2 }}
+                        sx={{ width: 300, mt: 2 }}
                     >
                         Sign In
                     </Button>
                     <Button
-                        fullWidth
+                        // fullWidth
                         variant="outlined"
-                        color="primary"
-                        sx={{ mt: 2 }}
+                        color="secondary"
+                        sx={{ 
+                            width: 300,
+                            color: 'lightblue',               
+                            borderColor: 'white',
+                            borderWidth: 2,    
+                            '&:hover': {
+                              backgroundColor: 'lightgray', 
+                              borderColor: 'gray',   
+                            },mt: 2 
+                        }}
                         onClick={handleNew}
                     >
                         New Account
                     </Button>
                 </Box>
             </Container>
+            </div>
         </>
     );
 }
