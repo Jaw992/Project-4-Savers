@@ -178,7 +178,7 @@ export default function TransferCard() {
                                 label="From Account"
                                 fullWidth
                                 name="sender_account_number"
-                                value={transferData.fromAccount}
+                                value={transferData.sender_account_number}
                                 onChange={handleChange}
                                 required
                             >
@@ -205,7 +205,7 @@ export default function TransferCard() {
                                 variant="outlined"
                                 type="text"
                                 name="receiver_account_number"
-                                value={transferData.toAccount}
+                                value={transferData.receiver_account_number}
                                 onChange={handleChange}
                                 required
                             >
