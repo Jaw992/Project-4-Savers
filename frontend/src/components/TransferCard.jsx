@@ -148,6 +148,15 @@ export default function TransferCard() {
         try {
             await createTransfer(transferData);  
             setError('Transfer successful!');
+
+            setTransferData({
+                transaction_type: 'transfer',
+                sender_account_number: '',
+                receiver_account_number: '',
+                purpose: '',
+                amount: '',
+            });
+            
         } catch (error) {
             console.error('Error processing transfer:', error.message);
             setError(error.message);
