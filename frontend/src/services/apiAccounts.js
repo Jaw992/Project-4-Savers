@@ -26,7 +26,8 @@ export async function allAccountsLoad(token) {
 
 //* All Accounts for Rm Table
 export async function getRmTable(token) {
-  const url = `/api/accounts/rmtable`;
+  const manager_id = extractPayload(token).id;
+  const url = `/api/accounts/rmtable/${manager_id}`;
   try {
     const response = await fetch(url, {
       method: "GET",
