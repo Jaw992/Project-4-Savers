@@ -32,10 +32,10 @@ function App() {
       <SaversBar />
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/rm-login" element={<RmLoginPage />} />
         {token === "" ? null : (
           <>
         <Route path="/sign-up" element={<SignUpPage />} />
-        <Route path="/rm-login" element={<RmLoginPage />} />
         <Route path="/rm-main" element={<RmMainPage />} />
         <Route path="/rm-manage-accounts" element={<RmManageAccountsPage />} />
         <Route path="/client-main" element={<ClientMainPage />} />
