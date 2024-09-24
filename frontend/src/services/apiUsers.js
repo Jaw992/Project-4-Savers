@@ -176,8 +176,8 @@ export async function rmLoad(token) {
 }
 
 //* Update particulars of client
-export async function updateUserParticulars(token, id, data) {
-    const url = `/api/update-particulars/${id}`;
+export async function updateUserParticulars(token, id, updatedData) {
+    const url = `/api/users/update-particulars/${id}`;
     try {
       const response = await fetch(url, {
         method: "PUT",
@@ -185,7 +185,7 @@ export async function updateUserParticulars(token, id, data) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(updatedData),
       });
       if (!response.ok) {
         const errorResponse = await response.json();

@@ -12,12 +12,10 @@ export default function ClientDetailsCard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch client details when the component mounts
   useEffect(() => {
     async function fetchClient() {
       try {
         const clientData = await clientLoad(token); 
-        console.log("Client data:", clientData[0]);
         setClient(clientData[0]); 
       } catch (err) {
         setError(err.message); 
