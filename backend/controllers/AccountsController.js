@@ -12,6 +12,12 @@ router.get("/", async (req, res) => {
     res.status(200).json(accounts.rows);
 });
 
+//* Get all created accounts with client and relationship manager names from data_warehouse
+router.get("/rmtable", async (req, res) => {
+  const acclist = await pool.query("SELECT * FROM account_creation");
+  res.status(200).json(acclist.rows);
+});
+
 //* Get all accounts and total balance for a specific user
 router.get("/sum", async (req, res) => {
   //!const userId = req.user.id; // Assuming you're using authentication middleware to set req.user
