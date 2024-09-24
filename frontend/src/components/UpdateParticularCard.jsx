@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useAtomValue } from "jotai";
-import { tokenAtom } from "../App"; 
+// import { useAtomValue } from "jotai";
+// import { tokenAtom } from "../App"; 
 import { updateUserParticulars } from "../services/apiUsers";
 import { extractPayload, isValidToken } from "../utils/jwUtils";
 
 import { Container, Box, TextField, Paper, Button, Typography } from '@mui/material';
 
-export default function UpdateParticularCard() {
-    const token = useAtomValue(tokenAtom); 
+export default function UpdateParticularCard({ setClient, token}) {
+    // const token = useAtomValue(tokenAtom); 
 
     const [formData, setFormData] = useState({ 
         name: "", 
@@ -50,7 +50,8 @@ export default function UpdateParticularCard() {
 
         try {
             console.log(updatedData);
-            await updateUserParticulars(token, id, updatedData); 
+            const updatedParts = await updateUserParticulars(token, id, updatedData); 
+            setClient(updatedParts)
             setSuccess(true); 
         } catch (err) {
             setError(err.message || "Failed to update particulars.");

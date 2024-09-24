@@ -1,40 +1,30 @@
-import { useState, useEffect } from "react";
-import { useAtomValue } from "jotai";
-import { tokenAtom } from "../App";
-import { clientLoad } from "../services/apiUsers"; 
-import { Box, Paper, Typography, CircularProgress, Alert } from '@mui/material';
+// import { useState, useEffect } from "react";
+// import { useAtomValue } from "jotai";
+// import { tokenAtom } from "../App";
+// import { clientLoad } from "../services/apiUsers"; 
+import { Box, Paper, Typography } from '@mui/material';
 
-export default function ClientDetailsCard() {
-  const token = useAtomValue(tokenAtom);
+export default function ClientDetailsCard({ client }) {
+  // const token = useAtomValue(tokenAtom);
   
-  // State to store client data, loading state, and error
-  const [client, setClient] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // // State to store client data, loading state, and error
+  // const [client, setClient] = useState([]);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    async function fetchClient() {
-      try {
-        const clientData = await clientLoad(token); 
-        setClient(clientData[0]); 
-      } catch (err) {
-        setError(err.message); 
-      } finally {
-        setLoading(false); 
-      }
-    }
+  // console.log(error);
 
-    fetchClient();
-  }, [token]); 
+  // useEffect(() => {
+  //   async function fetchClient() {
+  //     try {
+  //       const clientData = await clientLoad(token); 
+  //       setClient(clientData[0]); 
+  //     } catch (err) {
+  //       setError(err.message); 
+  //     }
+  //   }
 
-  // Conditional rendering based on loading, error, and client state
-  if (loading) {
-    return <CircularProgress />; // Show a loading spinner while fetching data
-  }
-
-  if (error) {
-    return <Alert severity="error">{error}</Alert>; // Show error message if an error occurs
-  }
+  //   fetchClient();
+  // }, [token]); 
 
   return (
     <Box className="summaryCard" component="form" noValidate autoComplete="off">
