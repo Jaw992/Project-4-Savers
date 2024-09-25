@@ -63,6 +63,10 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 40px;
+    color: rgb(11, 75, 147);
+    width: 60%;
+    background-color: #ffffffd5;
 }
 
 .loginPage {
@@ -74,9 +78,12 @@ body {
 }
 
 .background {
-  background-image: url("../assets/mountain.jpg");
+  height: 110vh;
+  background-image: url("../assets/jewel_fountain.jpg");
   background-size: cover; 
   background-position: center;
+  margin: 0;
+  padding: 0;
 }
 
 /* Signup Page */

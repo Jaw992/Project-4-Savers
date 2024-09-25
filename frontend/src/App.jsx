@@ -1,6 +1,5 @@
 import "./css/styles.css";
 
-// import { useState } from 'react';
 import { Route, Routes } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { atomWithStorage } from "jotai/utils";
@@ -23,8 +22,6 @@ export const tokenAtom = atomWithStorage("token", "");
 function App() {
 
   const token = useAtomValue(tokenAtom);
-
-  console.log(token);
 
   return (
     <>

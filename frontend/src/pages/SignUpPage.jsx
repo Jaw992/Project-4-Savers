@@ -15,6 +15,7 @@ export default function SignUpPage() {
     });
 
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,11 +27,12 @@ export default function SignUpPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(''); // Reset error message
+        setError(''); 
         
         try {
             const token = await userSignup(formData);
-            console.log('User signed up successfully! Token: ', token); //? Console.log
+            console.log(token);
+            setSuccessMessage('User signed up successfully!');
             navigate("/");
         } catch (error) {
             setError(error.message);
@@ -43,6 +45,7 @@ export default function SignUpPage() {
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h5' sx={{ fontWeight: 500 }}>New User Details</Typography>
                     {error && <Typography color="error">{error}</Typography>}
+                    {successMessage && <Typography color="success.main">{successMessage}</Typography>} 
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>
                         <TextField
                             id="username"

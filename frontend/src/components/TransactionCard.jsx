@@ -1,76 +1,3 @@
-// import { Container, Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
-
-// export default function TransactionCard() {
-
-//     return (
-//         <>
-//         <Container maxWidth='sm'>
-//         <Box component="form" noValidate autoComplete="off">
-//             <Paper elevation={10} sx={{ padding: 6}}>    
-//                 <Typography variant='h6' sx={{ fontWeight: 500 }}>Deposit / Withdrawal</Typography>
-//                 <Box sx={{ marginBottom: 2, marginTop: 2 }}>
-//                     <FormControl sx={{ width: "300px", mb: 1 }}>
-//                         <TextField
-//                             select
-//                             label="Account Number"
-//                             fullWidth
-//                             name="accountnumber"
-//                             value=''
-//                             onChange=''
-//                             required
-//                         >
-//                         <MenuItem>01-001-45</MenuItem>
-//                         <MenuItem>01-001-46</MenuItem>
-//                         </TextField>
-//                     </FormControl>
-//                 </Box>
-//                 <Box sx={{ marginBottom: 2 }}>
-//                     <FormControl sx={{ width: "300px", mb: 1 }}>
-//                         <TextField
-//                             select
-//                             label="Transaction Type"
-//                             fullWidth
-//                             name="transactiontype"
-//                             value=''
-//                             onChange=''
-//                             required
-//                         >
-//                         <MenuItem>Deposit</MenuItem>
-//                         <MenuItem>Withdrawal</MenuItem>
-//                         </TextField>
-//                     </FormControl>
-//                 </Box>
-//                 <Box sx={{ marginBottom: 2 }}>
-//                     <TextField
-//                         id="amount"
-//                         label="Amount"
-//                         fullWidth
-//                         margin="dense"
-//                         variant="outlined"
-//                         type="number"
-//                         name="amount"
-//                         value=''
-//                         onChange=''
-//                         required
-//                     />
-//                 </Box>
-//                 <Button
-//                     size='large'
-//                     variant="contained"
-//                     color="primary"
-//                     type="submit"
-//                     onClick=''
-//                     // disabled=''
-//                 >
-//                 Submit
-//                 </Button>
-//                 </Paper>
-//         </Box>
-//         </Container>
-//         </>
-//     )
-// }
-
 import { useAtomValue } from "jotai";
 import { tokenAtom } from "../App";
 import { useState, useEffect } from 'react';
@@ -84,6 +11,7 @@ export default function TransactionCard() {
 
     const [accounts, setAccounts] = useState([]);
     const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState('');
     const [transactionData, setTransactionData] = useState({
         account_number: '',
         transaction_type: '',
@@ -122,7 +50,7 @@ export default function TransactionCard() {
         e.preventDefault();
         try {
             await createTransaction(transactionData, token);
-            setError('Transaction successful!');
+            setSuccessMessage('Transaction successful!');
 
             setTransactionData({
                 account_number: '',
@@ -142,9 +70,9 @@ export default function TransactionCard() {
             <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Deposit / Withdrawal</Typography>
-                    {error && <Typography color="error">{error}</Typography>} {/* Display error message */}
+                    {error && <Typography color="error">{error}</Typography>}
+                    {successMessage && <Typography color="success.main">{successMessage}</Typography>} 
                     
-                    {/* Account Number Field */}
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>
                         <FormControl sx={{ width: "300px", mb: 1 }}>
                             <TextField
@@ -165,7 +93,6 @@ export default function TransactionCard() {
                         </FormControl>
                     </Box>
 
-                    {/* Transaction Type Field */}
                     <Box sx={{ marginBottom: 2 }}>
                         <FormControl sx={{ width: "300px", mb: 1 }}>
                             <TextField
@@ -223,7 +150,6 @@ export default function TransactionCard() {
                         </Box>
                     )}
 
-                    {/* Amount Field */}
                     <Box sx={{ marginBottom: 2 }}>
                         <TextField
                             id="amount"
@@ -239,7 +165,6 @@ export default function TransactionCard() {
                         />
                     </Box>
 
-                    {/* Submit Button */}
                     <Button
                         size='large'
                         variant="contained"

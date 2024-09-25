@@ -121,8 +121,6 @@ export async function createAccount(data, token) {
             throw new Error(`Unexpected error: ${response.status}`);
         }
     }
-
-    // If successful, return the account data
     const json = await response.json();
     return json.account;
 } catch (error) {
@@ -130,38 +128,6 @@ export async function createAccount(data, token) {
     throw error;
     }
   }
-
-//* Delete Accounts
-export async function deleteAccount(token) {
-    const url = `/api/accounts/delete`;
-    try {
-        const response = await fetch(url, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        if (!response.ok) {
-            const errorResponse = await response.json();
-
-            // Handle specific status codes
-            if (response.status === 404) {
-                throw new Error(errorResponse.msg || "Account not found.");
-            } else if (response.status === 500) {
-                throw new Error("Internal server error. Please try again later.");
-            } else {
-                throw new Error(`Unexpected error: ${response.status}`);
-            }
-        }
-
-        // If successful, return the success message
-        return await response.json();
-    } catch (error) {
-        console.error("Error deleting account:", error.message);
-        throw error; 
-    }
-}
 
 //* Close Accounts (To formula Delete function)
 export async function closeAccount(account_number, token) {
@@ -190,11 +156,39 @@ export async function closeAccount(account_number, token) {
               throw new Error(`Unexpected error: ${response.status}`);
           }
       }
-
-      // If successful, return the success message
       return await response.json();
   } catch (error) {
       console.error("Error updating account status:", error.message);
       throw error; 
   }
 }
+
+//* Delete Accounts
+// export async function deleteAccount(token) {
+//   const url = `/api/accounts/delete`;
+//   try {
+//       const response = await fetch(url, {
+//           method: "DELETE",
+//           headers: {
+//               "Content-Type": "application/json",
+//               Authorization: `Bearer ${token}`,
+//           },
+//       });
+//       if (!response.ok) {
+//           const errorResponse = await response.json();
+
+//           // Handle specific status codes
+//           if (response.status === 404) {
+//               throw new Error(errorResponse.msg || "Account not found.");
+//           } else if (response.status === 500) {
+//               throw new Error("Internal server error. Please try again later.");
+//           } else {
+//               throw new Error(`Unexpected error: ${response.status}`);
+//           }
+//       }
+//       return await response.json();
+//   } catch (error) {
+//       console.error("Error deleting account:", error.message);
+//       throw error; 
+//   }
+// }

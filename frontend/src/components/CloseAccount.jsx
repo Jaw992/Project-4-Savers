@@ -17,7 +17,7 @@ export default function CloseAccount({ setGetList, token }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError(null); // Reset error state
+        setError(null);
 
         console.log(formData.account_number);
 
@@ -25,7 +25,7 @@ export default function CloseAccount({ setGetList, token }) {
             const response = await closeAccount(formData.account_number, token);
             setSuccessMessage(response.msg || "Account closed successfully, balance transferred.");
 
-            setFormData({ account_number: '' }); // Clear the input field
+            setFormData({ account_number: '' });
 
             const updatedList = await getRmTable(token);
             setGetList(updatedList); 

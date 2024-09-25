@@ -5,7 +5,7 @@ import { tokenAtom } from "../App";
 import { isValidToken } from "../utils/jwUtils";
 import { userLogin } from '../services/apiUsers';
 
-import { Container, Box, TextField, Button, Typography } from '@mui/material';
+import { Container, Box, TextField, Button, Typography, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function LoginPage() {
@@ -23,15 +23,15 @@ export default function LoginPage() {
 
     const handleLogin = async (event) => {
         event.preventDefault(); 
-        setError(''); // Clear previous error message
+        setError(''); 
         try {
-            const token = await userLogin(data); // Call the login function
+            const token = await userLogin(data);
             if (isValidToken(token)) {
                 setToken(token);
                 navigate('/client-main');
               }
         } catch (error) {
-            setError(error.message); // Set the error message to display
+            setError(error.message);
         }
     };
 
@@ -42,12 +42,13 @@ export default function LoginPage() {
     return (
         <>
         <div className='background'>
-            <h1 className='header' style={{ color: 'white' }}> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
+            <h1 className='header'> Where saving have never been easier! <ThumbUpIcon fontSize='lg'/></h1>
 
             <Container className='loginPage' maxWidth='sm'>
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleLogin} sx={{ color: 'white' }}>
-                    <Typography variant='h4' sx={{ fontWeight: 700 }}>Login</Typography>
-                    <p>Log in by entering your username and password</p>
+                <Paper elevation={10} square={false} sx={{ padding: 3, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
+                    <Typography variant='h4' sx={{ fontWeight: 700, color: 'white' }}>Login</Typography>
+                    <Typography variant='body1' sx={{ fontWeight: 500, color: 'white' }}>Log in by entering your username and password</Typography>
                     {error && <Typography color="error">{error}</Typography>} 
                     <Box sx={{ marginBottom: 3, marginTop: 3 }}>
                         <TextField
@@ -64,16 +65,19 @@ export default function LoginPage() {
                                 label: {
                                   color: 'lightblue',
                                 },
+                                input: {
+                                  color: 'white',
+                                },
                                 '& .MuiOutlinedInput-root': {
                                   '& fieldset': {
                                     borderColor: 'white',
                                     borderWidth: 2,  
                                   },
                                   '&:hover fieldset': {
-                                    borderColor: 'lightgray',
+                                    borderColor: 'lightyellow',
                                   },
                                   '&.Mui-focused fieldset': {
-                                    borderColor: 'gray',  
+                                    borderColor: 'white',  
                                   },
                                 },
                               }}
@@ -95,23 +99,25 @@ export default function LoginPage() {
                                 label: {
                                   color: 'lightblue',
                                 },
+                                input: {
+                                  color: 'white',
+                                },
                                 '& .MuiOutlinedInput-root': {
                                   '& fieldset': {
                                     borderColor: 'white',
                                     borderWidth: 2,  
                                   },
                                   '&:hover fieldset': {
-                                    borderColor: 'lightgray',
+                                    borderColor: 'lightyellow',
                                   },
                                   '&.Mui-focused fieldset': {
-                                    borderColor: 'gray',  
+                                    borderColor: 'white',  
                                   },
                                 },
                               }}
                         />
                     </Box>
                     <Button
-                        // fullWidth
                         variant="contained"
                         color="primary"
                         type="submit"
@@ -120,23 +126,23 @@ export default function LoginPage() {
                         Sign In
                     </Button>
                     <Button
-                        // fullWidth
                         variant="outlined"
-                        color="secondary"
+                        color="primary"
                         sx={{ 
-                            width: 300,
-                            color: 'lightblue',               
+                            width: 300, 
+                            mt: 2,
+                            color: 'lightblue', 
                             borderColor: 'white',
-                            borderWidth: 2,    
                             '&:hover': {
-                              backgroundColor: 'lightgray', 
-                              borderColor: 'gray',   
-                            },mt: 2 
+                              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                              borderColor: 'white',
+                            }, 
                         }}
                         onClick={handleNew}
                     >
                         New Account
                     </Button>
+                    </Paper>
                 </Box>
             </Container>
             </div>

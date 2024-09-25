@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
-// import { useAtomValue } from "jotai";
-// import { tokenAtom } from "../App"; 
 import { updateUserParticulars } from "../services/apiUsers";
 import { extractPayload, isValidToken } from "../utils/jwUtils";
 
 import { Container, Box, TextField, Paper, Button, Typography } from '@mui/material';
 
 export default function UpdateParticularCard({ setClient, token}) {
-    // const token = useAtomValue(tokenAtom); 
 
     const [formData, setFormData] = useState({ 
         name: "", 

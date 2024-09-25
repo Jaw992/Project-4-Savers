@@ -24,8 +24,6 @@ export async function allTransactions(token) {
                 throw new Error(`Unexpected error: ${response.status}`);
             }
         }
-
-        // If successful, return the transactions data
         const json = await response.json();
         return json; 
     } catch (error) {
@@ -57,8 +55,6 @@ export async function fetchTransactionById(id, token) {
                 throw new Error(`Unexpected error: ${response.status}`);
             }
         }
-
-        // If successful, return the transaction data
         const json = await response.json();
         return json; 
     } catch (error) {
@@ -93,8 +89,6 @@ export async function createTransaction(data, token) {
                 throw new Error(`Unexpected error: ${response.status}`);
             }
         }
-
-        // If successful, return the newly created transaction data
         const json = await response.json();
         return json; 
     } catch (error) {
@@ -137,8 +131,6 @@ export async function createTransfer(data, token) {
                 throw new Error(`Unexpected error: ${response.status}`);
             }
         }
-
-        // If successful, return the newly created transaction data
         const json = await response.json();
         return json; 
     } catch (error) {
@@ -171,8 +163,6 @@ export async function transactionSummary(token) {
                 throw new Error(`Unexpected error: ${response.status}`);
             }
         }
-
-        // If successful, return the transactions data
         const json = await response.json();
         return json; 
     } catch (error) {
