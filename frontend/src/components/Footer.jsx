@@ -1,4 +1,3 @@
-// import * as React from 'react';
 import { Box, Link } from '@mui/material';
 
 export default function Footer () {
@@ -24,49 +23,6 @@ export default function Footer () {
                     </Link>
                 </Box>
             </footer>
-
-            {/*Test Routes */}
-            {/* <div className="bg-light py-3">
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    typography: 'body1',
-                    '& > :not(style) ~ :not(style)': {
-                    ml: 2,
-                    },
-                }}
-                >
-                    <Link href="/" underline="always">
-                        {'Login Page'}
-                    </Link>
-                    <Link href="/sign-up" underline="always">
-                        {'SignUp Page'}
-                    </Link>
-                    <Link href="/rm-main" underline="always">
-                        {'Rm Main Page'}
-                    </Link>
-                    <Link href="/rm-manage-accounts" underline="always">
-                        {'Manage Accounts Page'}
-                    </Link>
-                    <Link href="/client-main" underline="always">
-                        {'Client Main Page'}
-                    </Link>
-                    <Link href="/client-profile" underline="always">
-                        {'Client Profile Page'}
-                    </Link>
-                    <Link href="/client-history" underline="always">
-                        {'Client History Page'}
-                    </Link>
-                    <Link href="/client-transactions" underline="always">
-                        {'Client Transactions Page'}
-                    </Link>
-                    <Link href="/client-transfers" underline="always">
-                        {'Client Transfers Page'}
-                    </Link>
-                </Box>
-            </div> */}
         </>
     )
 }

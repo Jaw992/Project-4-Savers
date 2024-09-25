@@ -24,7 +24,8 @@ export default function SummaryCard() {
     }, [token]);
 
     if (error) {
-        return <div>Error: {error}</div>;
+        console.log(error);
+        return <Typography variant='h6' sx={{ fontWeight: 600 }}>No data available</Typography>;
     }
 
     return (

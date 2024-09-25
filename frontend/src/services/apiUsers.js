@@ -27,12 +27,9 @@ export async function userSignup(data) {
           throw new Error(`Unexpected error: ${response.status}`);
         }
     }
-  
-      // If successful, return token
       const json = await response.json();
       return json.token;
     } catch (error) {
-      // Log and re-throw error for further handling
       console.error("Signup error:", error.message);
       throw error;
   }
@@ -61,12 +58,9 @@ export async function userLogin(data) {
           throw new Error(`Unexpected error: ${response.status}`);
         }
       }
-  
-      // If successful, return token
       const json = await response.json();
       return json.token;
     } catch (error) {
-      // Log and re-throw error for further handling
       console.error("Login error:", error.message);
       throw error;
   }
@@ -97,8 +91,6 @@ export async function allClientLoad(token) {
           throw new Error(`Unexpected error: ${response.status}`);
         }
       }
-  
-      // If successful, return the list of clients
       const json = await response.json();
       return json;
     } catch (error) {
@@ -131,8 +123,6 @@ export async function clientLoad(token) {
           throw new Error(`Unexpected error: ${response.status}`);
         }
       }
-  
-      // If successful, return the client data
       const json = await response.json();
       return json;
     } catch (error) {
@@ -165,8 +155,6 @@ export async function rmLoad(token) {
           throw new Error(`Unexpected error: ${response.status}`);
         }
       }
-  
-      // If successful, return the manager data
       const json = await response.json();
       return json;
     } catch (error) {
@@ -199,8 +187,6 @@ export async function updateUserParticulars(token, id, updatedData) {
           throw new Error(`Unexpected error: ${response.status}`);
         }
       }
-  
-      // If successful, return the updated user data
       const json = await response.json();
       return json;
     } catch (error) {

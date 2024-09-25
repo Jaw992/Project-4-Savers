@@ -12,7 +12,6 @@ export default function ClientMainPage() {
 
     const token = useAtomValue(tokenAtom);
   
-    // State to store client data, loading state, and error
     const [client, setClient] = useState([]);
     const [error, setError] = useState(null);
   

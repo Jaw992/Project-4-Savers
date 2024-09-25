@@ -40,7 +40,6 @@ export default function HistoryCard() {
                 transactions.map((transaction) => (
                     <Box key={transaction.id} component="form" noValidate autoComplete="off" sx={{ paddingBottom: 1 }}>
                             <Typography variant='h5' sx={{ fontWeight: 700 }}>
-                                {/* {new Date(transaction.created_at).toLocaleDateString()} */}
                                 {formatDate(transaction.created_at)} 
                             </Typography>
                         <Paper elevation={10} square={false} sx={{ padding: 3 }}>

@@ -23,15 +23,15 @@ export default function LoginPage() {
 
     const handleLogin = async (event) => {
         event.preventDefault(); 
-        setError(''); // Clear previous error message
+        setError(''); 
         try {
-            const token = await userLogin(data); // Call the login function
+            const token = await userLogin(data);
             if (isValidToken(token)) {
                 setToken(token);
                 navigate('/client-main');
               }
         } catch (error) {
-            setError(error.message); // Set the error message to display
+            setError(error.message);
         }
     };
 
@@ -64,16 +64,19 @@ export default function LoginPage() {
                                 label: {
                                   color: 'lightblue',
                                 },
+                                input: {
+                                  color: 'white',
+                                },
                                 '& .MuiOutlinedInput-root': {
                                   '& fieldset': {
                                     borderColor: 'white',
                                     borderWidth: 2,  
                                   },
                                   '&:hover fieldset': {
-                                    borderColor: 'lightgray',
+                                    borderColor: 'lightyellow',
                                   },
                                   '&.Mui-focused fieldset': {
-                                    borderColor: 'gray',  
+                                    borderColor: 'white',  
                                   },
                                 },
                               }}
@@ -95,23 +98,25 @@ export default function LoginPage() {
                                 label: {
                                   color: 'lightblue',
                                 },
+                                input: {
+                                  color: 'white',
+                                },
                                 '& .MuiOutlinedInput-root': {
                                   '& fieldset': {
                                     borderColor: 'white',
                                     borderWidth: 2,  
                                   },
                                   '&:hover fieldset': {
-                                    borderColor: 'lightgray',
+                                    borderColor: 'lightyellow',
                                   },
                                   '&.Mui-focused fieldset': {
-                                    borderColor: 'gray',  
+                                    borderColor: 'white',  
                                   },
                                 },
                               }}
                         />
                     </Box>
                     <Button
-                        // fullWidth
                         variant="contained"
                         color="primary"
                         type="submit"
@@ -120,7 +125,6 @@ export default function LoginPage() {
                         Sign In
                     </Button>
                     <Button
-                        // fullWidth
                         variant="outlined"
                         color="secondary"
                         sx={{ 
@@ -129,8 +133,8 @@ export default function LoginPage() {
                             borderColor: 'white',
                             borderWidth: 2,    
                             '&:hover': {
-                              backgroundColor: 'lightgray', 
-                              borderColor: 'gray',   
+                              backgroundColor: 'navy', 
+                              borderColor: 'white',   
                             },mt: 2 
                         }}
                         onClick={handleNew}
