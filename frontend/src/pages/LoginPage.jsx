@@ -42,7 +42,7 @@ export default function LoginPage() {
     return (
         <>
         <div className='background'>
-            <h1 className='header' style={{ color: 'white' }}> Where savings becomes easy. <ThumbUpIcon fontSize='lg'/></h1>
+            <h1 className='header'> Where saving have never been easier! <ThumbUpIcon fontSize='lg'/></h1>
 
             <Container className='loginPage' maxWidth='sm'>
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleLogin} sx={{ color: 'white' }}>

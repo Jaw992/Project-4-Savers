@@ -63,6 +63,8 @@ body {
     display: flex;
     align-items: center;
     gap: 5px;
+    font-size: 40px;
+    color: rgb(56, 182, 255);
 }
 
 .loginPage {
