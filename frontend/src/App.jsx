@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-import SaversBar from "./components/SaversBar";
+// import SaversBar from "./components/SaversBar";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import RmMainPage from "./pages/RmMainPage";
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-      <SaversBar />
+      {/* <SaversBar /> */}
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/rm-login" element={<RmLoginPage />} />

@@ -3,10 +3,11 @@ import { useAtomValue } from "jotai";
 import { tokenAtom } from "../App";
 import { clientLoad } from "../services/apiUsers"; 
 
-import Navbar from "../components/Navbar"
-import ClientDetailsCard from "../components/ClientDetailsCard"
-import RmDetailsCard from "../components/RmDetailsCard"
-import UpdateParticularCard from "../components/UpdateParticularCard"
+import Navbar from "../components/Navbar";
+import SaversBar from "../components/SaversBar";
+import ClientDetailsCard from "../components/ClientDetailsCard";
+import RmDetailsCard from "../components/RmDetailsCard";
+import UpdateParticularCard from "../components/UpdateParticularCard";
 
 export default function ClientMainPage() {
 
@@ -32,6 +33,7 @@ export default function ClientMainPage() {
 
     return (
         <>
+            <SaversBar />
             <Navbar />
             <div className="clientProfile">
                 <h1>My Profile</h1>

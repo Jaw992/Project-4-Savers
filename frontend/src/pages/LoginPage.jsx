@@ -7,6 +7,7 @@ import { userLogin } from '../services/apiUsers';
 
 import { Container, Box, TextField, Button, Typography, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import SaversBar from '../components/SaversBar';
 
 export default function LoginPage() {
     
@@ -42,6 +43,7 @@ export default function LoginPage() {
     return (
         <>
         <div className='background'>
+        <SaversBar />
             <h1 className='header'> Where saving have never been easier! <ThumbUpIcon fontSize='lg'/></h1>
 
             <Container className='loginPage' maxWidth='sm'>

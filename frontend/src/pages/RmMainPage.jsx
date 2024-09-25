@@ -7,6 +7,7 @@ import NavbarRm from "../components/NavbarRm";
 import TableList from "../components/RmTableList";
 import CreateCard from "../components/RmCreateAccount";
 import CloseAccountCard from "../components/CloseAccount";
+import SaversBar from "../components/SaversBar";
 
 export default function RmMainPage() {
 
@@ -33,6 +34,7 @@ export default function RmMainPage() {
 
     return (
         <>
+            <SaversBar />
             <NavbarRm />
             <div className="rmPages">
                 <TableList getList={getList} token={token}/>
