@@ -59,7 +59,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//! Create new transactions and update balance - deposit and withdrawal (Change to include purpose)
+//* Create new transactions and update balance
 router.post("/newtransaction", async (req, res) => {
   const { transaction_type, amount, account_number, purpose } = req.body;  // Use account_number instead of account_id
 

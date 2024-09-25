@@ -204,18 +204,20 @@ export default function TransferCard() {
                             </TextField>
                     </Box>
                     <Box sx={{ marginBottom: 2 }}>
-                        <TextField
-                            id="purpose"
-                            label="Purpose"
-                            fullWidth
-                            margin="dense"
-                            variant="outlined"
-                            type="text"
-                            name="purpose"
-                            value={transferData.purpose}
-                            onChange={handleChange}
-                            required
-                        />
+                        <FormControl sx={{ width: "300px", mb: 1 }}>
+                            <TextField
+                                select
+                                label="Purpose"
+                                fullWidth
+                                name="purpose"
+                                value={transferData.purpose}
+                                onChange={handleChange}
+                                required
+                            >
+                                <MenuItem value="internal">Internal</MenuItem>
+                                <MenuItem value="external">External</MenuItem>
+                            </TextField>
+                        </FormControl>
                     </Box>
                     <Box sx={{ marginBottom: 2 }}>
                         <TextField
