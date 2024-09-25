@@ -6,14 +6,14 @@ const pool = require("../config/db");
 //* Verify Token
 router.use(verifyToken);
 
-//! Get all accounts
+//* Get all accounts
 router.get("/:user_id", async (req, res) => {
   const user_id = req.user.id;
-  const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1", [user_id]);
+  const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1 AND status = 'open'", [user_id]);
   res.status(200).json(accounts.rows);
 });
 
-//! Get all created accounts with client and relationship manager names from data_warehouse
+//* Get all created accounts with client and relationship manager names from data_warehouse
 router.get("/rmtable/:manager_id", async (req, res) => {
   const manager_id = req.user.id;
   const acclist = await pool.query("SELECT * FROM account_creation ORDER BY client_name, account_number");
@@ -128,23 +128,64 @@ router.delete("/delete", async (req, res) => {
       }
 });
 
-//! Update balance of an account (Change to update status)
-router.put("/update-balance/:id", async (req, res) => {
-    const { id } = req.params;
-    const { balance } = req.body;
-    try {
-        const updateBalance = await pool.query(
-          'UPDATE accounts SET balance = $1 WHERE id = $2 RETURNING *',
-          [balance, id]
+//* Update balance of an account (Change to update status)
+router.put("/update-status", async (req, res) => {
+  const { account_number } = req.body;
+  
+  try {
+    // Find the account by account_number
+    const accountQuery = await pool.query(
+      'SELECT * FROM accounts WHERE account_number = $1',
+      [account_number]
+    );
+
+    if (accountQuery.rows.length === 0) {
+      return res.status(404).json({ msg: 'Account not found' });
+    }
+
+    const account = accountQuery.rows[0];
+
+      // Check if the account has a balance
+      if (account.balance > 0) {
+        // Check if the user has other accounts
+        const otherAccountsQuery = await pool.query(
+          'SELECT * FROM accounts WHERE user_id = $1 AND account_number != $2 AND status = $3',
+          [account.user_id, account_number, 'open']
         );
-        if (updateBalance.rows.length === 0) {
-          return res.status(404).json({ msg: 'Account not found' });
+
+        if (otherAccountsQuery.rows.length > 0) {
+          const nextAccount = otherAccountsQuery.rows[0];
+
+          // Transfer the balance to the next available account
+          await pool.query(
+            'UPDATE accounts SET balance = balance + $1 WHERE id = $2',
+            [account.balance, nextAccount.id]
+          );
+          
+          // Set balance of the closed account to 0
+          await pool.query(
+            'UPDATE accounts SET balance = 0 WHERE account_number = $1',
+            [account_number]
+          );
+        } else {
+          return res.status(400).json({ msg: 'No other open account. Please contact client to withdrawal money' });
         }
-        res.status(200).json({ msg: "Update Successful", balance: updateBalance.rows[0] });
-      } catch (error) {
-        console.error(error.message);
-        res.status(500).send({error: 'Internal server error'});
       }
+
+      // Update the status of the account to 'closed'
+      const updateStatus = await pool.query(
+        'UPDATE accounts SET status = $1 WHERE account_number = $2 RETURNING *',
+        ['closed', account_number]
+      );
+
+      return res.status(200).json({
+        msg: 'Account closed successfully, balance transferred',
+        account: updateStatus.rows[0]
+      });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 module.exports = router;

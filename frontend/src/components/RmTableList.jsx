@@ -71,6 +71,8 @@ export default function RmTableList({ getList }) {
                             <StyledTableCell>Client</StyledTableCell>
                             <StyledTableCell align="center">Account Number</StyledTableCell>
                             <StyledTableCell align="center">Account Type</StyledTableCell>
+                            <StyledTableCell align="center">Account Balance</StyledTableCell>
+                            <StyledTableCell align="center">Account Status</StyledTableCell>
                             <StyledTableCell align="center">Relationship Manager</StyledTableCell>
                             <StyledTableCell align="center">Account Closure</StyledTableCell>
                         </TableRow>
@@ -84,6 +86,8 @@ export default function RmTableList({ getList }) {
                             </StyledTableCell>
                             <StyledTableCell align="center">{list.account_number}</StyledTableCell>
                             <StyledTableCell align="center">{list.account_type}</StyledTableCell>
+                            <StyledTableCell align="center">$ {list.balance}</StyledTableCell>
+                            <StyledTableCell align="center">{list.status}</StyledTableCell>
                             <StyledTableCell align="center">{list.rm_name}</StyledTableCell>
                             <StyledTableCell align="center">
                               <Box className="acc_close">
