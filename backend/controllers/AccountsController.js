@@ -6,21 +6,21 @@ const pool = require("../config/db");
 //* Verify Token
 router.use(verifyToken);
 
-//* Get all accounts
+//! Get all accounts
 router.get("/:user_id", async (req, res) => {
   const user_id = req.user.id;
   const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1", [user_id]);
   res.status(200).json(accounts.rows);
 });
 
-//* Get all created accounts with client and relationship manager names from data_warehouse
+//! Get all created accounts with client and relationship manager names from data_warehouse
 router.get("/rmtable/:manager_id", async (req, res) => {
   const manager_id = req.user.id;
   const acclist = await pool.query("SELECT * FROM account_creation ORDER BY client_name, account_number");
   res.status(200).json(acclist.rows);
 });
 
-//* Get all accounts and total balance for a specific user
+//! Get all accounts and total balance for a specific user
 router.get("/sum/:user_id", async (req, res) => {
   const user_id = req.user.id; // Assuming you're using authentication middleware to set req.user
 
@@ -128,7 +128,7 @@ router.delete("/delete", async (req, res) => {
       }
 });
 
-//* Update balance of an account
+//! Update balance of an account (Change to update status)
 router.put("/update-balance/:id", async (req, res) => {
     const { id } = req.params;
     const { balance } = req.body;

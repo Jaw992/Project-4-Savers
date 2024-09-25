@@ -6,7 +6,7 @@ const pool = require("../config/db");
 //* Verify Token
 router.use(verifyToken);
 
-//* Get all transactions
+//! Get all transactions
 router.get("/history/:user_id", async (req, res) => {
   const user_id = req.user.id;
 
@@ -57,7 +57,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//* Create new transactions and update balance - deposit and withdrawal
+//! Create new transactions and update balance - deposit and withdrawal (Change to include purpose)
 router.post("/newtransaction", async (req, res) => {
   const { transaction_type, amount, account_number } = req.body;  // Use account_number instead of account_id
 
@@ -236,7 +236,7 @@ router.post("/transfer", async (req, res) => {
   }
 });
 
-//* Get total_transaction summary
+//! Get total_transaction summary
 router.get("/summary/:user_id", async (req, res) => {
   const user_id = req.user.id;
   try{ 
