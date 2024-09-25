@@ -5,7 +5,7 @@ import { tokenAtom } from "../App";
 import { isValidToken } from "../utils/jwUtils";
 import { userLogin } from '../services/apiUsers';
 
-import { Container, Box, TextField, Button, Typography } from '@mui/material';
+import { Container, Box, TextField, Button, Typography, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 export default function LoginPage() {
@@ -46,8 +46,9 @@ export default function LoginPage() {
 
             <Container className='loginPage' maxWidth='sm'>
                 <Box component="form" noValidate autoComplete="off" onSubmit={handleLogin} sx={{ color: 'white' }}>
-                    <Typography variant='h4' sx={{ fontWeight: 700 }}>Login</Typography>
-                    <p>Log in by entering your username and password</p>
+                <Paper elevation={10} square={false} sx={{ padding: 3, backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
+                    <Typography variant='h4' sx={{ fontWeight: 700, color: 'white' }}>Login</Typography>
+                    <Typography variant='body1' sx={{ fontWeight: 500, color: 'white' }}>Log in by entering your username and password</Typography>
                     {error && <Typography color="error">{error}</Typography>} 
                     <Box sx={{ marginBottom: 3, marginTop: 3 }}>
                         <TextField
@@ -126,21 +127,22 @@ export default function LoginPage() {
                     </Button>
                     <Button
                         variant="outlined"
-                        color="secondary"
+                        color="primary"
                         sx={{ 
-                            width: 300,
-                            color: 'lightblue',               
+                            width: 300, 
+                            mt: 2,
+                            color: 'lightblue', 
                             borderColor: 'white',
-                            borderWidth: 2,    
                             '&:hover': {
-                              backgroundColor: 'navy', 
-                              borderColor: 'white',   
-                            },mt: 2 
+                              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                              borderColor: 'white',
+                            }, 
                         }}
                         onClick={handleNew}
                     >
                         New Account
                     </Button>
+                    </Paper>
                 </Box>
             </Container>
             </div>

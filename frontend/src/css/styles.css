@@ -64,7 +64,9 @@ body {
     align-items: center;
     gap: 5px;
     font-size: 40px;
-    color: rgb(56, 182, 255);
+    color: rgb(11, 75, 147);
+    width: 60%;
+    background-color: #ffffffd5;
 }
 
 .loginPage {
@@ -77,7 +79,7 @@ body {
 
 .background {
   height: 110vh;
-  background-image: url("../assets/mountain.jpg");
+  background-image: url("../assets/jewel_fountain.jpg");
   background-size: cover; 
   background-position: center;
   margin: 0;
