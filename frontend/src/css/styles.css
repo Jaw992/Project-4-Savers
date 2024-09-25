@@ -93,9 +93,15 @@ body {
     padding: 10px 35px 50px 35px;
 }
 
-.acc_close{
+.rmCards {
+  padding: 10px 35px 50px 35px;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.acc_close{
+  display: flex;
   align-items: center;
 }
 

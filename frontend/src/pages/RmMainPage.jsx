@@ -6,6 +6,7 @@ import { getRmTable } from "../services/apiAccounts";
 import NavbarRm from "../components/NavbarRm";
 import TableList from "../components/RmTableList";
 import CreateCard from "../components/RmCreateAccount";
+import CloseAccountCard from "../components/CloseAccount";
 
 export default function RmMainPage() {
 
@@ -34,8 +35,11 @@ export default function RmMainPage() {
         <>
             <NavbarRm />
             <div className="rmPages">
-                <TableList getList={getList} />
+                <TableList getList={getList} token={token}/>
+            </div>
+            <div className="rmCards">
                 <CreateCard setGetList={setGetList} token={token}/>
+                <CloseAccountCard setGetList={setGetList} token={token}/>
             </div>
         </>
     );

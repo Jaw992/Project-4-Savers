@@ -162,3 +162,39 @@ export async function deleteAccount(token) {
         throw error; 
     }
 }
+
+//* Close Accounts (To formula Delete function)
+export async function closeAccount(account_number, token) {
+  const url = `/api/accounts/update-status`;
+  try {
+      const response = await fetch(url, {
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ account_number }),
+      });
+
+      if (!response.ok) {
+          const errorResponse = await response.json();
+
+          // Handle specific status codes
+          if (response.status === 404) {
+              throw new Error(errorResponse.msg || "Account not found.");
+          } else if (response.status === 400) {
+              throw new Error(errorResponse.msg || "Bad request. Please check the input.");
+          } else if (response.status === 500) {
+              throw new Error("Internal server error. Please try again later.");
+          } else {
+              throw new Error(`Unexpected error: ${response.status}`);
+          }
+      }
+
+      // If successful, return the success message
+      return await response.json();
+  } catch (error) {
+      console.error("Error updating account status:", error.message);
+      throw error; 
+  }
+}

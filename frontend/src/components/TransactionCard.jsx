@@ -88,6 +88,7 @@ export default function TransactionCard() {
         account_number: '',
         transaction_type: '',
         amount: '',
+        purpose: '',
     });
 
     useEffect(() => {
@@ -127,6 +128,7 @@ export default function TransactionCard() {
                 account_number: '',
                 transaction_type: '',
                 amount: '',
+                purpose: '',
             });
 
         } catch (error) {
@@ -180,6 +182,46 @@ export default function TransactionCard() {
                             </TextField>
                         </FormControl>
                     </Box>
+
+                    {/* Purpose Field - Only show when transaction type is selected */}
+                    {transactionData.transaction_type === 'deposit' && (
+                        <Box sx={{ marginBottom: 2 }}>
+                            <FormControl sx={{ width: "300px", mb: 1 }}>
+                                <TextField
+                                    select
+                                    label="Purpose"
+                                    fullWidth
+                                    name="purpose"
+                                    value={transactionData.purpose}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <MenuItem value="savings">Savings</MenuItem>
+                                </TextField>
+                            </FormControl>
+                        </Box>
+                    )}
+
+                    {transactionData.transaction_type === 'withdrawal' && (
+                        <Box sx={{ marginBottom: 2 }}>
+                            <FormControl sx={{ width: "300px", mb: 1 }}>
+                                <TextField
+                                    select
+                                    label="Purpose"
+                                    fullWidth
+                                    name="purpose"
+                                    value={transactionData.purpose}
+                                    onChange={handleChange}
+                                    required
+                                >
+                                    <MenuItem value="food">Food</MenuItem>
+                                    <MenuItem value="entertainment">Entertainment</MenuItem>
+                                    <MenuItem value="shopping">Shopping</MenuItem>
+                                    <MenuItem value="payments">Payments</MenuItem>
+                                </TextField>
+                            </FormControl>
+                        </Box>
+                    )}
 
                     {/* Amount Field */}
                     <Box sx={{ marginBottom: 2 }}>

@@ -26,6 +26,8 @@ router.get("/history/:user_id", async (req, res) => {
         LEFT JOIN accounts a2 ON t.receiver_account = a2.id
         LEFT JOIN users u ON a1.user_id = u.id
         WHERE u.id = $1
+        AND a1.status = 'open' 
+        AND (a2.status = 'open' OR a2.status IS NULL)  
         ORDER BY t.created_at DESC`
     , [user_id]);
 
@@ -57,9 +59,9 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//* Create new transactions and update balance - deposit and withdrawal
+//* Create new transactions and update balance
 router.post("/newtransaction", async (req, res) => {
-  const { transaction_type, amount, account_number } = req.body;  // Use account_number instead of account_id
+  const { transaction_type, amount, account_number, purpose } = req.body;  // Use account_number instead of account_id
 
 try {
   // Start transaction
@@ -67,9 +69,9 @@ try {
 
   // Add new transaction
   const newTransactionQuery = `
-    INSERT INTO transactions (transaction_type, amount, account_id)
-    VALUES ($1, $2, (SELECT id FROM accounts WHERE account_number = $3)) RETURNING *`;  // Insert based on account_number
-  const transactionResult = await pool.query(newTransactionQuery, [transaction_type, amount, account_number]);
+    INSERT INTO transactions (transaction_type, amount, account_id, purpose)
+    VALUES ($1, $2, (SELECT id FROM accounts WHERE account_number = $3), $4) RETURNING *`;  // Insert based on account_number
+  const transactionResult = await pool.query(newTransactionQuery, [transaction_type, amount, account_number, purpose]);
   const newTransaction = transactionResult.rows[0];
 
   // Fetch the current balance of the account using account_number
@@ -236,7 +238,7 @@ router.post("/transfer", async (req, res) => {
   }
 });
 
-//* Get total_transaction summary
+//! Get total_transaction summary
 router.get("/summary/:user_id", async (req, res) => {
   const user_id = req.user.id;
   try{ 
