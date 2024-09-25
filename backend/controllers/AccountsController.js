@@ -9,7 +9,7 @@ router.use(verifyToken);
 //* Get all accounts
 router.get("/:user_id", async (req, res) => {
   const user_id = req.user.id;
-  const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1 AND status = 'open'", [user_id]);
+  const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1 AND status = 'open' ORDER BY account_number", [user_id]);
   res.status(200).json(accounts.rows);
 });
 
