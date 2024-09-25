@@ -6,7 +6,7 @@ const pool = require("../config/db");
 //* Verify Token
 router.use(verifyToken);
 
-//! Get all transactions
+//* Get all transactions
 router.get("/history/:user_id", async (req, res) => {
   const user_id = req.user.id;
 
