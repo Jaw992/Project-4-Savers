@@ -3,8 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-// const { Pool } = require("pg");
-const pool = require("./config/db");
+const pool = require("./config/db"); //* Postgres Connection - import from database url from config folder
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -18,14 +17,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.static("../frontend/dist"));
-
-//* Postgres Connection
-// const connectionString =
-//   "process.env.POSTGRES_URL";
-
-  // const pool = new Pool({
-  //   connectionString: process.env.POSTGRES_URL,
-  // });
 
 //* Routes
 app.get("/api", async (req, res) => {

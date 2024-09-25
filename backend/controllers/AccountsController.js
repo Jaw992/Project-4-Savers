@@ -22,7 +22,7 @@ router.get("/rmtable/:manager_id", async (req, res) => {
 
 //* Get all accounts and total balance for a specific user
 router.get("/sum/:user_id", async (req, res) => {
-  const user_id = req.user.id; // Assuming you're using authentication middleware to set req.user
+  const user_id = req.user.id; //? Follows the client_id who is login by his token
 
   try {
       const accounts = await pool.query("SELECT * FROM accounts WHERE user_id = $1 AND status = 'open'", [user_id]);
@@ -30,7 +30,7 @@ router.get("/sum/:user_id", async (req, res) => {
       // Calculate total balance for the user's accounts
       const totalBalanceQuery = "SELECT SUM(balance) AS total_balance FROM accounts WHERE user_id = $1 AND status = 'open'";
       const totalBalanceResult = await pool.query(totalBalanceQuery, [user_id]);
-      const totalBalance = totalBalanceResult.rows[0].total_balance || 0; // Default to 0 if no accounts
+      const totalBalance = totalBalanceResult.rows[0].total_balance || 0; 
 
       res.status(200).json({ accounts: accounts.rows, total_balance: totalBalance });
   } catch (error) {
@@ -49,29 +49,6 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-//* Create a new account
-// router.post("/create", async (req, res) => {
-//     const { balance, account_number, account_type, user_id, manager_id } = req.body;
-//     try {
-//         // Check if the account number already exists
-//         const existingAccount = await pool.query('SELECT * FROM accounts WHERE account_number = $1',
-//             [account_number]);
-  
-//         // If the account already exists, return an error
-//         if (existingAccount.rows.length > 0) {
-//             return res.status(400).json({ error: 'Account number already exists' });
-//         }
-
-//         const newAccount = await pool.query(
-//           'INSERT INTO accounts (balance, account_number, account_type, user_id, manager_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-//           [balance, account_number, account_type, user_id, manager_id]
-//         );
-//         res.status(201).json({ msg: "Account created successfully", account: newAccount.rows[0] });
-//       } catch (error) {
-//         res.status(500).send({error: 'Internal server error'});
-//       }
-// });
 
 //* Create a new account
 router.post("/create/:manager_id", async (req, res) => {
@@ -98,7 +75,7 @@ router.post("/create/:manager_id", async (req, res) => {
       //     return res.status(400).json({ error: 'Relationship manager does not exist' });
       // }
       // const manager_id = managerQuery.rows[0].id;
-      const manager_id = req.user.id;
+      const manager_id = req.user.id; //? Follows the manager_id who is login by his token
 
       // Create the new account using user_id and manager_id
       const newAccount = await pool.query(
@@ -113,22 +90,7 @@ router.post("/create/:manager_id", async (req, res) => {
   }
 });
 
-//* Delete an account
-router.delete("/delete", async (req, res) => {
-    const { account_number } = req.body;
-    try {
-        const deleteAccount = await pool.query('DELETE FROM accounts WHERE account_number = $1 RETURNING *', [account_number]);
-        if (deleteAccount.rows.length === 0) {
-          return res.status(404).json({ msg: 'Account not found' });
-        }
-        res.status(200).json({ msg: 'Account deleted', account: deleteAccount.rows[0] });
-      } catch (error) {
-        console.error(error.message);
-        res.status(500).send({error: 'Internal server error'});
-      }
-});
-
-//* Update balance of an account (Change to update status)
+//* Update account status for closing an account - Simulate delete function
 router.put("/update-status", async (req, res) => {
   const { account_number } = req.body;
   
@@ -187,5 +149,20 @@ router.put("/update-status", async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+//* Delete an account
+// router.delete("/delete", async (req, res) => {
+//     const { account_number } = req.body;
+//     try {
+//         const deleteAccount = await pool.query('DELETE FROM accounts WHERE account_number = $1 RETURNING *', [account_number]);
+//         if (deleteAccount.rows.length === 0) {
+//           return res.status(404).json({ msg: 'Account not found' });
+//         }
+//         res.status(200).json({ msg: 'Account deleted', account: deleteAccount.rows[0] });
+//       } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send({error: 'Internal server error'});
+//       }
+// });
 
 module.exports = router;

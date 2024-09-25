@@ -135,24 +135,6 @@ router.get("/manager/:user_id", verifyToken, async (req, res) => {
 });
 
 //* Update particulars of client users
-// router.put("/update-particulars/:id", verifyToken, async (req, res) => {
-//     const { id } = req.params;
-//     const { name, email, contact } = req.body;
-//     try {
-//         if (!name || !email || !contact) {
-//             return res.status(400).json({ message: 'Name, email, and contact are required.' });
-//         }
-
-//         const updateUser = await pool.query(
-//             'UPDATE users SET name = $1, email = $2, contact = $3 WHERE id = $4 RETURNING *',
-//             [name, email, contact, id]);
-//         res.status(200).json(updateUser.rows[0]);
-//     } catch (error) {
-//         res.status(500).json({ error: 'Internal server error' });
-//     }
-// });
-
-//* Update particulars of client users
 router.put("/update-particulars/:id", verifyToken, async (req, res) => {
     const { id } = req.params;
     const { name, email, contact } = req.body;
