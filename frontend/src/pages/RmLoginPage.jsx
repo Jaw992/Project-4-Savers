@@ -6,6 +6,7 @@ import { isValidToken } from "../utils/jwUtils";
 import { userLogin } from '../services/apiUsers';
 
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
+import SaversBar from '../components/SaversBar';
 
 export default function LoginPage() {
     
@@ -36,6 +37,7 @@ export default function LoginPage() {
 
     return (
         <>
+            <SaversBar />
             <h1 className='header'> Relationship Managers Only</h1>
 
             <Container className='loginPage' maxWidth='sm'>
