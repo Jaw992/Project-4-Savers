@@ -1,4 +1,4 @@
-import { Container, Box, TextField, Paper, Button, Typography } from '@mui/material';
+import { Box, TextField, Paper, Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import { closeAccount, getRmTable } from '../services/apiAccounts';
 
@@ -37,8 +37,7 @@ export default function CloseAccount({ setGetList, token }) {
 
     return (
         <>
-            <Container maxWidth='sm'>
-                <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <Box className="transactionBox" component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <Paper elevation={10} sx={{ padding: 6 }}>
                         <Typography variant='h6' sx={{ fontWeight: 500 }}>Account Closure</Typography>
                         {error && <Typography color="error">{error}</Typography>} 
@@ -65,7 +64,6 @@ export default function CloseAccount({ setGetList, token }) {
                         </Box>
                     </Paper>
                 </Box>
-            </Container>
         </>
     )
 }

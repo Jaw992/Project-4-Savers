@@ -57,15 +57,20 @@ body {
 
 /* Login Page */
 .header {
+    margin: 10px 0px 0px 10px;
     padding-left: 10px;
     font-style: italic;
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 40px;
-    color: rgb(11, 75, 147);
+    /* color: rgb(11, 75, 147); */
+    color: lightskyblue;
     width: 50%;
-    background-color: #ffffffd5;
+    /* background-color: #ffffffd5; */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* border: 2px solid black; */
+    border-radius: 8px;
 }
 
 .loginPage {
@@ -93,7 +98,7 @@ body {
 /* RM Pages */
 .rmPages {
     /* height: 100vh; */
-    padding: 10px 35px 50px 35px;
+    padding: 10px 200px 50px 200px;
 }
 
 .rmCards {
@@ -101,6 +106,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 40px;
 }
 
 .acc_close{
@@ -115,6 +121,13 @@ body {
     flex-direction: column;
     justify-content: center;
     /* padding: 10px 35px 0px 35px; */
+}
+
+.transactionBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Client Main & History Page */

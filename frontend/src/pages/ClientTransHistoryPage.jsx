@@ -9,7 +9,7 @@ export default function ClientTransHistoryPage() {
             <SaversBar />
             <Navbar />
             <div className="clientMain">
-                <h1>Transaction History</h1>
+                <h1 style={{ textDecoration: 'underline' }}>Transaction History</h1>
                 <HistoryCard />
             </div>
         </>
