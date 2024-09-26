@@ -13,7 +13,6 @@ import ClientTransHistoryPage from "./pages/ClientTransHistoryPage";
 import ClientTransactionPage from "./pages/ClientTransactionsPage";
 import ClientTransferPage from "./pages/ClientTransferPage";
 import RmLoginPage from "./pages/RmLoginPage";
-// import Footer from "./components/Footer";
 
 
 export const tokenAtom = atomWithStorage("token", "");
@@ -39,7 +38,6 @@ function App() {
         </>
         )}
       </Routes>
-      {/* <Footer /> */}
     </>
   );
 }
