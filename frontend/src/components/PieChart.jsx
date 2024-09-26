@@ -14,7 +14,7 @@ const options = {
     pieHole: 0.4,
     is3D: false,
     fontSize: 15,
-    colors: ["#d35050", "#067c1c", "#ffcc00", "#ff6600", "#ff9900", "#3399ff", "#00cc99"],
+    colors: ["#d35050", "#067c1c", "#ffcc00", "#ff6600", "#d76ad9", "#3399ff", "#7c34f0"],
     backgroundColor: "transparent",
     chartArea: {
         left: 20, // Spacing from the left
