@@ -57,15 +57,20 @@ body {
 
 /* Login Page */
 .header {
+    margin: 10px 0px 0px 10px;
     padding-left: 10px;
     font-style: italic;
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 40px;
-    color: rgb(11, 75, 147);
+    /* color: rgb(11, 75, 147); */
+    color: lightskyblue;
     width: 50%;
-    background-color: #ffffffd5;
+    /* background-color: #ffffffd5; */
+    background-color: rgba(0, 0, 0, 0.8);
+    /* border: 2px solid black; */
+    border-radius: 8px;
 }
 
 .loginPage {
