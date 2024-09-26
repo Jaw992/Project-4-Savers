@@ -84,7 +84,7 @@ export default function Navbar() {
               </MenuItem>
             </Menu>
           </Box>
-          <Typography variant="h6">{name}</Typography>
+          <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>{name}</Typography>
           </div>
           
           <Box className="client-pages">

@@ -40,7 +40,7 @@ export default function AccountsCard() {
                         sx={{ padding: 3, marginBottom: 2 }}
                     >
                         <Box>
-                            <Typography variant='h5' sx={{ fontWeight: 600 }}>
+                            <Typography variant='h5' sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                                 {account.account_type} Account
                             </Typography>
                             <Typography variant='h6' sx={{ fontWeight: 500 }}>

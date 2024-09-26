@@ -44,7 +44,7 @@ export default function HistoryCard() {
                             </Typography>
                         <Paper elevation={10} square={false} sx={{ padding: 3 }}>
                             <Box>
-                                <Typography variant='h5' sx={{ fontWeight: 600 }}>
+                                <Typography variant='h5' sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                                     Transaction Type: {transaction.transaction_type}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 500 }}>
@@ -57,7 +57,7 @@ export default function HistoryCard() {
                                         'Unknown Transaction Type'}
                                 </Typography>
                                 {transaction.purpose && (
-                                    <Typography variant='h6' sx={{ fontWeight: 500 }}>
+                                    <Typography variant='h6' sx={{ fontWeight: 500, textTransform: 'capitalize' }}>
                                         Purpose: {transaction.purpose}
                                     </Typography>
                                 )}

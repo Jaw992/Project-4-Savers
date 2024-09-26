@@ -59,10 +59,10 @@ export default function PieChart() {
     const data = [
         ["Category", "Amount"],
         ["Savings", parseFloat(summary.total_deposit_savings) || 0],
-        ["Food Withdrawals", parseFloat(summary.total_withdrawal_food) || 0],
-        ["Entertainment Withdrawals", parseFloat(summary.total_withdrawal_entertainment) || 0],
-        ["Shopping Withdrawals", parseFloat(summary.total_withdrawal_shopping) || 0],
-        ["Payments Withdrawals", parseFloat(summary.total_withdrawal_payments) || 0],
+        ["Food", parseFloat(summary.total_withdrawal_food) || 0],
+        ["Entertainment", parseFloat(summary.total_withdrawal_entertainment) || 0],
+        ["Shopping", parseFloat(summary.total_withdrawal_shopping) || 0],
+        ["Payments", parseFloat(summary.total_withdrawal_payments) || 0],
         ["Internal Transfers", parseFloat(summary.total_transfer_internal) || 0],
         ["External Transfers", parseFloat(summary.total_transfer_external) || 0],
     ];

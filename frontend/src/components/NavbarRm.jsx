@@ -75,7 +75,7 @@ export default function NavbarRm() {
               </MenuItem>
             </Menu>
           </Box>
-          <Typography variant="h6">{name}</Typography>
+          <Typography variant="h6" sx={{ textTransform: 'capitalize' }}>{name}</Typography>
         </div>
       </div>
     </AppBar>

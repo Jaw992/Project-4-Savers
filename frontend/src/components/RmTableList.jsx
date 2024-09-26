@@ -52,14 +52,14 @@ export default function RmTableList({ getList }) {
                     {getList.length > 0 ? (
                         getList.map((list) => (
                         <StyledTableRow key={list.account_id}>
-                            <StyledTableCell component="th" scope="row">
+                            <StyledTableCell component="th" scope="row" sx={{ textTransform: 'capitalize' }}>
                                 {list.client_name}
                             </StyledTableCell>
                             <StyledTableCell align="center">{list.account_number}</StyledTableCell>
-                            <StyledTableCell align="center">{list.account_type}</StyledTableCell>
+                            <StyledTableCell align="center" sx={{ textTransform: 'capitalize' }}>{list.account_type}</StyledTableCell>
                             <StyledTableCell align="center">$ {list.balance}</StyledTableCell>
-                            <StyledTableCell align="center">{list.status}</StyledTableCell>
-                            <StyledTableCell align="center">{list.rm_name}</StyledTableCell>
+                            <StyledTableCell align="center" sx={{ textTransform: 'capitalize' }}>{list.status}</StyledTableCell>
+                            <StyledTableCell align="center" sx={{ textTransform: 'capitalize' }}>{list.rm_name}</StyledTableCell>
                         </StyledTableRow>
                     ))
                   ) : (
