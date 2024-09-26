@@ -50,16 +50,29 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+//* Generate random unique number with no sequence (with a large range)
+function generateRandomAccountNumber() {
+  const randomSection1 = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+  const randomSection2 = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+  const randomSection3 = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+  return `${randomSection1}-${randomSection2}-${randomSection3}`;
+}
+
 //* Create a new account
 router.post("/create/:manager_id", async (req, res) => {
-  const { balance, account_number, account_type, name } = req.body;
+  const { balance, account_type, name } = req.body;
   try {
-      // Check if the account number already exists
-      const existingAccount = await pool.query('SELECT * FROM accounts WHERE account_number = $1', [account_number]);
+      let account_number;
+      let unique = false;
 
-      // If the account already exists, return an error
-      if (existingAccount.rows.length > 0) {
-          return res.status(400).json({ error: 'Account number already exists' });
+      // Keep generating new account numbers until we find a unique one
+      while (!unique) {
+          account_number = generateRandomAccountNumber();
+          const existingAccount = await pool.query('SELECT * FROM accounts WHERE account_number = $1', [account_number]);
+
+          if (existingAccount.rows.length === 0) {
+              unique = true;
+          }
       }
 
       // Get the user_id of the account holder by their name
@@ -69,14 +82,8 @@ router.post("/create/:manager_id", async (req, res) => {
       }
       const user_id = accountHolderQuery.rows[0].id;
 
-      // Get the user_id of the relationship manager by their name
-      // const managerQuery = await pool.query('SELECT id FROM users WHERE id = $1', [id]);
-      // if (managerQuery.rows.length === 0) {
-      //     return res.status(400).json({ error: 'Relationship manager does not exist' });
-      // }
-      // const manager_id = managerQuery.rows[0].id;
       const manager_id = req.user.id; //? Follows the manager_id who is login by his token
-
+      
       // Create the new account using user_id and manager_id
       const newAccount = await pool.query(
         'INSERT INTO accounts (balance, account_number, account_type, user_id, manager_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
@@ -163,6 +170,46 @@ router.put("/update-status", async (req, res) => {
 //         console.error(error.message);
 //         res.status(500).send({error: 'Internal server error'});
 //       }
+// });
+
+//* Create a new account
+// router.post("/create/:manager_id", async (req, res) => {
+//   const { balance, account_number, account_type, name } = req.body;
+//   try {
+//       // Check if the account number already exists
+//       const existingAccount = await pool.query('SELECT * FROM accounts WHERE account_number = $1', [account_number]);
+
+//       // If the account already exists, return an error
+//       if (existingAccount.rows.length > 0) {
+//           return res.status(400).json({ error: 'Account number already exists' });
+//       }
+
+//       // Get the user_id of the account holder by their name
+//       const accountHolderQuery = await pool.query('SELECT id FROM users WHERE name = $1', [name]);
+//       if (accountHolderQuery.rows.length === 0) {
+//           return res.status(400).json({ error: 'Account holder does not exist' });
+//       }
+//       const user_id = accountHolderQuery.rows[0].id;
+
+//       // Get the user_id of the relationship manager by their name
+//       // const managerQuery = await pool.query('SELECT id FROM users WHERE id = $1', [id]);
+//       // if (managerQuery.rows.length === 0) {
+//       //     return res.status(400).json({ error: 'Relationship manager does not exist' });
+//       // }
+//       // const manager_id = managerQuery.rows[0].id;
+//       const manager_id = req.user.id; //? Follows the manager_id who is login by his token
+
+//       // Create the new account using user_id and manager_id
+//       const newAccount = await pool.query(
+//         'INSERT INTO accounts (balance, account_number, account_type, user_id, manager_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+//         [balance, account_number, account_type, user_id, manager_id]
+//       );
+
+//       res.status(201).json({ msg: "Account created successfully", account: newAccount.rows[0] });
+//   } catch (error) {
+//       console.error(error.message);
+//       res.status(500).send({ error: 'Internal server error' });
+//   }
 // });
 
 module.exports = router;

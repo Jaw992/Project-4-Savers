@@ -40,7 +40,7 @@ export default function AccountsCard() {
                         sx={{ padding: 3, marginBottom: 2 }}
                     >
                         <Box>
-                            <Typography variant='h5' sx={{ fontWeight: 600 }}>
+                            <Typography variant='h5' sx={{ fontWeight: 600, textTransform: 'capitalize' }}>
                                 {account.account_type} Account
                             </Typography>
                             <Typography variant='h6' sx={{ fontWeight: 500 }}>
@@ -52,7 +52,7 @@ export default function AccountsCard() {
                                 Balance:
                             </Typography>
                             <Typography variant='h6' sx={{ fontWeight: 500 }}>
-                                $ {account.balance.toFixed(2)} {/* Ensures the balance has two decimal places */}
+                            SGD {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(account.balance)}
                             </Typography>
                         </Box>
                     </Paper>

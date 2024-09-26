@@ -10,7 +10,7 @@ export default function ClientDetailsCard({ client }) {
     <Box className="summaryCard" component="form" noValidate autoComplete="off">
       <Paper elevation={10} square={false} sx={{ padding: 3 }}>
         <Box>
-          <Typography variant='h5' sx={{ fontWeight: 600 }}>Name: {client?.name || "N/A"}</Typography>
+          <Typography variant='h5' sx={{ fontWeight: 600, textTransform: 'capitalize' }}>Name: {client?.name || "N/A"}</Typography>
           <Typography variant='h5' sx={{ fontWeight: 600 }}>Email: {client?.email || "N/A"}</Typography>
           <Typography variant='h5' sx={{ fontWeight: 600 }}>Contact: {client?.contact || "N/A"}</Typography>
         </Box>

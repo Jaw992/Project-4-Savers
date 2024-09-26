@@ -14,7 +14,7 @@ const options = {
     pieHole: 0.4,
     is3D: false,
     fontSize: 15,
-    colors: ["#d35050", "#067c1c", "#ffcc00", "#ff6600", "#ff9900", "#3399ff", "#00cc99"],
+    colors: ["#d35050", "#067c1c", "#ffcc00", "#ff6600", "#d76ad9", "#3399ff", "#7c34f0"],
     backgroundColor: "transparent",
     chartArea: {
         left: 20, // Spacing from the left
@@ -59,10 +59,10 @@ export default function PieChart() {
     const data = [
         ["Category", "Amount"],
         ["Savings", parseFloat(summary.total_deposit_savings) || 0],
-        ["Food Withdrawals", parseFloat(summary.total_withdrawal_food) || 0],
-        ["Entertainment Withdrawals", parseFloat(summary.total_withdrawal_entertainment) || 0],
-        ["Shopping Withdrawals", parseFloat(summary.total_withdrawal_shopping) || 0],
-        ["Payments Withdrawals", parseFloat(summary.total_withdrawal_payments) || 0],
+        ["Food", parseFloat(summary.total_withdrawal_food) || 0],
+        ["Entertainment", parseFloat(summary.total_withdrawal_entertainment) || 0],
+        ["Shopping", parseFloat(summary.total_withdrawal_shopping) || 0],
+        ["Payments", parseFloat(summary.total_withdrawal_payments) || 0],
         ["Internal Transfers", parseFloat(summary.total_transfer_internal) || 0],
         ["External Transfers", parseFloat(summary.total_transfer_external) || 0],
     ];

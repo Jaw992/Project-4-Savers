@@ -7,7 +7,6 @@ export default function RmCreateAccount({ setGetList, token }) {
 
     const [formData, setFormData] = useState({
         balance: 0,
-        account_number: '',
         account_type: '',
         name: '',
     });
@@ -56,7 +55,6 @@ export default function RmCreateAccount({ setGetList, token }) {
 
             setFormData({
                 balance: 0,
-                account_number: '',
                 account_type: '',
                 name: '',
             });
@@ -110,20 +108,6 @@ export default function RmCreateAccount({ setGetList, token }) {
                                 <MenuItem value="student">Student</MenuItem>
                             </TextField>
                         </FormControl>
-                    </Box>
-
-                    <Box sx={{ marginBottom: 2 }}>
-                        <TextField
-                            label="Account Number"
-                            fullWidth
-                            margin="dense"
-                            variant="outlined"
-                            type="text"
-                            name="account_number"
-                            value={formData.account_number}
-                            onChange={handleInputChange}
-                            required
-                        />
                     </Box>
 
                     <Box sx={{ marginBottom: 2 }}>

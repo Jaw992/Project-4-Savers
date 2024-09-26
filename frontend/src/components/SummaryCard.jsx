@@ -37,25 +37,25 @@ export default function SummaryCard() {
                         {summary ? (
                             <>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total Savings: ${summary.total_deposit_savings || 0}
+                                    Savings: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_deposit_savings) || 0}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total Internal Transfers: ${summary.total_transfer_internal || 0}
+                                    Food: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_withdrawal_food) || 0}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total External Transfers: ${summary.total_transfer_external || 0}
+                                    Entertainment: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_withdrawal_entertainment) || 0}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total Spending - Food: ${summary.total_withdrawal_food || 0}
+                                    Shopping: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_withdrawal_shopping) || 0}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total Spending - Entertainment: ${summary.total_withdrawal_entertainment || 0}
+                                    Payments: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_withdrawal_payments) || 0}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total Spending - Shopping: ${summary.total_withdrawal_shopping || 0}
+                                    Internal Transfers: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_transfer_internal) || 0}
                                 </Typography>
                                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                                    Total Spending - Payments: ${summary.total_withdrawal_payments || 0}
+                                    External Transfers: {new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(summary.total_transfer_external) || 0}
                                 </Typography>
                             </>
                         ) : (
