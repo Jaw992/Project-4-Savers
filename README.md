@@ -1,5 +1,7 @@
 # Project 4 - Savers
 
+![alt text](/README-Assets/picture.png)
+
 ## Project Scope
 This is my capstone project to build a full-stack web application. For my project, i have choosen to make a simulated bank application.
 
