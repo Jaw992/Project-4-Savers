@@ -69,7 +69,7 @@ export default function TransferCard() {
 
     return (
         <Container maxWidth='sm'>
-            <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+            <Box className="transactionBox" component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Transfers</Typography>
                     {error && <Typography color="error">{error}</Typography>}
@@ -93,7 +93,7 @@ export default function TransferCard() {
                             </TextField>
                         </FormControl>
                     </Box>
-                    <Box sx={{ marginBottom: 2 }}>
+                    <Box sx={{ marginBottom: 2, width: "300px" }}>
                             <TextField
                                 id="toAccount"
                                 label="To Account"
@@ -124,7 +124,7 @@ export default function TransferCard() {
                             </TextField>
                         </FormControl>
                     </Box>
-                    <Box sx={{ marginBottom: 2 }}>
+                    <Box sx={{ marginBottom: 2, width: "300px" }}>
                         <TextField
                             id="amount"
                             label="Amount"

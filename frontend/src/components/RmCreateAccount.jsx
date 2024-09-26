@@ -69,14 +69,14 @@ export default function RmCreateAccount({ setGetList, token }) {
 
     return (
         <Container maxWidth='sm'>
-            <Box component="form" noValidate autoComplete="off" sx={{ paddingTop: 3 }} onSubmit={handleSubmit}>
+            <Box className="transactionBox" component="form" noValidate autoComplete="off" sx={{ paddingTop: 3 }} onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Create Account</Typography>
                     {error && <Typography color="error">{error}</Typography>}
                     {successMessage && <Typography color="success.main">{successMessage}</Typography>} 
 
                     <Box sx={{ marginBottom: 2, marginTop: 2 }}>
-                        <FormControl sx={{ width: "455px", mb: 1 }}>
+                        <FormControl sx={{ width: "300px", mb: 1 }}>
                             <TextField
                                 select
                                 label="Client"
@@ -95,7 +95,7 @@ export default function RmCreateAccount({ setGetList, token }) {
                     </Box>
 
                     <Box sx={{ marginBottom: 2 }}>
-                        <FormControl sx={{ width: "455px", mb: 1 }}>
+                        <FormControl sx={{ width: "300px", mb: 1 }}>
                             <TextField
                                 select
                                 label="Account Type"
@@ -110,7 +110,7 @@ export default function RmCreateAccount({ setGetList, token }) {
                         </FormControl>
                     </Box>
 
-                    <Box sx={{ marginBottom: 2 }}>
+                    <Box sx={{ marginBottom: 2, width: "300px" }}>
                         <TextField
                             label="Amount"
                             fullWidth

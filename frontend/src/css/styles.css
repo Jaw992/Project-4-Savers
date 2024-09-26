@@ -117,6 +117,13 @@ body {
     /* padding: 10px 35px 0px 35px; */
 }
 
+.transactionBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Client Main & History Page */
 
 .clientMain {

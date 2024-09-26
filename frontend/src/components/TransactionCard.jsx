@@ -67,7 +67,7 @@ export default function TransactionCard() {
 
     return (
         <Container maxWidth='sm'>
-            <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+            <Box className="transactionBox" component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Deposit / Withdrawal</Typography>
                     {error && <Typography color="error">{error}</Typography>}
@@ -150,7 +150,7 @@ export default function TransactionCard() {
                         </Box>
                     )}
 
-                    <Box sx={{ marginBottom: 2 }}>
+                    <Box sx={{ marginBottom: 2, width: "300px" }}>
                         <TextField
                             id="amount"
                             label="Amount"

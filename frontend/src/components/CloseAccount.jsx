@@ -38,7 +38,7 @@ export default function CloseAccount({ setGetList, token }) {
     return (
         <>
             <Container maxWidth='sm'>
-                <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <Box className="transactionBox" component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <Paper elevation={10} sx={{ padding: 6 }}>
                         <Typography variant='h6' sx={{ fontWeight: 500 }}>Account Closure</Typography>
                         {error && <Typography color="error">{error}</Typography>} 
