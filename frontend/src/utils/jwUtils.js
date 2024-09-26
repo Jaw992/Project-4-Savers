@@ -9,3 +9,8 @@ export const extractPayload = (token) => {
   };
   
   export const isValidToken = (token) => token.split(".").length === 3;
+
+  export const isRelationshipManager = (token) => {
+    const payload = extractPayload(token);
+    return payload.role === 'relationship manager';
+};

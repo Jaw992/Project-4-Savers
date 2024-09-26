@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetAtom } from "jotai";
 import { tokenAtom } from "../App";
-import { isValidToken } from "../utils/jwUtils";
+import { isValidToken, isRelationshipManager } from "../utils/jwUtils";
 import { userLogin } from '../services/apiUsers';
 
 import { Container, Box, TextField, Button, Typography } from '@mui/material';
@@ -24,15 +24,18 @@ export default function LoginPage() {
 
     const handleLogin = async (event) => {
         event.preventDefault(); 
-        setError(''); // Clear previous error message
+        setError(''); 
         try {
             const token = await userLogin(data); // Call the login function
-            if (isValidToken(token)) {
+            
+            if (isValidToken(token) && isRelationshipManager(token)) {
                 setToken(token);
                 navigate('/rm-main');
-              }
+            } else {
+                setError('Access denied: You do not have the required permissions.');
+            }
         } catch (error) {
-            setError(error.message); // Set the error message to display
+            setError(error.message);
         }
     };
 
