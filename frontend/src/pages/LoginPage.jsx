@@ -8,6 +8,7 @@ import { userLogin } from '../services/apiUsers';
 import { Container, Box, TextField, Button, Typography, Paper } from '@mui/material';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import SaversBar from '../components/SaversBar';
+import Footer from '../components/Footer';
 
 export default function LoginPage() {
     
@@ -147,6 +148,7 @@ export default function LoginPage() {
                     </Paper>
                 </Box>
             </Container>
+            <Footer />
             </div>
         </>
     );
