@@ -1,9 +1,10 @@
 import { extractPayload } from "../utils/jwUtils";
+const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 //* Get All transaction history
 export async function allTransactions(token) {
     const user_id = extractPayload(token).id;
-    const url = `/api/transactions/history/${user_id}`;
+    const url = `${BACKEND_URL}/api/transactions/history/${user_id}`;
     try {
         const response = await fetch(url, {
             method: "GET",
@@ -34,7 +35,7 @@ export async function allTransactions(token) {
 
 //* Get a single transaction
 export async function fetchTransactionById(id, token) {
-    const url = `/api/transactions/${id}`;
+    const url = `${BACKEND_URL}/api/transactions/${id}`;
     try {
         const response = await fetch(url, {
             method: "GET",
@@ -65,7 +66,7 @@ export async function fetchTransactionById(id, token) {
 
 //* Deposit and Withdrawal Type Transactions
 export async function createTransaction(data, token) {
-    const url = `/api/transactions/newtransaction`;
+    const url = `${BACKEND_URL}/api/transactions/newtransaction`;
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -99,7 +100,7 @@ export async function createTransaction(data, token) {
 
 //* Transfer Type Transactions
 export async function createTransfer(data, token) {
-    const url = `/api/transactions/transfer`;
+    const url = `${BACKEND_URL}/api/transactions/transfer`;
     try {
         const response = await fetch(url, {
             method: "POST",
@@ -142,7 +143,7 @@ export async function createTransfer(data, token) {
 //* Get Transaction Summary for piechart
 export async function transactionSummary(token) {
     const user_id = extractPayload(token).id;
-    const url = `/api/transactions/summary/${user_id}`;
+    const url = `${BACKEND_URL}/api/transactions/summary/${user_id}`;
     try {
         const response = await fetch(url, {
             method: "GET",

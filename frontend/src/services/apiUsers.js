@@ -1,8 +1,9 @@
 import { extractPayload } from "../utils/jwUtils";
+const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 //* User Signup
 export async function userSignup(data) {
-  const url = `/api/users/signup`; 
+  const url = `${BACKEND_URL}/api/users/signup`; 
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -37,7 +38,7 @@ export async function userSignup(data) {
 
 //* User Login
 export async function userLogin(data) {
-  const url = `/api/users/login`; 
+  const url = `${BACKEND_URL}/api/users/login`; 
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -68,7 +69,7 @@ export async function userLogin(data) {
 
 //* All Client Profile
 export async function allClientLoad(token) {
-    const url = `/api/users/client`;
+    const url = `${BACKEND_URL}/api/users/client`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -102,7 +103,7 @@ export async function allClientLoad(token) {
 //* Client Profile
 export async function clientLoad(token) {
     const id = extractPayload(token).id;
-    const url = `/api/users/client/${id}`;
+    const url = `${BACKEND_URL}/api/users/client/${id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -134,7 +135,7 @@ export async function clientLoad(token) {
 //* Relationship Manager Profile
 export async function rmLoad(token) {
     const user_id = extractPayload(token).id;
-    const url = `/api/users/manager/${user_id}`;
+    const url = `${BACKEND_URL}/api/users/manager/${user_id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -165,7 +166,7 @@ export async function rmLoad(token) {
 
 //* Update particulars of client
 export async function updateUserParticulars(token, id, updatedData) {
-    const url = `/api/users/update-particulars/${id}`;
+    const url = `${BACKEND_URL}/api/users/update-particulars/${id}`;
     try {
       const response = await fetch(url, {
         method: "PUT",
