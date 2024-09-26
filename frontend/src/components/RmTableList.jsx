@@ -57,7 +57,7 @@ export default function RmTableList({ getList }) {
                             </StyledTableCell>
                             <StyledTableCell align="center">{list.account_number}</StyledTableCell>
                             <StyledTableCell align="center" sx={{ textTransform: 'capitalize' }}>{list.account_type}</StyledTableCell>
-                            <StyledTableCell align="center">$ {list.balance}</StyledTableCell>
+                            <StyledTableCell align="center">{new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', minimumFractionDigits: 2 }).format(list.balance)}</StyledTableCell>
                             <StyledTableCell align="center" sx={{ textTransform: 'capitalize' }}>{list.status}</StyledTableCell>
                             <StyledTableCell align="center" sx={{ textTransform: 'capitalize' }}>{list.rm_name}</StyledTableCell>
                         </StyledTableRow>
