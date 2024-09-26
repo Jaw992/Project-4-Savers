@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Container, Box, TextField, Paper, Button, Typography } from '@mui/material';
 import { userSignup } from '../services/apiUsers';
 import SaversBar from '../components/SaversBar';
+import Footer from '../components/Footer';
 
 export default function SignUpPage() {
     const navigate = useNavigate();
@@ -134,6 +135,7 @@ export default function SignUpPage() {
                 </Paper>
             </Box>
         </Container>
+        <Footer />
         </>
     );
 }

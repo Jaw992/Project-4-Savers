@@ -4,7 +4,6 @@ import { Route, Routes } from "react-router-dom";
 import { useAtomValue } from "jotai";
 import { atomWithStorage } from "jotai/utils";
 
-// import SaversBar from "./components/SaversBar";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import RmMainPage from "./pages/RmMainPage";
@@ -14,7 +13,7 @@ import ClientTransHistoryPage from "./pages/ClientTransHistoryPage";
 import ClientTransactionPage from "./pages/ClientTransactionsPage";
 import ClientTransferPage from "./pages/ClientTransferPage";
 import RmLoginPage from "./pages/RmLoginPage";
-import Footer from "./components/Footer";
+// import Footer from "./components/Footer";
 
 
 export const tokenAtom = atomWithStorage("token", "");
@@ -25,7 +24,6 @@ function App() {
 
   return (
     <>
-      {/* <SaversBar /> */}
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/rm-login" element={<RmLoginPage />} />
@@ -41,7 +39,7 @@ function App() {
         </>
         )}
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
