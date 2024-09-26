@@ -1,9 +1,10 @@
 import { extractPayload } from "../utils/jwUtils";
+const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 //* All Accounts
 export async function allAccountsLoad(token) {
     const user_id = extractPayload(token).id;
-    const url = `/api/accounts/${user_id}`;
+    const url = `${BACKEND_URL}/api/accounts/${user_id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -27,7 +28,7 @@ export async function allAccountsLoad(token) {
 //* All Accounts for Rm Table
 export async function getRmTable(token) {
   const manager_id = extractPayload(token).id;
-  const url = `/api/accounts/rmtable/${manager_id}`;
+  const url = `${BACKEND_URL}/api/accounts/rmtable/${manager_id}`;
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -51,7 +52,7 @@ export async function getRmTable(token) {
 //* Get all accounts and total balance for a specific user
 export async function sumLoad(token) {
   const user_id = extractPayload(token).id;
-  const url = `/api/accounts/sum/${user_id}`;
+  const url = `${BACKEND_URL}/api/accounts/sum/${user_id}`;
   try {
     const response = await fetch(url, {
       method: "GET",
@@ -74,7 +75,7 @@ export async function sumLoad(token) {
 
 //* Get Single Account 
 export async function accountLoad(id, token) {
-    const url = `/api/accounts/${id}`;
+    const url = `${BACKEND_URL}/api/accounts/${id}`;
     try {
       const response = await fetch(url, {
         method: "GET",
@@ -98,7 +99,7 @@ export async function accountLoad(id, token) {
 //* Create Accounts
 export async function createAccount(data, token) {
     const manager_id = extractPayload(token).id;
-    const url = `/api/accounts/create/${manager_id}`;
+    const url = `${BACKEND_URL}/api/accounts/create/${manager_id}`;
     try {
       // const token = localStorage.getItem("authToken");
       const response = await fetch(url, {
@@ -131,7 +132,7 @@ export async function createAccount(data, token) {
 
 //* Close Accounts (To formula Delete function)
 export async function closeAccount(account_number, token) {
-  const url = `/api/accounts/update-status`;
+  const url = `${BACKEND_URL}/api/accounts/update-status`;
   try {
       const response = await fetch(url, {
           method: "PUT",
