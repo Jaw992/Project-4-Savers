@@ -6,7 +6,7 @@ import { getRmTable } from "../services/apiAccounts";
 import NavbarRm from "../components/NavbarRm";
 import TableList from "../components/RmTableList";
 import CreateCard from "../components/RmCreateAccount";
-import CloseAccountCard from "../components/CloseAccount";
+import CloseAccountCard from "../components/RmCloseAccount";
 import SaversBar from "../components/SaversBar";
 
 export default function RmMainPage() {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
+import { Box, TextField, Paper, Button, Typography, MenuItem, FormControl } from '@mui/material';
 import { createAccount, getRmTable } from '../services/apiAccounts';
 import { allClientLoad } from '../services/apiUsers'; 
 
@@ -68,7 +68,6 @@ export default function RmCreateAccount({ setGetList, token }) {
     };
 
     return (
-        <Container maxWidth='sm'>
             <Box className="transactionBox" component="form" noValidate autoComplete="off" sx={{ paddingTop: 3 }} onSubmit={handleSubmit}>
                 <Paper elevation={10} sx={{ padding: 6 }}>
                     <Typography variant='h6' sx={{ fontWeight: 500 }}>Create Account</Typography>
@@ -134,6 +133,5 @@ export default function RmCreateAccount({ setGetList, token }) {
                     </Button>
                 </Paper>
             </Box>
-        </Container>
     );
 }

@@ -36,7 +36,7 @@ export default function ClientMainPage() {
             <SaversBar />
             <Navbar />
             <div className="clientProfile">
-                <h1>My Profile</h1>
+                <h1 style={{ textDecoration: 'underline' }}>Profile</h1>
                 <div className="twoCards">
                     <ClientDetailsCard client={client}/>
                     <RmDetailsCard/>
