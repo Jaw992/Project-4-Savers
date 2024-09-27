@@ -35,7 +35,7 @@ export default function RmTableList({ getList }) {
 
      return (
         <>
-            <h1>All Client List</h1>
+            <h1>Manage Accounts</h1>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                     <TableHead>
