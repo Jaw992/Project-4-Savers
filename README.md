@@ -12,7 +12,11 @@ This is my capstone project to build a full-stack web application. For my projec
   - Project Timeline
   - Technologies Used
   - React Libraries Used
-2. Complete the full-stack application within given time frame. 
+2. Complete the full-stack application within given time frame.
+
+## Project Timeline
+Planning + Development
+- 2 Weeks
 
 ## Savers App Description
 - A web-base bank simulation application that allows you to maximise your savings with SAVERS.
@@ -73,10 +77,6 @@ Transfer Page
 ## Wireframe
 Used Moqups for app wireframing, use the link below to view:
 https://app.moqups.com/ahB9m195QrtBkgSHjhpYlX81VnQqUQ1q/view/page/ad64222d5
-
-## Project Timeline
-Planning + Development
-- 2 Weeks
 
 ## Technologies Used
 - Postgresql as Database
