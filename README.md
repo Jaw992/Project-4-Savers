@@ -6,11 +6,15 @@
 This is my capstone project to build a full-stack web application. For my project, i have choosen to make a simulated bank application.
 
 1. Project Planning:
+  - App Description
   - User stories
   - Wire FrameWork
+  - Project Timeline
+  - Technologies Used
+  - React Libraries Used
 2. Complete the full-stack application within given time frame. 
 
-## Savers App Desciption
+## Savers App Description
 - A web-base bank simulation application that allows you to maximise your savings with SAVERS.
 - Users will be able to view their daily spendings and savings through the application.
 - Users will be able to deposit, withdrawal and transfer through the application.
@@ -66,6 +70,10 @@ Transfer Page
 - User will be able to select the purpose to identify if they are doing internal transfers or external transfers to other people.
 - User will click on "Submit" to complete the transaction.
 
+## Wireframe
+Used Moqups for app wireframing, use the link below to view:
+https://app.moqups.com/ahB9m195QrtBkgSHjhpYlX81VnQqUQ1q/view/page/ad64222d5
+
 ## Project Timeline
 Planning + Development
 - 2 Weeks
@@ -83,6 +91,3 @@ Planning + Development
 - Date fns
 - Jotai
 
-## Wireframe
-Used Moqups for app wireframing, use the link below to view:
-https://app.moqups.com/ahB9m195QrtBkgSHjhpYlX81VnQqUQ1q/view/page/ad64222d5
